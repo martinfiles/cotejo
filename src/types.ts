@@ -54,7 +54,8 @@ export type BBox = z.infer<typeof BBoxSchema>
 export type DocType = 'albaran' | 'factura'
 
 // `key` no viene del modelo: se asigna por posición al extraer ("A1", "F3").
-// Es lo que identifica una línea en los findings y en el dataset de evals.
+// Solo sirve para que un finding señale una línea de esta extracción. No es
+// la identidad del producto: el eval resuelve eso por su cuenta.
 export type Line = z.infer<typeof LineSchema> & { key: string }
 export type ExtractedDoc = Omit<z.infer<typeof ExtractedDocSchema>, 'lines'> & {
   lines: Line[]
@@ -88,17 +89,19 @@ export type Finding = {
   evidence: Evidence[]
 }
 
-// Un hecho pertenece siempre a un proveedor (por NIF). No hay hechos globales.
-export type Fact = {
-  id: string
-  supplierTaxId: string
-  learnedAt: string
-  fromCase: string
-  revokedAt: string | null
-} & (
+// Lo que se aprende de un proveedor. `product` es el código del producto.
+// Siempre va ligado a un NIF: no hay hechos globales.
+export type Knowledge = { supplierTaxId: string } & (
   | { kind: 'unit-equivalence'; product: string; from: string; to: string; factor: number }
   | { kind: 'product-alias'; albaran: string; factura: string }
 )
+
+export type Fact = Knowledge & {
+  id: string
+  learnedAt: string
+  fromCase: string
+  revokedAt: string | null
+}
 
 export type RuleContext = {
   albaran: ExtractedDoc
@@ -116,14 +119,35 @@ export type Rule = {
 
 export type Outcome = 'pass' | 'ask' | 'escalate'
 
+// En el dataset las líneas se identifican por el id de producto del catálogo,
+// no por posición ni por el texto del documento.
+export type Expected = {
+  findings: { ruleId: string; productId: string | null }[]
+  decision: Outcome
+}
+
+// Lo que cada documento dice de verdad. El eval lo usa para saber a qué
+// producto corresponde cada línea extraída, sin pasar por el matcher.
+export type TruthLine = {
+  productId: string
+  code: string | null
+  description: string
+  quantity: number
+}
+
 export type DatasetCase = {
   id: string
   albaran: string
   factura: string
-  expected: {
-    findings: { ruleId: string; lineKey: string | null }[]
-    decision: Outcome
-  }
+  lines: { albaran: TruthLine[]; factura: TruthLine[] }
+  // Hechos sin los que el caso no se puede resolver solo. Con todos activos
+  // se compara contra `withKnowledge`; si falta alguno, contra `withoutKnowledge`.
+  requires: Knowledge[]
+  expected: { withoutKnowledge: Expected; withKnowledge: Expected }
+  // Holdout: comparte hecho con un caso de la demo pero nadie lo corrige a mano.
+  holdout: boolean
+  // Frontera: impacto pegado al umbral de escalado. Se reporta aparte.
+  boundary: boolean
   source: 'seed' | 'correction'
   note: string
 }
