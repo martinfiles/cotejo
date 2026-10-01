@@ -2,6 +2,7 @@ import type { DocType } from '../src/types'
 import type { Supplier, Tweaks } from './orders'
 
 export type DocLine = {
+  productId: string
   code: string | null
   description: string
   quantity: number
