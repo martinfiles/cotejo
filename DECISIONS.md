@@ -75,10 +75,10 @@
 - Descartado: SDK de Anthropic directo con Node 20.
 - Por qué: Martín prefiere no renunciar al AI SDK por una versión de Node.
 
-## Modelo de visión: el más barato disponible [Martín, pendiente]
-- Qué: modelo y precio por token en `config.ts`, para la tabla de coste por documento.
-- Descartado: no se ha hablado de alternativas.
-- Por qué: pendiente de saber qué API keys hay; sin eso no se puede elegir modelo.
+## Modelo de visión: Claude Haiku 4.5 
+- Qué: `claude-haiku-4-5` para extraer y para redactar la pregunta. Modelo y precio por token en `config.ts`, para la tabla de coste por documento.
+- Descartado: Claude Sonnet 5.5, que cuesta el doble por token.
+- Por qué: Martín pidió el modelo de visión más barato y solo hay clave de Claude. No está medido si lee bien el sello, la foto y las cajas; lo dirá el eval. Sin confirmar.
 
 ## El PDF se convierte a PNG una vez y todo lo demás trabaja sobre la imagen [por defecto, aprobada]
 - Qué: se rasteriza la primera página; el modelo y los recortes usan ese PNG.
@@ -105,7 +105,42 @@
 - Descartado: derivar el esperado automáticamente de las mutaciones.
 - Por qué: se lee de un vistazo qué prueba cada caso. Sin confirmar.
 
-## La decisión esperada es la de un humano que conoce al proveedor [por defecto]
-- Qué: los casos de cajas y de alias tienen `pass` como esperado aunque sin memoria el sistema solo pueda llegar a `ask`.
-- Descartado: poner como esperado lo mejor que puede hacer el sistema sin memoria.
-- Por qué: así el eval sube cuando el sistema aprende el hecho. Las decisiones esperadas se revisan al fijar umbrales en la fase de decisión. Sin confirmar.
+## El esperado depende de lo que el sistema sabe [borrador]
+- Qué: cada caso lleva dos esperados, sin el hecho y con él. El eval corre en los dos estados y reporta el acierto de decisión dado el estado (debe ser alto en ambos) y el % de casos resueltos solos, que es la métrica de cabecera.
+- Descartado: un único esperado `pass` para los casos de cajas y alias, que contaba como fallo preguntar sin tener la información.
+- Por qué: preguntar cuando falta el dato es la respuesta correcta. Lo que mejora al aprender es la autonomía, no la corrección.
+
+## Los findings esperados también son dos [por defecto]
+- Qué: sin el hecho se espera `unit-incompatible` o `missing-line`; con él, ninguno o la discrepancia real que estaba oculta.
+- Descartado: condicionar solo la decisión, que es lo que pidió Martín literalmente.
+- Por qué: sin el hecho esos findings son correctos y no deben contar como falsos positivos. Sin confirmar.
+
+## En el dataset las líneas se identifican por id de producto [borrador]
+- Qué: el seed emite el id de catálogo de cada línea. En el eval, un resolvedor propio y generoso (código de producto; si no hay, descripción normalizada más cantidad) asigna cada línea extraída a su producto. Las líneas esperadas sin resolver son una métrica aparte.
+- Descartado: clave por posición (un salto de línea penalizaba N veces); usar el matcher de producción para resolver (es el componente bajo prueba).
+- Por qué: un salto de línea tiene que costar exactamente uno y verse como fallo de alineamiento.
+
+## Generación determinista del seed [borrador]
+- Qué: generar dos veces da los mismos bytes (verificado sobre los 38 ficheros). `seed/out/` va al repo y la caché de extracción irá también. `npm run seed` avisa antes de sobrescribir y pide `--force`.
+- Descartado: ejecutar el seed una sola vez y no tocarlo.
+- Por qué: que la demo funcione en cualquier máquina. Lo único que variaba era la hora de creación que Chromium escribe en el PDF; se fija al generar. No hay aleatoriedad en el seed.
+
+## El determinismo es por máquina [por defecto]
+- Qué: los bytes son idénticos con la misma versión de Chromium y la misma fuente Arial del sistema. En otra máquina pueden salir distintos.
+- Descartado: incluir un fichero de fuente en el repo.
+- Por qué: los documentos ya van versionados, así que nadie necesita regenerarlos. Sin confirmar.
+
+## Casos frontera fuera de la métrica principal [borrador]
+- Qué: los casos normales tienen impacto de menos de 5 € o de más de 25 €. Dos casos marcados `boundary: true` caen a 18,90 € y 20,40 €; su decisión se reporta aparte.
+- Descartado: meter los casos frontera en la métrica principal.
+- Por qué: el eval prueba el enrutado, no el ajuste del umbral, pero la respuesta a "qué pasa en 20 €" tiene que estar en el repo.
+
+## Umbral de escalado en 20 € [por defecto]
+- Qué: los dos casos frontera asumen que se escala a partir de 20 € de impacto.
+- Descartado: no se ha hablado de otro valor.
+- Por qué: es la cifra que mencionó Martín al pedir los casos. Sin calibrar y sin confirmar; se fija en `config.ts` en la fase de decisión.
+
+## Lo que el informe del eval tiene que decir [borrador]
+- Qué: número de casos por regla junto a cada métrica, y los casos holdout marcados aparte.
+- Descartado: no se ha hablado de alternativas.
+- Por qué: con 19 casos hay señales, no estadística. La mejora en holdout es el único número que demuestra generalización.
