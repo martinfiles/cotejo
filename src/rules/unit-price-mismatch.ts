@@ -4,7 +4,6 @@ import { close, eur, evidence, finding, round2, unitFactor } from './shared'
 
 export const unitPriceMismatch: Rule = {
   id: 'unit-price-mismatch',
-  severity: 'medium',
   signal: 'discrepancy',
   description: 'El precio unitario de la factura no es el del albarán.',
   check({ match, facts }) {

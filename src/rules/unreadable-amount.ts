@@ -11,7 +11,6 @@ const unread = (amount: Amount) => amount.confidence < config.rules.minReadConfi
 
 export const unreadableAmount: Rule = {
   id: 'unreadable-amount',
-  severity: 'medium',
   signal: 'read-doubt',
   description: 'Un importe está en el documento pero no se ha podido leer.',
   check({ albaran, factura }) {

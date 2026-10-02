@@ -4,7 +4,6 @@ import { close, evidence, finding, num, round2, unitFactor } from './shared'
 
 export const quantityMismatch: Rule = {
   id: 'quantity-mismatch',
-  severity: 'medium',
   signal: 'discrepancy',
   description: 'La cantidad facturada no es la entregada.',
   check({ match, facts }) {

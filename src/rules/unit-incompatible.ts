@@ -3,7 +3,6 @@ import { evidence, finding, unitFactor } from './shared'
 
 export const unitIncompatible: Rule = {
   id: 'unit-incompatible',
-  severity: 'low',
   signal: 'missing-knowledge',
   description: 'Albarán y factura usan unidades distintas y no se sabe convertir una en otra.',
   check({ match, facts }) {

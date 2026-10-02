@@ -4,7 +4,6 @@ import { close, eur, finding, round2 } from './shared'
 
 export const totalMismatch: Rule = {
   id: 'total-mismatch',
-  severity: 'medium',
   signal: 'inconsistency',
   description: 'Los totales de la factura no salen de sus propias líneas.',
   check({ factura }) {

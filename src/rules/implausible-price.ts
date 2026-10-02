@@ -7,7 +7,6 @@ import { eur, evidence, finding, unitFactor } from './shared'
 // es una coma mal leída ("1.250" por 1,25), no una subida.
 export const implausiblePrice: Rule = {
   id: 'implausible-price',
-  severity: 'medium',
   signal: 'read-doubt',
   description: 'El precio de una línea está a otra escala que en el otro documento.',
   check({ match, facts }) {

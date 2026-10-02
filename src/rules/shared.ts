@@ -14,9 +14,9 @@ export const eur = (n: number) =>
 
 export function finding(
   rule: Rule,
-  details: Pick<Finding, 'lineKey' | 'message' | 'impactEur' | 'evidence'>,
+  details: Pick<Finding, 'lineKey' | 'message' | 'impactEur' | 'evidence'> & { signal?: Finding['signal'] },
 ): Finding {
-  return { ruleId: rule.id, severity: rule.severity, signal: rule.signal, ...details }
+  return { ruleId: rule.id, signal: rule.signal, ...details }
 }
 
 // El número de una línea como evidencia. Si el modelo no dio caja para ese

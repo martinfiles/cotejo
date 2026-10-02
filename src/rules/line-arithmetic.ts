@@ -8,7 +8,6 @@ import { close, eur, evidence, expectedTotal, finding, num } from './shared'
 // distingue: en los dos casos hay que preguntar antes de reclamar nada.
 export const lineArithmetic: Rule = {
   id: 'line-arithmetic',
-  severity: 'medium',
   signal: 'inconsistency',
   description: 'En una línea, cantidad por precio (menos descuento) no da el importe.',
   check({ albaran, factura }) {

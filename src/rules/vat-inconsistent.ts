@@ -4,7 +4,6 @@ import { close, eur, finding, round2 } from './shared'
 
 export const vatInconsistent: Rule = {
   id: 'vat-inconsistent',
-  severity: 'medium',
   signal: 'inconsistency',
   description: 'La cuota de IVA de la factura no sale de los tipos de sus líneas.',
   check({ factura }) {

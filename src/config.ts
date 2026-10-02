@@ -8,6 +8,9 @@ export const config = {
     // cajas no se puede señalar el número en disputa. Sonnet 5.5 las clava,
     // también en la foto torcida.
     extract: 'claude-sonnet-5-5',
+    // Redactar una pregunta corta a partir de datos ya estructurados no
+    // necesita visión ni mucho modelo: aquí sí va el más barato.
+    question: 'claude-haiku-4-5',
   },
 
   // USD por millón de tokens. Precios de lista de Anthropic consultados el
@@ -54,6 +57,19 @@ export const config = {
     // leído" de todo lo demás. La duda sobre una lectura la dan las reglas
     // deterministas (aritmética de línea, sumas, IVA, rango de precio).
     minReadConfidence: 0.5,
+  },
+
+  decide: {
+    // Euros de cobro de más a partir de los que una discrepancia real se
+    // escala en vez de preguntarse. Es la cifra que salió al diseñar los
+    // casos frontera (18,90 € pregunta, 20,40 € escala). Sin calibrar: el
+    // valor bueno depende de cuánto cuesta una reclamación al proveedor.
+    escalateFromEur: 20,
+  },
+
+  question: {
+    // Una pregunta de dos o tres frases. Si se corta, se nota al leerla.
+    maxOutputTokens: 400,
   },
 
   extract: {

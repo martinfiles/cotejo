@@ -47,8 +47,6 @@ export type MatchResult = {
   onlyFactura: Line[]
 }
 
-export type Severity = 'low' | 'medium' | 'high'
-
 // Qué le dice un finding a la política de decisión. Lo fija la regla:
 // - discrepancy: los dos documentos, bien leídos, no dicen lo mismo.
 // - inconsistency: un documento se contradice consigo mismo.
@@ -68,7 +66,6 @@ export type Evidence = {
 
 export type Finding = {
   ruleId: string
-  severity: Severity
   signal: Signal
   // Línea afectada: la de la factura si hay par, la del propio documento si
   // el finding es de uno solo, null si es del documento entero.
@@ -103,7 +100,7 @@ export type RuleContext = {
 
 export type Rule = {
   id: string
-  severity: Severity
+  // Qué significan sus findings. Una regla puede afinarlo en un finding concreto.
   signal: Signal
   description: string
   check(ctx: RuleContext): Finding[]
@@ -111,11 +108,44 @@ export type Rule = {
 
 export type Outcome = 'pass' | 'ask' | 'escalate'
 
+// Por qué se decide lo que se decide. Se ve en la interfaz y se comprueba en
+// el eval.
+export type Reason =
+  | 'all_matched' // pass: no hay nada que decir
+  | 'overcharge' // escalate: la factura cobra de más, por encima del umbral
+  | 'minor_discrepancy' // ask: discrepancia real pero pequeña
+  | 'undercharge' // ask: la diferencia va a favor del restaurante
+  | 'document_ambiguous' // ask: un documento se contradice consigo mismo
+  | 'low_confidence_read' // ask: hay un importe que no se pudo leer
+  | 'missing_knowledge' // ask: falta saber algo del proveedor
+
+// Lo que el humano puede hacer con un caso. El efecto de cada botón lo fija
+// el código; el modelo solo redacta la pregunta.
+export type Resolution = {
+  kind: 'accept' | 'claim' | 'rectify' | 'learn'
+  label: string
+  // Solo en learn: el hecho que se guardará.
+  fact?: Knowledge
+  // Solo en learn de una equivalencia: el factor lo escribe el humano.
+  factorPrompt?: string
+}
+
+export type Decision = {
+  outcome: Outcome
+  reason: Reason
+  // Lo que la factura cobra de más según las discrepancias entre documentos.
+  overchargeEur: number
+  options: Resolution[]
+  // La pregunta al humano, redactada por el modelo. Solo en ask.
+  question: string | null
+}
+
 // En el dataset las líneas se identifican por el id de producto del catálogo,
 // no por posición ni por el texto del documento.
 export type Expected = {
   findings: { ruleId: string; productId: string | null }[]
   decision: Outcome
+  reason: Reason
 }
 
 // Lo que cada documento dice de verdad. El eval lo usa para saber a qué
