@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "seed": "tsx seed/generate.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test \"src/**/*.test.ts\""
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^4.0.71",

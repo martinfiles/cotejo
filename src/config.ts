@@ -23,6 +23,14 @@ export const config = {
     longEdgePx: 1568,
   },
 
+  match: {
+    // Parecido mínimo entre dos descripciones (Dice sobre palabras, de 0 a 1)
+    // para casarlas cuando no hay código. Con 0,6 casa "RAPE COLA S/P" con
+    // "Rape cola sin piel" (0,67) y no casa "Tomate pera" con "Tomate
+    // triturado lata 2,5 kg" (0,29). Elegido a ojo sobre el seed.
+    minSimilarity: 0.6,
+  },
+
   extract: {
     // Sonnet 5.5 siempre razona antes de responder; el esfuerzo regula
     // cuánto. Transcribir una tabla no necesita deliberar.
