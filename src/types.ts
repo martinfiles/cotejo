@@ -1,64 +1,41 @@
-import { z } from 'zod'
-
-// Solo lo que devuelve el modelo se valida con zod. El resto son tipos:
-// lo produce nuestro propio código y no cruza ninguna frontera.
+// Tipos de dominio: lo que circula entre las etapas del pipeline. El esquema
+// zod de lo que devuelve el modelo está en extract/schema.ts.
 
 // Fracciones de la página (0..1), origen arriba a la izquierda.
-export const BBoxSchema = z.object({
-  x: z.number(),
-  y: z.number(),
-  w: z.number(),
-  h: z.number(),
-})
-
-// La confianza la declara el modelo: no es una probabilidad calibrada.
-const field = <T extends z.ZodType>(value: T) =>
-  z.object({ value: value.nullable(), confidence: z.number() })
-
-// Solo los tres campos que se disputan llevan caja propia. Es opcional:
-// si falta o no es creíble, se usa la caja de la línea.
-const locatedField = <T extends z.ZodType>(value: T) =>
-  z.object({
-    value: value.nullable(),
-    confidence: z.number(),
-    bbox: BBoxSchema.nullable(),
-  })
-
-export const LineSchema = z.object({
-  code: field(z.string()),
-  description: field(z.string()),
-  quantity: locatedField(z.number()),
-  unit: field(z.string()),
-  unitPrice: locatedField(z.number()),
-  vatRate: field(z.number()),
-  total: locatedField(z.number()),
-  bbox: BBoxSchema,
-})
-
-export const ExtractedDocSchema = z.object({
-  docType: z.enum(['albaran', 'factura']),
-  supplier: field(z.string()),
-  supplierTaxId: field(z.string()),
-  number: field(z.string()),
-  date: field(z.string()),
-  lines: z.array(LineSchema),
-  totals: z.object({
-    base: field(z.number()),
-    vat: field(z.number()),
-    total: field(z.number()),
-    bbox: BBoxSchema.nullable(),
-  }),
-})
-
-export type BBox = z.infer<typeof BBoxSchema>
+export type BBox = { x: number; y: number; w: number; h: number }
 export type DocType = 'albaran' | 'factura'
 
-// `key` no viene del modelo: se asigna por posición al extraer ("A1", "F3").
-// Solo sirve para que un finding señale una línea de esta extracción. No es
-// la identidad del producto: el eval resuelve eso por su cuenta.
-export type Line = z.infer<typeof LineSchema> & { key: string }
-export type ExtractedDoc = Omit<z.infer<typeof ExtractedDocSchema>, 'lines'> & {
+// La confianza la declara el modelo: no es una probabilidad calibrada.
+export type Field<T> = { value: T | null; confidence: number }
+export type Text = { value: string; confidence: number }
+// Solo los tres campos que se disputan llevan caja propia. Es opcional: si
+// es null se usa la caja de la línea.
+export type Located = Field<number> & { bbox: BBox | null }
+
+export type Line = {
+  // Se asigna por posición al extraer ("A1", "F3"). Solo sirve para que un
+  // finding señale una línea de esta extracción. No es la identidad del
+  // producto: el eval resuelve eso por su cuenta.
+  key: string
+  code: Field<string>
+  description: Text
+  quantity: Located
+  unit: Field<string>
+  unitPrice: Located
+  vatRate: Field<number>
+  total: Located
+  bbox: BBox
+}
+
+export type ExtractedDoc = {
+  // Lo sabe quien sube el documento, no lo decide el modelo.
+  docType: DocType
+  supplier: Text
+  supplierTaxId: Field<string>
+  number: Text
+  date: Text
   lines: Line[]
+  totals: { base: Field<number>; vat: Field<number>; total: Field<number>; bbox: BBox }
 }
 
 export type MatchResult = {
