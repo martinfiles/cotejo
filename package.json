@@ -5,6 +5,7 @@
   "scripts": {
     "seed": "tsx seed/generate.ts",
     "typecheck": "tsc --noEmit",
+    "experiment:consistency": "tsx --env-file=.env evals/experiments/self-consistency.ts",
     "test": "node --import tsx --test \"src/**/*.test.ts\""
   },
   "dependencies": {

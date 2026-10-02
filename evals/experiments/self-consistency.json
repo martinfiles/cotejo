@@ -1,0 +1,1184 @@
+{
+  "runAt": "2026-10-02T10:25:06.026Z",
+  "documents": 52,
+  "fieldsCompared": 2240,
+  "fieldsDiffering": 0,
+  "documentsWithDiffs": 0,
+  "amountsCompared": 840,
+  "confidencesDiffering": 195,
+  "confidencesDifferingBy10": 0,
+  "costUsd": 1.0013,
+  "diffs": [],
+  "shifts": [
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "totals.base",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "totals.vat",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "totals.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "F1.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "F1.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "F1.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "F2.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "F2.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "F2.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "F3.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "F3.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "F3.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "F4.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "F4.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "F4.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "F5.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "F5.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-precio/factura.pdf",
+      "field": "F5.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "totals.base",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "totals.vat",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "totals.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "F1.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "F1.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "F1.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "F2.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "F2.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "F2.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "F3.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "F3.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "F3.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "F4.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "F4.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "F4.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "F5.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "F5.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-cantidad/factura.pdf",
+      "field": "F5.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-sin-facturar/factura.pdf",
+      "field": "totals.base",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sin-facturar/factura.pdf",
+      "field": "totals.vat",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sin-facturar/factura.pdf",
+      "field": "totals.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sin-facturar/factura.pdf",
+      "field": "F1.quantity",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sin-facturar/factura.pdf",
+      "field": "F1.unitPrice",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sin-facturar/factura.pdf",
+      "field": "F1.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sin-facturar/factura.pdf",
+      "field": "F2.quantity",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sin-facturar/factura.pdf",
+      "field": "F2.unitPrice",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sin-facturar/factura.pdf",
+      "field": "F2.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sin-facturar/factura.pdf",
+      "field": "F3.quantity",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sin-facturar/factura.pdf",
+      "field": "F3.unitPrice",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sin-facturar/factura.pdf",
+      "field": "F3.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sin-facturar/factura.pdf",
+      "field": "F4.quantity",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sin-facturar/factura.pdf",
+      "field": "F4.unitPrice",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sin-facturar/factura.pdf",
+      "field": "F4.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "totals.base",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "totals.vat",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "totals.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "F1.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "F1.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "F1.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "F2.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "F2.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "F2.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "F3.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "F3.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "F3.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "F4.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "F4.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "F4.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "F5.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "F5.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-total-no-suma/factura.pdf",
+      "field": "F5.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-sello/factura.pdf",
+      "field": "F1.quantity",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sello/factura.pdf",
+      "field": "F1.unitPrice",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sello/factura.pdf",
+      "field": "F1.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sello/factura.pdf",
+      "field": "F2.quantity",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sello/factura.pdf",
+      "field": "F2.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sello/factura.pdf",
+      "field": "F3.quantity",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sello/factura.pdf",
+      "field": "F3.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sello/factura.pdf",
+      "field": "F4.quantity",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sello/factura.pdf",
+      "field": "F4.unitPrice",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sello/factura.pdf",
+      "field": "F4.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sello/factura.pdf",
+      "field": "F5.quantity",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sello/factura.pdf",
+      "field": "F5.unitPrice",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-sello/factura.pdf",
+      "field": "F5.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/vidal-cajas-2/albaran.pdf",
+      "field": "totals.base",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/vidal-cajas-2/albaran.pdf",
+      "field": "A1.quantity",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/vidal-cajas-2/albaran.pdf",
+      "field": "A1.unitPrice",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/vidal-cajas-2/albaran.pdf",
+      "field": "A1.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/vidal-cajas-2/albaran.pdf",
+      "field": "A2.quantity",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/vidal-cajas-2/albaran.pdf",
+      "field": "A2.unitPrice",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/vidal-cajas-2/albaran.pdf",
+      "field": "A2.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/vidal-cajas-2/albaran.pdf",
+      "field": "A3.quantity",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/vidal-cajas-2/albaran.pdf",
+      "field": "A3.unitPrice",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/vidal-cajas-2/albaran.pdf",
+      "field": "A3.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/vidal-cajas-2/factura.pdf",
+      "field": "totals.base",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/vidal-cajas-2/factura.pdf",
+      "field": "totals.vat",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/vidal-cajas-2/factura.pdf",
+      "field": "totals.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/vidal-cajas-cantidad/factura.pdf",
+      "field": "totals.base",
+      "first": 0.97,
+      "second": 0.96
+    },
+    {
+      "file": "seed/out/vidal-cajas-cantidad/factura.pdf",
+      "field": "totals.vat",
+      "first": 0.97,
+      "second": 0.96
+    },
+    {
+      "file": "seed/out/vidal-cajas-cantidad/albaran.pdf",
+      "field": "totals.base",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/vidal-cajas-cantidad/albaran.pdf",
+      "field": "A1.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/vidal-cajas-cantidad/albaran.pdf",
+      "field": "A1.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/vidal-cajas-cantidad/albaran.pdf",
+      "field": "A1.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/vidal-cajas-cantidad/albaran.pdf",
+      "field": "A2.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/vidal-cajas-cantidad/albaran.pdf",
+      "field": "A2.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/vidal-cajas-cantidad/albaran.pdf",
+      "field": "A2.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/vidal-cajas-cantidad/albaran.pdf",
+      "field": "A3.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/vidal-cajas-cantidad/albaran.pdf",
+      "field": "A3.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/vidal-cajas-cantidad/albaran.pdf",
+      "field": "A3.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/rianorte-alias-precio/factura.pdf",
+      "field": "totals.base",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/rianorte-alias-precio/factura.pdf",
+      "field": "totals.vat",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/rianorte-alias-precio/factura.pdf",
+      "field": "totals.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/rianorte-alias-precio/factura.pdf",
+      "field": "F1.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/rianorte-alias-precio/factura.pdf",
+      "field": "F1.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/rianorte-alias-precio/factura.pdf",
+      "field": "F1.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/rianorte-alias-precio/factura.pdf",
+      "field": "F2.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/rianorte-alias-precio/factura.pdf",
+      "field": "F2.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/rianorte-alias-precio/factura.pdf",
+      "field": "F2.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/rianorte-alias-precio/factura.pdf",
+      "field": "F3.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/rianorte-alias-precio/factura.pdf",
+      "field": "F3.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/rianorte-alias-precio/factura.pdf",
+      "field": "F3.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "totals.base",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "totals.vat",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "totals.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "F1.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "F1.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "F1.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "F2.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "F2.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "F2.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "F3.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "F3.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "F3.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "F4.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "F4.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "F4.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "F5.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "F5.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-frontera-bajo/factura.pdf",
+      "field": "F5.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/albaran.pdf",
+      "field": "totals.base",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/albaran.pdf",
+      "field": "A1.quantity",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/albaran.pdf",
+      "field": "A1.unitPrice",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/albaran.pdf",
+      "field": "A1.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/albaran.pdf",
+      "field": "A2.quantity",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/albaran.pdf",
+      "field": "A2.unitPrice",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/albaran.pdf",
+      "field": "A2.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/albaran.pdf",
+      "field": "A3.quantity",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/albaran.pdf",
+      "field": "A3.unitPrice",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/albaran.pdf",
+      "field": "A3.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/albaran.pdf",
+      "field": "A4.quantity",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/albaran.pdf",
+      "field": "A4.unitPrice",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/albaran.pdf",
+      "field": "A4.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/albaran.pdf",
+      "field": "A5.quantity",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/albaran.pdf",
+      "field": "A5.unitPrice",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/albaran.pdf",
+      "field": "A5.total",
+      "first": 0.97,
+      "second": 0.98
+    },
+    {
+      "file": "seed/out/carballo-corregido-a-mano/albaran.pdf",
+      "field": "A3.total",
+      "first": 0.95,
+      "second": 0.96
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/factura.pdf",
+      "field": "totals.base",
+      "first": 0.97,
+      "second": 0.96
+    },
+    {
+      "file": "seed/out/carballo-mancha-total/factura.pdf",
+      "field": "totals.vat",
+      "first": 0.9,
+      "second": 0.93
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/albaran.jpg",
+      "field": "totals.base",
+      "first": 0.9,
+      "second": 0.85
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/albaran.jpg",
+      "field": "A2.total",
+      "first": 0.85,
+      "second": 0.8
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/albaran.jpg",
+      "field": "A3.unitPrice",
+      "first": 0.85,
+      "second": 0.8
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/albaran.jpg",
+      "field": "A3.total",
+      "first": 0.85,
+      "second": 0.8
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/albaran.jpg",
+      "field": "A4.quantity",
+      "first": 0.8,
+      "second": 0.85
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/albaran.jpg",
+      "field": "A4.unitPrice",
+      "first": 0.85,
+      "second": 0.8
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/albaran.jpg",
+      "field": "A4.total",
+      "first": 0.85,
+      "second": 0.8
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/albaran.jpg",
+      "field": "A5.quantity",
+      "first": 0.8,
+      "second": 0.85
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/albaran.jpg",
+      "field": "A5.unitPrice",
+      "first": 0.85,
+      "second": 0.8
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/albaran.jpg",
+      "field": "A5.total",
+      "first": 0.85,
+      "second": 0.8
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "totals.base",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "totals.vat",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "totals.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "F1.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "F1.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "F1.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "F2.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "F2.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "F2.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "F3.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "F3.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "F3.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "F4.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "F4.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "F4.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "F5.quantity",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "F5.unitPrice",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/carballo-foto-mala/factura.pdf",
+      "field": "F5.total",
+      "first": 0.98,
+      "second": 0.97
+    },
+    {
+      "file": "seed/out/rianorte-manuscrito/albaran.pdf",
+      "field": "totals.base",
+      "first": 0.95,
+      "second": 0.93
+    },
+    {
+      "file": "seed/out/rianorte-manuscrito/albaran.pdf",
+      "field": "A2.quantity",
+      "first": 0.95,
+      "second": 0.93
+    },
+    {
+      "file": "seed/out/rianorte-manuscrito/albaran.pdf",
+      "field": "A2.unitPrice",
+      "first": 0.92,
+      "second": 0.9
+    },
+    {
+      "file": "seed/out/rianorte-manuscrito/albaran.pdf",
+      "field": "A2.total",
+      "first": 0.93,
+      "second": 0.92
+    },
+    {
+      "file": "seed/out/rianorte-manuscrito/albaran.pdf",
+      "field": "A3.quantity",
+      "first": 0.95,
+      "second": 0.93
+    },
+    {
+      "file": "seed/out/rianorte-manuscrito/albaran.pdf",
+      "field": "A3.total",
+      "first": 0.93,
+      "second": 0.92
+    },
+    {
+      "file": "seed/out/rianorte-trampa-bascula/albaran.pdf",
+      "field": "A3.quantity",
+      "first": 0.97,
+      "second": 0.9
+    },
+    {
+      "file": "seed/out/rianorte-trampa-bascula/albaran.pdf",
+      "field": "A4.quantity",
+      "first": 0.97,
+      "second": 0.9
+    },
+    {
+      "file": "seed/out/carballo-trampa-columnas/factura.pdf",
+      "field": "totals.total",
+      "first": 0.95,
+      "second": 0.96
+    },
+    {
+      "file": "seed/out/carballo-trampa-columnas/factura.pdf",
+      "field": "F1.total",
+      "first": 0.97,
+      "second": 0.95
+    },
+    {
+      "file": "seed/out/carballo-trampa-columnas/factura.pdf",
+      "field": "F2.total",
+      "first": 0.97,
+      "second": 0.96
+    }
+  ]
+}
