@@ -70,15 +70,30 @@
 - Descartado: una librería de tests.
 - Por qué: `policy.ts` es función pura y es donde más valen; `node:test` no añade dependencia.
 
-## Node LTS para poder usar el AI SDK
-- Qué: subir Node en vez de cambiar de SDK.
-- Descartado: SDK de Anthropic directo con Node 20.
-- Por qué: Martín prefiere no renunciar al AI SDK por una versión de Node.
+## Extracción con Claude Sonnet 5.5, no con Haiku
+- Qué: `claude-sonnet-5-5` con esfuerzo `low`. En los 38 documentos del seed lee bien todas las líneas, cantidades, códigos y descripciones, y deja a null el precio tapado por el sello.
+- Descartado: Haiku 4.5. Lee bien los valores, pero las cajas que devuelve caen lejos de su sitio (comprobado dibujándolas sobre la factura limpia).
+- Por qué: sin cajas fiables no se puede señalar el número en disputa. Cuesta el doble por token; el coste real por documento lo dará el eval. Sin confirmar.
 
-## Modelo de visión: Claude Haiku 4.5 
-- Qué: `claude-haiku-4-5` para extraer y para redactar la pregunta. Modelo y precio por token en `config.ts`, para la tabla de coste por documento.
-- Descartado: Claude Sonnet 5.5, que cuesta el doble por token.
-- Por qué: Martín pidió el modelo de visión más barato y solo hay clave de Claude. No está medido si lee bien el sello, la foto y las cajas; lo dirá el eval. Sin confirmar.
+## Las cajas se piden en píxeles [por defecto]
+- Qué: el modelo recibe el tamaño de la imagen y devuelve `[x1, y1, x2, y2]` en píxeles; `extract.ts` las pasa a fracciones de página, que es lo que usa el resto.
+- Descartado: pedirlas directamente en fracciones 0..1.
+- Por qué: en píxeles Sonnet 5.5 las ajusta al número, también en la foto torcida. En fracciones solo se probó con Haiku, que fallaba de las dos formas. Sin confirmar.
+
+## El esquema del modelo está separado de los tipos de dominio [por defecto]
+- Qué: `extract/schema.ts` es el contrato con el modelo y `types.ts` lo que usa el resto; `normalize()` en `extract.ts` traduce de uno a otro.
+- Descartado: un solo esquema del que se infieren los tipos, que es como estaba en la Fase 1.
+- Por qué: la salida estructurada de Anthropic rechazó el esquema original dos veces: admite 16 campos anulables como mucho (ahora hay 13) y la gramática no compila con las cajas como objetos, sí como listas. Sin confirmar.
+
+## La caché recuerda con qué se extrajo [por defecto]
+- Qué: cada entrada va por hash del fichero y guarda una huella del modelo, el esfuerzo, el prompt y el esquema. Si la huella no coincide, la entrada no vale.
+- Descartado: clave solo por hash del fichero.
+- Por qué: al cambiar el prompt devolvería resultados viejos sin avisar. Sin confirmar.
+
+## El tipo de documento lo da quien lo sube [por defecto]
+- Qué: `extract(path, docType)` recibe si es albarán o factura; el modelo no lo decide.
+- Descartado: que el modelo clasifique el documento.
+- Por qué: en la interfaz se suben en dos huecos distintos, así que ya se sabe. Sin confirmar.
 
 ## El PDF se convierte a PNG una vez y todo lo demás trabaja sobre la imagen [por defecto, aprobada]
 - Qué: se rasteriza la primera página; el modelo y los recortes usan ese PNG.
@@ -91,7 +106,7 @@
 - Por qué: menos configuración.
 
 ## zod solo en la salida del modelo [por defecto]
-- Qué: `ExtractedDocSchema` valida lo que devuelve el modelo; `Finding`, `Fact`, `Rule` y el resto son tipos de TypeScript.
+- Qué: `ModelDocSchema` (en `extract/schema.ts`) valida lo que devuelve el modelo; `Finding`, `Fact`, `Rule` y el resto son tipos de TypeScript.
 - Descartado: esquemas zod para todo.
 - Por qué: lo demás lo produce nuestro propio código. Sin confirmar.
 
