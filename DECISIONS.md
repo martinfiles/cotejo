@@ -136,7 +136,7 @@
 - Por qué: un salto de línea tiene que costar exactamente uno y verse como fallo de alineamiento.
 
 ## Generación determinista del seed [borrador]
-- Qué: generar dos veces da los mismos bytes (verificado sobre los 38 ficheros). `seed/out/` va al repo y la caché de extracción irá también. `npm run seed` avisa antes de sobrescribir y pide `--force`.
+- Qué: generar dos veces da los mismos bytes (verificado sobre los 52 ficheros). `seed/out/` va al repo y la caché de extracción irá también. `npm run seed` avisa antes de sobrescribir y pide `--force`.
 - Descartado: ejecutar el seed una sola vez y no tocarlo.
 - Por qué: que la demo funcione en cualquier máquina. Lo único que variaba era la hora de creación que Chromium escribe en el PDF; se fija al generar. No hay aleatoriedad en el seed.
 
@@ -158,4 +158,24 @@
 ## Lo que el informe del eval tiene que decir [borrador]
 - Qué: número de casos por regla junto a cada métrica, y los casos holdout marcados aparte.
 - Descartado: no se ha hablado de alternativas.
-- Por qué: con 19 casos hay señales, no estadística. La mejora en holdout es el único número que demuestra generalización.
+- Por qué: con 26 casos hay señales, no estadística. La mejora en holdout es el único número que demuestra generalización.
+
+## Casos sucios en el seed antes de seguir [borrador]
+- Qué: cinco casos más: mancha sobre el total de la factura, cantidad tachada y corregida a boli, foto mala (oscura, desenfocada, con sombra) con y sin discrepancia, y albarán de talonario escrito a mano.
+- Descartado: seguir con las fases siguientes probando solo contra documentos limpios.
+- Por qué: Martín pidió ensuciarlos para que fuera más realista. Con el seed limpio, la rama de fallo de lectura solo la ejercitaba el sello.
+
+## Una corrección a mano se pregunta, no se escala [por defecto]
+- Qué: en `carballo-corregido-a-mano` la discrepancia es de 31,20 €, por encima del umbral de escalado, pero el esperado es `ask`.
+- Descartado: esperar `escalate` por impacto.
+- Por qué: la cantidad sale de una corrección a boli y el importe impreso de esa línea ya no cuadra con ella, que es una de las señales de fallo de lectura. Sin confirmar.
+
+## Hallazgo: ninguna lectura equivocada con confianza alta [borrador]
+- Qué: se añadieron dos casos limpios con trampa estructural (kilos en formato de báscula "1.250" y "3.000", dos productos que solo difieren en "5 kg" y "0,5 kg", líneas en orden inverso, columna de descuento, descripción que salta de línea, precio e importe iguales). El modelo leyó bien los cuatro documentos.
+- Descartado: degradar más los documentos hasta forzar un fallo.
+- Por qué: que en 26 casos sintéticos no haya aparecido dice más del generador que del modelo. El fallo que importa sigue sin estar cubierto por el eval, y es mejor decirlo que inventarlo.
+
+## Hallazgo: el descuento rompe la comprobación aritmética [por defecto]
+- Qué: en `carballo-trampa-columnas` el modelo lee bien precio e importe, pero cantidad × precio no da el importe porque hay un 10 % de descuento y el esquema no tiene ese campo.
+- Descartado: nada todavía; está sin resolver.
+- Por qué: la trampa no engañó al modelo, sino a nuestra señal de fallo de lectura, que mandaría a preguntar un documento que cuadra. Pendiente de que Martín decida si se añade el campo o se deja como fallo conocido.
