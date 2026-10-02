@@ -141,10 +141,12 @@ const mejillon: Product = {
 const sinEquivalencia: Expected = {
   findings: [{ ruleId: 'unit-incompatible', productId: 'tomate-pera' }],
   decision: 'ask',
+  reason: 'missing_knowledge',
 }
 const sinAlias: Expected = {
   findings: [{ ruleId: 'missing-line', productId: 'boqueron' }],
   decision: 'ask',
+  reason: 'missing_knowledge',
 }
 
 // Los casos nuevos se añaden al final: el número y la fecha de cada documento
@@ -154,7 +156,7 @@ export const cases: SeedCase[] = [
     id: 'carballo-limpio',
     supplier: carballo,
     lines: pedidoCarballo,
-    expected: { findings: [], decision: 'pass' },
+    expected: { findings: [], decision: 'pass', reason: 'all_matched' },
     note: 'Todo cuadra.',
   },
   {
@@ -162,7 +164,7 @@ export const cases: SeedCase[] = [
     supplier: carballo,
     lines: pedidoCarballo,
     factura: { set: { line: 3, unitPrice: 6.7 } },
-    expected: { findings: [{ ruleId: 'unit-price-mismatch', productId: 'vino-mencia' }], decision: 'escalate' },
+    expected: { findings: [{ ruleId: 'unit-price-mismatch', productId: 'vino-mencia' }], decision: 'escalate', reason: 'overcharge' },
     note: 'La factura sube el vino de 5,20 a 6,70 en 24 botellas: 36,00 €.',
   },
   {
@@ -170,7 +172,7 @@ export const cases: SeedCase[] = [
     supplier: carballo,
     lines: pedidoCarballo,
     factura: { set: { line: 2, unitPrice: 4.05 } },
-    expected: { findings: [{ ruleId: 'unit-price-mismatch', productId: 'tomate-triturado' }], decision: 'ask' },
+    expected: { findings: [{ ruleId: 'unit-price-mismatch', productId: 'tomate-triturado' }], decision: 'ask', reason: 'minor_discrepancy' },
     note: 'La factura sube el tomate 10 céntimos en 12 latas: 1,20 €. Real pero pequeña.',
   },
   {
@@ -178,7 +180,7 @@ export const cases: SeedCase[] = [
     supplier: carballo,
     lines: pedidoCarballo,
     factura: { set: { line: 4, quantity: 8 } },
-    expected: { findings: [{ ruleId: 'quantity-mismatch', productId: 'cerveza-lager' }], decision: 'escalate' },
+    expected: { findings: [{ ruleId: 'quantity-mismatch', productId: 'cerveza-lager' }], decision: 'escalate', reason: 'overcharge' },
     note: 'Se entregan 6 cajas de cerveza y se facturan 8: 37,80 €.',
   },
   {
@@ -186,7 +188,7 @@ export const cases: SeedCase[] = [
     supplier: carballo,
     lines: pedidoCarballo,
     albaran: { drop: 5 },
-    expected: { findings: [{ ruleId: 'missing-line', productId: 'azucar-blanco' }], decision: 'escalate' },
+    expected: { findings: [{ ruleId: 'missing-line', productId: 'azucar-blanco' }], decision: 'escalate', reason: 'overcharge' },
     note: 'La factura cobra el azúcar, que no está en el albarán.',
   },
   {
@@ -194,7 +196,7 @@ export const cases: SeedCase[] = [
     supplier: carballo,
     lines: pedidoCarballo,
     factura: { drop: 2 },
-    expected: { findings: [{ ruleId: 'missing-line', productId: 'tomate-triturado' }], decision: 'ask' },
+    expected: { findings: [{ ruleId: 'missing-line', productId: 'tomate-triturado' }], decision: 'ask', reason: 'undercharge' },
     note: 'El tomate se entregó y la factura no lo incluye.',
   },
   {
@@ -202,7 +204,7 @@ export const cases: SeedCase[] = [
     supplier: carballo,
     lines: pedidoCarballo,
     factura: { totalDelta: 30 },
-    expected: { findings: [{ ruleId: 'total-mismatch', productId: null }], decision: 'ask' },
+    expected: { findings: [{ ruleId: 'total-mismatch', productId: null }], decision: 'ask', reason: 'document_ambiguous' },
     note: 'El total impreso de la factura son 30 € más que base + IVA. La factura se contradice consigo misma: se pregunta antes de reclamar, aunque el importe sea de escalar.',
   },
   {
@@ -210,7 +212,7 @@ export const cases: SeedCase[] = [
     supplier: carballo,
     lines: pedidoCarballo,
     factura: { vatDelta: 3.15 },
-    expected: { findings: [{ ruleId: 'vat-inconsistent', productId: null }], decision: 'ask' },
+    expected: { findings: [{ ruleId: 'vat-inconsistent', productId: null }], decision: 'ask', reason: 'document_ambiguous' },
     note: 'La cuota de IVA impresa no sale de los tipos de las líneas; el total sí suma.',
   },
   {
@@ -218,7 +220,7 @@ export const cases: SeedCase[] = [
     supplier: carballo,
     lines: pedidoCarballo,
     factura: { stamp: { line: 3, field: 'unitPrice' } },
-    expected: { findings: [{ ruleId: 'unreadable-amount', productId: 'vino-mencia' }], decision: 'ask' },
+    expected: { findings: [{ ruleId: 'unreadable-amount', productId: 'vino-mencia' }], decision: 'ask', reason: 'low_confidence_read' },
     note: 'Sello encima del precio del vino en la factura. No hay discrepancia, pero el dato no se puede leer.',
   },
   {
@@ -226,7 +228,7 @@ export const cases: SeedCase[] = [
     supplier: carballo,
     lines: pedidoCarballo,
     albaran: { photo: 'tilted' },
-    expected: { findings: [], decision: 'pass' },
+    expected: { findings: [], decision: 'pass', reason: 'all_matched' },
     note: 'Albarán fotografiado torcido. Todo cuadra.',
   },
   {
@@ -235,14 +237,14 @@ export const cases: SeedCase[] = [
     lines: pedidoCarballo,
     albaran: { photo: 'tilted' },
     factura: { set: { line: 1, quantity: 6 } },
-    expected: { findings: [{ ruleId: 'quantity-mismatch', productId: 'arroz-bomba' }], decision: 'escalate' },
+    expected: { findings: [{ ruleId: 'quantity-mismatch', productId: 'arroz-bomba' }], decision: 'escalate', reason: 'overcharge' },
     note: 'Albarán fotografiado torcido; se entregan 4 sacos de arroz y se facturan 6: 29,00 €.',
   },
   {
     id: 'vidal-cajas-1',
     supplier: vidal,
     lines: [[tomate, 12], [cebolla, 10], [pimiento, 3], [limon, 5]],
-    expected: { findings: [], decision: 'pass' },
+    expected: { findings: [], decision: 'pass', reason: 'all_matched' },
     withoutKnowledge: sinEquivalencia,
     note: 'Tomate en cajas en el albarán y en kilos en la factura; con 1 caja = 6 kg cuadra. Es el caso que se resuelve a mano en la demo.',
   },
@@ -250,7 +252,7 @@ export const cases: SeedCase[] = [
     id: 'vidal-cajas-2',
     supplier: vidal,
     lines: [[tomate, 18], [cebolla, 15], [limon, 8]],
-    expected: { findings: [], decision: 'pass' },
+    expected: { findings: [], decision: 'pass', reason: 'all_matched' },
     withoutKnowledge: sinEquivalencia,
     holdout: true,
     note: 'Otro pedido con el mismo tomate en cajas. Cuadra.',
@@ -260,7 +262,7 @@ export const cases: SeedCase[] = [
     supplier: vidal,
     lines: [[tomate, 24], [pimiento, 4], [cebolla, 10]],
     factura: { set: { line: 1, quantity: 36 } },
-    expected: { findings: [{ ruleId: 'quantity-mismatch', productId: 'tomate-pera' }], decision: 'escalate' },
+    expected: { findings: [{ ruleId: 'quantity-mismatch', productId: 'tomate-pera' }], decision: 'escalate', reason: 'overcharge' },
     withoutKnowledge: sinEquivalencia,
     holdout: true,
     note: 'Se entregan 4 cajas de tomate (24 kg) y se facturan 36 kg: 27,60 €. Solo se ve si se sabe cuánto pesa la caja.',
@@ -269,7 +271,7 @@ export const cases: SeedCase[] = [
     id: 'rianorte-alias-1',
     supplier: riaNorte,
     lines: [[merluza, 8], [boqueron, 5], [rape, 4]],
-    expected: { findings: [], decision: 'pass' },
+    expected: { findings: [], decision: 'pass', reason: 'all_matched' },
     withoutKnowledge: sinAlias,
     note: 'El albarán dice BOCARTE y la factura Boquerón fresco. Es el mismo producto y cuadra. Es el caso que se resuelve a mano en la demo.',
   },
@@ -277,7 +279,7 @@ export const cases: SeedCase[] = [
     id: 'rianorte-alias-2',
     supplier: riaNorte,
     lines: [[boqueron, 6], [mejillon, 10], [merluza, 5]],
-    expected: { findings: [], decision: 'pass' },
+    expected: { findings: [], decision: 'pass', reason: 'all_matched' },
     withoutKnowledge: sinAlias,
     holdout: true,
     note: 'Otro pedido con BOCARTE / Boquerón fresco. Cuadra.',
@@ -287,7 +289,7 @@ export const cases: SeedCase[] = [
     supplier: riaNorte,
     lines: [[boqueron, 8], [rape, 3], [mejillon, 6]],
     factura: { set: { line: 1, unitPrice: 10.4 } },
-    expected: { findings: [{ ruleId: 'unit-price-mismatch', productId: 'boqueron' }], decision: 'escalate' },
+    expected: { findings: [{ ruleId: 'unit-price-mismatch', productId: 'boqueron' }], decision: 'escalate', reason: 'overcharge' },
     withoutKnowledge: sinAlias,
     holdout: true,
     note: 'La factura sube el boquerón de 6,80 a 10,40 en 8 kg: 28,80 €. Solo se ve si se sabe que BOCARTE es boquerón.',
@@ -297,7 +299,7 @@ export const cases: SeedCase[] = [
     supplier: carballo,
     lines: pedidoCarballo,
     factura: { set: { line: 4, quantity: 7 } },
-    expected: { findings: [{ ruleId: 'quantity-mismatch', productId: 'cerveza-lager' }], decision: 'ask' },
+    expected: { findings: [{ ruleId: 'quantity-mismatch', productId: 'cerveza-lager' }], decision: 'ask', reason: 'minor_discrepancy' },
     boundary: true,
     note: 'Se entregan 6 cajas de cerveza y se facturan 7: 18,90 €, justo por debajo de un umbral de 20 €.',
   },
@@ -306,7 +308,7 @@ export const cases: SeedCase[] = [
     supplier: carballo,
     lines: pedidoCarballo,
     factura: { set: { line: 3, unitPrice: 6.05 } },
-    expected: { findings: [{ ruleId: 'unit-price-mismatch', productId: 'vino-mencia' }], decision: 'escalate' },
+    expected: { findings: [{ ruleId: 'unit-price-mismatch', productId: 'vino-mencia' }], decision: 'escalate', reason: 'overcharge' },
     boundary: true,
     note: 'La factura sube el vino de 5,20 a 6,05 en 24 botellas: 20,40 €, justo por encima de un umbral de 20 €.',
   },
@@ -315,7 +317,7 @@ export const cases: SeedCase[] = [
     supplier: carballo,
     lines: pedidoCarballo,
     factura: { stainOnTotal: true },
-    expected: { findings: [{ ruleId: 'unreadable-amount', productId: null }], decision: 'ask' },
+    expected: { findings: [{ ruleId: 'unreadable-amount', productId: null }], decision: 'ask', reason: 'low_confidence_read' },
     note: 'Una mancha tapa el total de la factura. No hay discrepancia, pero no se puede comprobar que el total suma.',
   },
   {
@@ -329,6 +331,7 @@ export const cases: SeedCase[] = [
         { ruleId: 'line-arithmetic', productId: 'vino-mencia' },
       ],
       decision: 'ask',
+      reason: 'document_ambiguous',
     },
     note: 'En el albarán las 24 botellas están tachadas y pone 18 a boli; la factura cobra 24: 31,20 €. No es un fallo de lectura: el documento se contradice consigo mismo (cantidad a boli frente a importe impreso) y solo lo sabe quien recibió la mercancía. Se pregunta; si responde que recibió 18, pasa a reclamación.',
   },
@@ -337,7 +340,7 @@ export const cases: SeedCase[] = [
     supplier: carballo,
     lines: pedidoCarballo,
     albaran: { photo: 'poor' },
-    expected: { findings: [], decision: 'pass' },
+    expected: { findings: [], decision: 'pass', reason: 'all_matched' },
     note: 'Albarán fotografiado con poca luz, desenfocado y con sombra. Se lee con esfuerzo y todo cuadra.',
   },
   {
@@ -346,7 +349,7 @@ export const cases: SeedCase[] = [
     lines: pedidoCarballo,
     albaran: { photo: 'poor' },
     factura: { set: { line: 4, unitPrice: 23.9 } },
-    expected: { findings: [{ ruleId: 'unit-price-mismatch', productId: 'cerveza-lager' }], decision: 'escalate' },
+    expected: { findings: [{ ruleId: 'unit-price-mismatch', productId: 'cerveza-lager' }], decision: 'escalate', reason: 'overcharge' },
     note: 'Misma foto mala; la factura sube la cerveza de 18,90 a 23,90 en 6 cajas: 30,00 €.',
   },
   {
@@ -354,7 +357,7 @@ export const cases: SeedCase[] = [
     supplier: riaNorte,
     lines: [[merluza, 6], [rape, 5], [mejillon, 12]],
     albaran: { handwritten: true },
-    expected: { findings: [], decision: 'pass' },
+    expected: { findings: [], decision: 'pass', reason: 'all_matched' },
     note: 'Albarán de talonario con las líneas escritas a mano. Todo cuadra.',
   },
   {
@@ -362,7 +365,7 @@ export const cases: SeedCase[] = [
     supplier: riaNorte,
     lines: [[pulpo, 1.25], [rape, 3], [berberecho5, 2], [berberecho05, 6]],
     albaran: { scaleFormat: true, reversed: true },
-    expected: { findings: [], decision: 'pass' },
+    expected: { findings: [], decision: 'pass', reason: 'all_matched' },
     note: 'Documento limpio con trampas. El albarán da los kilos en formato de báscula ("1.250", "3.000") y lista las líneas en orden inverso; hay dos berberechos que solo se distinguen por el formato. Todo cuadra.',
   },
   {
@@ -371,7 +374,7 @@ export const cases: SeedCase[] = [
     lines: [[aceite, 3], [vinoCrianza, 2], [azucar, 1], [arroz, 4]],
     albaran: { cramped: true },
     factura: { cramped: true },
-    expected: { findings: [], decision: 'pass' },
+    expected: { findings: [], decision: 'pass', reason: 'all_matched' },
     note: 'Documento limpio con trampas. Columna de descuento (10 % en el vino), una descripción que salta a dos líneas con los números pegados a la fila siguiente, y una línea de una sola unidad donde precio e importe coinciden. Todo cuadra.',
   },
 ]
