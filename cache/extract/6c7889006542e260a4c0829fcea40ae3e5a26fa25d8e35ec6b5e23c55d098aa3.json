@@ -1,191 +1,146 @@
 {
-  "fingerprint": "3c4bcaccc26fdb2f7a639bc2114273f3bf25a27be03690158599a8312cec363a",
+  "fingerprint": "ce0b3124111d96473e84a254e68454c377f3bb5dae16d68a9a40fd4f8de67428",
   "model": "claude-sonnet-5-5",
   "usage": {
-    "inputTokens": 5454,
-    "outputTokens": 838
+    "inputTokens": 4952,
+    "outputTokens": 648
   },
-  "latencyMs": 5811,
+  "latencyMs": 6146,
   "doc": {
-    "supplier": {
-      "value": "Frutas Hermanos Vidal S.L.",
-      "confidence": 0.98
-    },
-    "supplierTaxId": {
-      "value": "B36009823",
-      "confidence": 0.97
-    },
-    "number": {
-      "value": "ALB-26-4113",
-      "confidence": 0.97
-    },
-    "date": {
-      "value": "2026-09-14",
-      "confidence": 0.97
-    },
+    "supplier": "Frutas Hermanos Vidal S.L.",
+    "supplierTaxId": "B36009823",
+    "number": "ALB-26-4113",
+    "date": "2026-09-14",
     "lines": [
       {
-        "code": {
-          "value": "V-101",
-          "confidence": 0.97
-        },
-        "description": {
-          "value": "Tomate pera",
-          "confidence": 0.98
-        },
+        "code": "V-101",
+        "description": "Tomate pera",
         "quantity": {
           "value": 4,
-          "confidence": 0.97,
+          "confidence": 0.98,
           "bbox": {
-            "x": 0.5752930568079351,
-            "y": 0.26721938775510207,
-            "w": 0.011722272317403066,
-            "h": 0.013392857142857142
+            "x": 0.5743913435527502,
+            "y": 0.26658163265306123,
+            "w": 0.012623985572587917,
+            "h": 0.01403061224489796
           }
         },
-        "unit": {
-          "value": "caja",
-          "confidence": 0.97
-        },
+        "unit": "caja",
         "unitPrice": {
           "value": 13.8,
-          "confidence": 0.97,
+          "confidence": 0.98,
           "bbox": {
             "x": 0.7339945897204689,
-            "y": 0.26721938775510207,
+            "y": 0.26658163265306123,
             "w": 0.04238052299368801,
-            "h": 0.013392857142857142
+            "h": 0.01403061224489796
           }
         },
-        "vatRate": {
-          "value": null,
-          "confidence": 0.95
-        },
+        "vatRate": null,
+        "discount": null,
         "total": {
           "value": 55.2,
-          "confidence": 0.97,
+          "confidence": 0.98,
           "bbox": {
             "x": 0.8611361587015329,
-            "y": 0.26721938775510207,
+            "y": 0.26658163265306123,
             "w": 0.04238052299368801,
-            "h": 0.013392857142857142
+            "h": 0.01403061224489796
           }
         },
         "bbox": {
           "x": 0.08566275924256087,
-          "y": 0.2602040816326531,
+          "y": 0.25956632653061223,
           "w": 0.8277727682596934,
-          "h": 0.0274234693877551
+          "h": 0.028698979591836735
         },
         "key": "A1"
       },
       {
-        "code": {
-          "value": "V-204",
-          "confidence": 0.97
-        },
-        "description": {
-          "value": "Pimiento de Padrón",
-          "confidence": 0.98
-        },
+        "code": "V-204",
+        "description": "Pimiento de Padrón",
         "quantity": {
           "value": 4,
-          "confidence": 0.97,
+          "confidence": 0.98,
           "bbox": {
-            "x": 0.5752930568079351,
-            "y": 0.2965561224489796,
-            "w": 0.011722272317403066,
-            "h": 0.013392857142857142
+            "x": 0.5743913435527502,
+            "y": 0.29591836734693877,
+            "w": 0.012623985572587917,
+            "h": 0.01403061224489796
           }
         },
-        "unit": {
-          "value": "kg",
-          "confidence": 0.97
-        },
+        "unit": "kg",
         "unitPrice": {
           "value": 6.4,
-          "confidence": 0.97,
+          "confidence": 0.98,
           "bbox": {
             "x": 0.7421100090171325,
-            "y": 0.2965561224489796,
+            "y": 0.29591836734693877,
             "w": 0.034265103697024346,
-            "h": 0.013392857142857142
+            "h": 0.01403061224489796
           }
         },
-        "vatRate": {
-          "value": null,
-          "confidence": 0.95
-        },
+        "vatRate": null,
+        "discount": null,
         "total": {
           "value": 25.6,
-          "confidence": 0.97,
+          "confidence": 0.98,
           "bbox": {
             "x": 0.8611361587015329,
-            "y": 0.2965561224489796,
+            "y": 0.29591836734693877,
             "w": 0.04238052299368801,
-            "h": 0.013392857142857142
+            "h": 0.01403061224489796
           }
         },
         "bbox": {
           "x": 0.08566275924256087,
-          "y": 0.2895408163265306,
+          "y": 0.2889030612244898,
           "w": 0.8277727682596934,
-          "h": 0.0274234693877551
+          "h": 0.028698979591836735
         },
         "key": "A2"
       },
       {
-        "code": {
-          "value": "V-118",
-          "confidence": 0.97
-        },
-        "description": {
-          "value": "Cebolla dulce",
-          "confidence": 0.98
-        },
+        "code": "V-118",
+        "description": "Cebolla dulce",
         "quantity": {
           "value": 10,
-          "confidence": 0.97,
+          "confidence": 0.98,
           "bbox": {
             "x": 0.5671776375112714,
-            "y": 0.32589285714285715,
+            "y": 0.3252551020408163,
             "w": 0.019837691614066726,
-            "h": 0.013392857142857142
+            "h": 0.01403061224489796
           }
         },
-        "unit": {
-          "value": "kg",
-          "confidence": 0.97
-        },
+        "unit": "kg",
         "unitPrice": {
           "value": 1.15,
-          "confidence": 0.97,
+          "confidence": 0.98,
           "bbox": {
-            "x": 0.7430117222723174,
-            "y": 0.32589285714285715,
-            "w": 0.033363390441839495,
-            "h": 0.013392857142857142
+            "x": 0.7421100090171325,
+            "y": 0.3252551020408163,
+            "w": 0.034265103697024346,
+            "h": 0.01403061224489796
           }
         },
-        "vatRate": {
-          "value": null,
-          "confidence": 0.95
-        },
+        "vatRate": null,
+        "discount": null,
         "total": {
           "value": 11.5,
-          "confidence": 0.97,
+          "confidence": 0.98,
           "bbox": {
             "x": 0.8611361587015329,
-            "y": 0.32589285714285715,
+            "y": 0.3252551020408163,
             "w": 0.04238052299368801,
-            "h": 0.013392857142857142
+            "h": 0.01403061224489796
           }
         },
         "bbox": {
           "x": 0.08566275924256087,
-          "y": 0.31887755102040816,
+          "y": 0.3182397959183674,
           "w": 0.8277727682596934,
-          "h": 0.028698979591836735
+          "h": 0.029336734693877552
         },
         "key": "A3"
       }
@@ -193,7 +148,7 @@
     "totals": {
       "base": {
         "value": 92.3,
-        "confidence": 0.97
+        "confidence": 0.98
       },
       "vat": {
         "value": null,

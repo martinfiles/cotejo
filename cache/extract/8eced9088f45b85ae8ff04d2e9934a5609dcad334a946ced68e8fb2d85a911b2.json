@@ -1,74 +1,51 @@
 {
-  "fingerprint": "3c4bcaccc26fdb2f7a639bc2114273f3bf25a27be03690158599a8312cec363a",
+  "fingerprint": "ce0b3124111d96473e84a254e68454c377f3bb5dae16d68a9a40fd4f8de67428",
   "model": "claude-sonnet-5-5",
   "usage": {
-    "inputTokens": 7264,
-    "outputTokens": 1317
+    "inputTokens": 6762,
+    "outputTokens": 1035
   },
-  "latencyMs": 9430,
+  "latencyMs": 6526,
   "doc": {
-    "supplier": {
-      "value": "Distribuciones Carballo S.L.",
-      "confidence": 0.93
-    },
-    "supplierTaxId": {
-      "value": "B15004417",
-      "confidence": 0.8
-    },
-    "number": {
-      "value": "ALB-26-4122",
-      "confidence": 0.88
-    },
-    "date": {
-      "value": "2026-09-23",
-      "confidence": 0.88
-    },
+    "supplier": "Distribuciones Carballo S.L.",
+    "supplierTaxId": "B15004417",
+    "number": "ALB-26-4122",
+    "date": "2026-09-23",
     "lines": [
       {
-        "code": {
-          "value": "C-1040",
-          "confidence": 0.88
-        },
-        "description": {
-          "value": "Arroz bomba saco 5 kg",
-          "confidence": 0.92
-        },
+        "code": "C-1040",
+        "description": "Arroz bomba saco 5 kg",
         "quantity": {
           "value": 4,
-          "confidence": 0.92,
+          "confidence": 0.85,
           "bbox": {
-            "x": 0.5813333333333334,
+            "x": 0.5826666666666667,
             "y": 0.2819047619047619,
-            "w": 0.012,
+            "w": 0.010666666666666666,
             "h": 0.009523809523809525
           }
         },
-        "unit": {
-          "value": "ud",
-          "confidence": 0.9
-        },
+        "unit": "ud",
         "unitPrice": {
           "value": 14.5,
-          "confidence": 0.9,
+          "confidence": 0.85,
           "bbox": {
             "x": 0.7033333333333334,
             "y": 0.2895238095238095,
-            "w": 0.03266666666666666,
+            "w": 0.032,
             "h": 0.011428571428571429
           }
         },
-        "vatRate": {
-          "value": null,
-          "confidence": 0.9
-        },
+        "vatRate": null,
+        "discount": null,
         "total": {
           "value": 58,
-          "confidence": 0.9,
+          "confidence": 0.85,
           "bbox": {
             "x": 0.7873333333333333,
             "y": 0.2947619047619048,
-            "w": 0.034,
-            "h": 0.010952380952380953
+            "w": 0.03333333333333333,
+            "h": 0.011428571428571429
           }
         },
         "bbox": {
@@ -80,100 +57,78 @@
         "key": "A1"
       },
       {
-        "code": {
-          "value": "C-2210",
-          "confidence": 0.88
-        },
-        "description": {
-          "value": "Tomate triturado lata 2,5 kg",
-          "confidence": 0.92
-        },
+        "code": "C-2210",
+        "description": "Tomate triturado lata 2,5 kg",
         "quantity": {
           "value": 12,
-          "confidence": 0.92,
+          "confidence": 0.85,
           "bbox": {
-            "x": 0.5733333333333334,
-            "y": 0.30238095238095236,
-            "w": 0.016,
-            "h": 0.010476190476190476
+            "x": 0.574,
+            "y": 0.3028571428571429,
+            "w": 0.015333333333333332,
+            "h": 0.01
           }
         },
-        "unit": {
-          "value": "ud",
-          "confidence": 0.9
-        },
+        "unit": "ud",
         "unitPrice": {
           "value": 3.95,
-          "confidence": 0.9,
+          "confidence": 0.85,
           "bbox": {
-            "x": 0.708,
+            "x": 0.7073333333333334,
             "y": 0.310952380952381,
             "w": 0.02666666666666667,
-            "h": 0.011428571428571429
+            "h": 0.010952380952380953
           }
         },
-        "vatRate": {
-          "value": null,
-          "confidence": 0.9
-        },
+        "vatRate": null,
+        "discount": null,
         "total": {
           "value": 47.4,
-          "confidence": 0.9,
+          "confidence": 0.85,
           "bbox": {
-            "x": 0.7853333333333333,
-            "y": 0.3161904761904762,
-            "w": 0.034666666666666665,
-            "h": 0.011428571428571429
+            "x": 0.786,
+            "y": 0.31666666666666665,
+            "w": 0.03266666666666666,
+            "h": 0.010952380952380953
           }
         },
         "bbox": {
           "x": 0.19866666666666666,
           "y": 0.2785714285714286,
           "w": 0.6226666666666667,
-          "h": 0.05095238095238095
+          "h": 0.05
         },
         "key": "A2"
       },
       {
-        "code": {
-          "value": "C-3105",
-          "confidence": 0.88
-        },
-        "description": {
-          "value": "Vino tinto Mencía joven 75 cl",
-          "confidence": 0.9
-        },
+        "code": "C-3105",
+        "description": "Vino tinto Mencía joven 75 cl",
         "quantity": {
           "value": 24,
-          "confidence": 0.92,
+          "confidence": 0.85,
           "bbox": {
             "x": 0.5706666666666667,
-            "y": 0.3238095238095238,
+            "y": 0.3242857142857143,
             "w": 0.016,
             "h": 0.010476190476190476
           }
         },
-        "unit": {
-          "value": "botella",
-          "confidence": 0.88
-        },
+        "unit": "botella",
         "unitPrice": {
           "value": 5.2,
-          "confidence": 0.9,
+          "confidence": 0.85,
           "bbox": {
             "x": 0.7053333333333334,
             "y": 0.3323809523809524,
-            "w": 0.028,
-            "h": 0.011428571428571429
+            "w": 0.02666666666666667,
+            "h": 0.010952380952380953
           }
         },
-        "vatRate": {
-          "value": null,
-          "confidence": 0.9
-        },
+        "vatRate": null,
+        "discount": null,
         "total": {
           "value": 124.8,
-          "confidence": 0.9,
+          "confidence": 0.85,
           "bbox": {
             "x": 0.778,
             "y": 0.3376190476190476,
@@ -182,119 +137,97 @@
           }
         },
         "bbox": {
-          "x": 0.19466666666666665,
-          "y": 0.3,
-          "w": 0.6253333333333333,
-          "h": 0.05142857142857143
+          "x": 0.194,
+          "y": 0.2995238095238095,
+          "w": 0.626,
+          "h": 0.05047619047619047
         },
         "key": "A3"
       },
       {
-        "code": {
-          "value": "C-3320",
-          "confidence": 0.88
-        },
-        "description": {
-          "value": "Cerveza lager caja 24x33 cl",
-          "confidence": 0.9
-        },
+        "code": "C-3320",
+        "description": "Cerveza lager caja 24x33 cl",
         "quantity": {
           "value": 6,
-          "confidence": 0.92,
+          "confidence": 0.85,
           "bbox": {
             "x": 0.5746666666666667,
             "y": 0.3466666666666667,
-            "w": 0.010666666666666666,
-            "h": 0.010476190476190476
+            "w": 0.009333333333333334,
+            "h": 0.01
           }
         },
-        "unit": {
-          "value": "caja",
-          "confidence": 0.9
-        },
+        "unit": "caja",
         "unitPrice": {
           "value": 18.9,
-          "confidence": 0.9,
+          "confidence": 0.85,
           "bbox": {
             "x": 0.6966666666666667,
             "y": 0.3547619047619048,
-            "w": 0.03333333333333333,
-            "h": 0.011428571428571429
+            "w": 0.032,
+            "h": 0.010952380952380953
           }
         },
-        "vatRate": {
-          "value": null,
-          "confidence": 0.9
-        },
+        "vatRate": null,
+        "discount": null,
         "total": {
           "value": 113.4,
-          "confidence": 0.9,
+          "confidence": 0.85,
           "bbox": {
             "x": 0.776,
-            "y": 0.36,
-            "w": 0.04066666666666666,
+            "y": 0.36047619047619045,
+            "w": 0.04,
             "h": 0.011428571428571429
           }
         },
         "bbox": {
-          "x": 0.19,
+          "x": 0.18933333333333333,
           "y": 0.32142857142857145,
-          "w": 0.6286666666666667,
-          "h": 0.05238095238095238
+          "w": 0.6293333333333333,
+          "h": 0.05142857142857143
         },
         "key": "A4"
       },
       {
-        "code": {
-          "value": "C-4012",
-          "confidence": 0.88
-        },
-        "description": {
-          "value": "Azúcar blanco saco 10 kg",
-          "confidence": 0.9
-        },
+        "code": "C-4012",
+        "description": "Azúcar blanco saco 10 kg",
         "quantity": {
           "value": 2,
-          "confidence": 0.92,
+          "confidence": 0.85,
           "bbox": {
             "x": 0.5713333333333334,
             "y": 0.36904761904761907,
-            "w": 0.010666666666666666,
-            "h": 0.010476190476190476
+            "w": 0.01,
+            "h": 0.01
           }
         },
-        "unit": {
-          "value": "ud",
-          "confidence": 0.9
-        },
+        "unit": "ud",
         "unitPrice": {
           "value": 11.8,
-          "confidence": 0.9,
+          "confidence": 0.85,
           "bbox": {
             "x": 0.6946666666666667,
             "y": 0.37666666666666665,
-            "w": 0.03333333333333333,
+            "w": 0.032,
             "h": 0.011428571428571429
           }
         },
-        "vatRate": {
-          "value": null,
-          "confidence": 0.9
-        },
+        "vatRate": null,
+        "discount": null,
         "total": {
           "value": 23.6,
-          "confidence": 0.9,
+          "confidence": 0.85,
           "bbox": {
             "x": 0.78,
             "y": 0.3823809523809524,
-            "w": 0.034666666666666665,
+            "w": 0.034,
             "h": 0.011428571428571429
           }
         },
         "bbox": {
-          "x": 0.18,
-          "y": 0.3438095238095238,
-          "w": 0.6373333333333333,
+          "x": 0.18466666666666667,
+          "y": 0.34285714285714286,
+          "w": 0.6326666666666667,
           "h": 0.05238095238095238
         },
         "key": "A5"
@@ -303,7 +236,7 @@
     "totals": {
       "base": {
         "value": 367.2,
-        "confidence": 0.9
+        "confidence": 0.85
       },
       "vat": {
         "value": null,

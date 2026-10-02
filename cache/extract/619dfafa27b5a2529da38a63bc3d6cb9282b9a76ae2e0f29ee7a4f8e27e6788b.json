@@ -1,38 +1,20 @@
 {
-  "fingerprint": "3c4bcaccc26fdb2f7a639bc2114273f3bf25a27be03690158599a8312cec363a",
+  "fingerprint": "ce0b3124111d96473e84a254e68454c377f3bb5dae16d68a9a40fd4f8de67428",
   "model": "claude-sonnet-5-5",
   "usage": {
-    "inputTokens": 5454,
-    "outputTokens": 832
+    "inputTokens": 4952,
+    "outputTokens": 642
   },
-  "latencyMs": 5947,
+  "latencyMs": 6108,
   "doc": {
-    "supplier": {
-      "value": "Pescados Ría Norte S.L.",
-      "confidence": 0.98
-    },
-    "supplierTaxId": {
-      "value": "B27003358",
-      "confidence": 0.96
-    },
-    "number": {
-      "value": "ALB-26-4114",
-      "confidence": 0.96
-    },
-    "date": {
-      "value": "2026-09-15",
-      "confidence": 0.97
-    },
+    "supplier": "Pescados Ría Norte S.L.",
+    "supplierTaxId": "B27003358",
+    "number": "ALB-26-4114",
+    "date": "2026-09-15",
     "lines": [
       {
-        "code": {
-          "value": null,
-          "confidence": 0.95
-        },
-        "description": {
-          "value": "MERLUZA PINCHO 2/3",
-          "confidence": 0.97
-        },
+        "code": null,
+        "description": "MERLUZA PINCHO 2/3",
         "quantity": {
           "value": 8,
           "confidence": 0.98,
@@ -43,24 +25,19 @@
             "h": 0.01403061224489796
           }
         },
-        "unit": {
-          "value": "kg",
-          "confidence": 0.98
-        },
+        "unit": "kg",
         "unitPrice": {
           "value": 11.5,
           "confidence": 0.98,
           "bbox": {
-            "x": 0.7195671776375113,
+            "x": 0.7204688908926962,
             "y": 0.26658163265306123,
-            "w": 0.04238052299368801,
+            "w": 0.04147880973850315,
             "h": 0.01403061224489796
           }
         },
-        "vatRate": {
-          "value": null,
-          "confidence": 0.95
-        },
+        "vatRate": null,
+        "discount": null,
         "total": {
           "value": 92,
           "confidence": 0.98,
@@ -80,14 +57,8 @@
         "key": "A1"
       },
       {
-        "code": {
-          "value": null,
-          "confidence": 0.95
-        },
-        "description": {
-          "value": "BOCARTE",
-          "confidence": 0.98
-        },
+        "code": null,
+        "description": "BOCARTE",
         "quantity": {
           "value": 5,
           "confidence": 0.98,
@@ -98,10 +69,7 @@
             "h": 0.01403061224489796
           }
         },
-        "unit": {
-          "value": "kg",
-          "confidence": 0.98
-        },
+        "unit": "kg",
         "unitPrice": {
           "value": 6.8,
           "confidence": 0.98,
@@ -112,10 +80,8 @@
             "h": 0.01403061224489796
           }
         },
-        "vatRate": {
-          "value": null,
-          "confidence": 0.95
-        },
+        "vatRate": null,
+        "discount": null,
         "total": {
           "value": 34,
           "confidence": 0.98,
@@ -135,14 +101,8 @@
         "key": "A2"
       },
       {
-        "code": {
-          "value": null,
-          "confidence": 0.95
-        },
-        "description": {
-          "value": "RAPE COLA S/P",
-          "confidence": 0.97
-        },
+        "code": null,
+        "description": "RAPE COLA S/P",
         "quantity": {
           "value": 4,
           "confidence": 0.98,
@@ -153,24 +113,19 @@
             "h": 0.01403061224489796
           }
         },
-        "unit": {
-          "value": "kg",
-          "confidence": 0.98
-        },
+        "unit": "kg",
         "unitPrice": {
           "value": 19.9,
           "confidence": 0.98,
           "bbox": {
-            "x": 0.7195671776375113,
+            "x": 0.7204688908926962,
             "y": 0.3252551020408163,
-            "w": 0.04238052299368801,
+            "w": 0.04147880973850315,
             "h": 0.01403061224489796
           }
         },
-        "vatRate": {
-          "value": null,
-          "confidence": 0.95
-        },
+        "vatRate": null,
+        "discount": null,
         "total": {
           "value": 79.6,
           "confidence": 0.98,
@@ -185,7 +140,7 @@
           "x": 0.08566275924256087,
           "y": 0.3201530612244898,
           "w": 0.8277727682596934,
-          "h": 0.0274234693877551
+          "h": 0.02806122448979592
         },
         "key": "A3"
       }
@@ -197,17 +152,17 @@
       },
       "vat": {
         "value": null,
-        "confidence": 0.93
+        "confidence": 0.95
       },
       "total": {
         "value": null,
-        "confidence": 0.93
+        "confidence": 0.95
       },
       "bbox": {
         "x": 0.5410279531109107,
         "y": 0.3762755102040816,
         "w": 0.37240757439134353,
-        "h": 0.02423469387755102
+        "h": 0.025510204081632654
       }
     },
     "docType": "albaran"
