@@ -1,0 +1,9 @@
+{
+  "text": "En la factura de Distribuciones Carballo no se ve bien el total del importe. Mira el albarán que recibiste y el documento de facturación que te pasaron: ¿coinciden las cantidades y los productos que trajeron con lo que facturaron, o hay algo que no encaja?",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 345,
+    "outputTokens": 77
+  },
+  "latencyMs": 1470
+}

@@ -1,0 +1,9 @@
+{
+  "text": "En el albarán de Distribuciones Carballo pone que el tomate triturado lata 2,5 kg cuesta 3,95 euros la unidad, pero en la factura aparece a 4,05 euros. Mira cuántas unidades recibiste de este producto en los papeles que tienes delante, ¿cuál de los dos precios te parece que es el correcto?",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 378,
+    "outputTokens": 103
+  },
+  "latencyMs": 2056
+}

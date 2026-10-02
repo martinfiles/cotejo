@@ -4,6 +4,7 @@ import { generateText, Output } from 'ai'
 import { z } from 'zod'
 import { readCache, sha256, writeCache } from '../cache'
 import { config, costUsd, type Usage } from '../config'
+import { generation } from '../obs/langfuse'
 import type { BBox, DocType, ExtractedDoc } from '../types'
 import { SYSTEM, userText } from './prompt'
 import { toPageImage, type PageImage } from './rasterize'
@@ -82,27 +83,32 @@ function normalize(raw: ModelDoc, docType: DocType, image: PageImage): Extracted
 export async function readDocument(path: string, docType: DocType, bytes: Uint8Array) {
   const image = toPageImage(path, bytes)
   const model = config.models.extract
+  const text = userText(docType, image.width, image.height)
   const started = Date.now()
-  const result = await generateText({
-    model: anthropic(model),
-    maxOutputTokens: config.extract.maxOutputTokens,
-    output: Output.object({ schema: ModelDocSchema }),
-    providerOptions: { anthropic: { effort: config.extract.effort } satisfies AnthropicLanguageModelOptions },
-    system: SYSTEM,
-    messages: [
-      {
-        role: 'user',
-        content: [
-          { type: 'file', mediaType: image.mediaType, data: image.data },
-          { type: 'text', text: userText(docType, image.width, image.height) },
-        ],
-      },
-    ],
+  // A la traza va el texto del prompt y el nombre del fichero, no la imagen.
+  const { output: doc, usage } = await generation('leer documento', model, { path, text }, async () => {
+    const result = await generateText({
+      model: anthropic(model),
+      maxOutputTokens: config.extract.maxOutputTokens,
+      output: Output.object({ schema: ModelDocSchema }),
+      providerOptions: { anthropic: { effort: config.extract.effort } satisfies AnthropicLanguageModelOptions },
+      system: SYSTEM,
+      messages: [
+        {
+          role: 'user',
+          content: [
+            { type: 'file', mediaType: image.mediaType, data: image.data },
+            { type: 'text', text },
+          ],
+        },
+      ],
+    })
+    return {
+      output: normalize(result.output, docType, image),
+      usage: { inputTokens: result.usage.inputTokens ?? 0, outputTokens: result.usage.outputTokens ?? 0 },
+    }
   })
-  const latencyMs = Date.now() - started
-
-  const usage = { inputTokens: result.usage.inputTokens ?? 0, outputTokens: result.usage.outputTokens ?? 0 }
-  return { doc: normalize(result.output, docType, image), model, usage, latencyMs }
+  return { doc, model, usage, latencyMs: Date.now() - started }
 }
 
 export async function extract(

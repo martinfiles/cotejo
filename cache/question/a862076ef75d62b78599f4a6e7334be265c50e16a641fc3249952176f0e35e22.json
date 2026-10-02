@@ -1,0 +1,9 @@
+{
+  "text": "En el albarán de Distribuciones Carballo aparece una lata de tomate triturado de 2,5 kg que no está reflejada en la factura. Mira el albarán y recuerda si recibisteis ese producto: ¿recibisteis realmente esa lata o no aparece en la factura por error?",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 358,
+    "outputTokens": 88
+  },
+  "latencyMs": 1360
+}
