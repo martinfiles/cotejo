@@ -77,24 +77,9 @@ function normalize(raw: ModelDoc, docType: DocType, image: PageImage): Extracted
   }
 }
 
-export async function extract(
-  path: string,
-  docType: DocType,
-  opts: { cacheOnly?: boolean; refresh?: boolean } = {},
-): Promise<Extraction> {
-  const bytes = await readFile(path)
-  const fileHash = sha256(bytes)
-  const expected = fingerprint(docType)
-
-  const entry = opts.refresh ? null : await readCache<CacheEntry>('extract', fileHash)
-  if (entry?.fingerprint === expected) {
-    const { model, usage, latencyMs, doc } = entry
-    return { doc, fileHash, model, usage, costUsd: costUsd(model, usage), latencyMs, cached: true }
-  }
-  if (opts.cacheOnly) {
-    throw new Error(`No hay extracción en caché para ${path} con el modelo y el prompt actuales.`)
-  }
-
+// Una lectura del documento por el modelo, sin tocar la caché. El modelo no
+// admite temperatura, así que dos lecturas del mismo fichero pueden diferir.
+export async function readDocument(path: string, docType: DocType, bytes: Uint8Array) {
   const image = toPageImage(path, bytes)
   const model = config.models.extract
   const started = Date.now()
@@ -117,7 +102,28 @@ export async function extract(
   const latencyMs = Date.now() - started
 
   const usage = { inputTokens: result.usage.inputTokens ?? 0, outputTokens: result.usage.outputTokens ?? 0 }
-  const doc = normalize(result.output, docType, image)
+  return { doc: normalize(result.output, docType, image), model, usage, latencyMs }
+}
+
+export async function extract(
+  path: string,
+  docType: DocType,
+  opts: { cacheOnly?: boolean; refresh?: boolean } = {},
+): Promise<Extraction> {
+  const bytes = await readFile(path)
+  const fileHash = sha256(bytes)
+  const expected = fingerprint(docType)
+
+  const entry = opts.refresh ? null : await readCache<CacheEntry>('extract', fileHash)
+  if (entry?.fingerprint === expected) {
+    const { model, usage, latencyMs, doc } = entry
+    return { doc, fileHash, model, usage, costUsd: costUsd(model, usage), latencyMs, cached: true }
+  }
+  if (opts.cacheOnly) {
+    throw new Error(`No hay extracción en caché para ${path} con el modelo y el prompt actuales.`)
+  }
+
+  const { doc, model, usage, latencyMs } = await readDocument(path, docType, bytes)
   await writeCache('extract', fileHash, { fingerprint: expected, model, usage, latencyMs, doc } satisfies CacheEntry)
   return { doc, fileHash, model, usage, costUsd: costUsd(model, usage), latencyMs, cached: false }
 }
