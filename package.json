@@ -7,6 +7,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^4.0.71",
+    "ai": "^7.0.127",
+    "mupdf": "^1.28.1",
     "zod": "^4.6.5"
   },
   "devDependencies": {
