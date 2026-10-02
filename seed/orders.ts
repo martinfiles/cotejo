@@ -324,7 +324,7 @@ export const cases: SeedCase[] = [
     lines: pedidoCarballo,
     albaran: { correctedByHand: { line: 3, quantity: 18 } },
     expected: { findings: [{ ruleId: 'quantity-mismatch', productId: 'vino-mencia' }], decision: 'ask' },
-    note: 'En el albarán las 24 botellas están tachadas y pone 18 a boli; la factura cobra 24: 31,20 €. El impacto es de escalar, pero el dato sale de una corrección a mano y el importe impreso de esa línea ya no cuadra: se pregunta.',
+    note: 'En el albarán las 24 botellas están tachadas y pone 18 a boli; la factura cobra 24: 31,20 €. No es un fallo de lectura: el documento se contradice consigo mismo (cantidad a boli frente a importe impreso) y solo lo sabe quien recibió la mercancía. Se pregunta; si responde que recibió 18, pasa a reclamación.',
   },
   {
     id: 'carballo-foto-mala',
