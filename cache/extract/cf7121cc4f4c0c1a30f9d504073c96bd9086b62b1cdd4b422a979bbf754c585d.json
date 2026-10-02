@@ -1,0 +1,270 @@
+{
+  "fingerprint": "3c4bcaccc26fdb2f7a639bc2114273f3bf25a27be03690158599a8312cec363a",
+  "model": "claude-sonnet-5-5",
+  "usage": {
+    "inputTokens": 5454,
+    "outputTokens": 1108
+  },
+  "latencyMs": 7100,
+  "doc": {
+    "supplier": {
+      "value": "Distribuciones Carballo S.L.",
+      "confidence": 0.98
+    },
+    "supplierTaxId": {
+      "value": "B15004417",
+      "confidence": 0.95
+    },
+    "number": {
+      "value": "ALB-26-4125",
+      "confidence": 0.96
+    },
+    "date": {
+      "value": "2026-09-26",
+      "confidence": 0.97
+    },
+    "lines": [
+      {
+        "code": {
+          "value": "C-5120",
+          "confidence": 0.96
+        },
+        "description": {
+          "value": "Aceite de girasol alto oleico para freidora, garrafa 25 L, uso hostelería",
+          "confidence": 0.96
+        },
+        "quantity": {
+          "value": 3,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.5617673579801623,
+            "y": 0.29336734693877553,
+            "w": 0.014427412082957619,
+            "h": 0.01403061224489796
+          }
+        },
+        "unit": {
+          "value": "ud",
+          "confidence": 0.97
+        },
+        "unitPrice": {
+          "value": 48.5,
+          "confidence": 0.96,
+          "bbox": {
+            "x": 0.6943192064923355,
+            "y": 0.29336734693877553,
+            "w": 0.04328223624887286,
+            "h": 0.01403061224489796
+          }
+        },
+        "vatRate": {
+          "value": null,
+          "confidence": 0.9
+        },
+        "total": {
+          "value": 145.5,
+          "confidence": 0.95,
+          "bbox": {
+            "x": 0.8521190261496844,
+            "y": 0.29336734693877553,
+            "w": 0.05139765554553652,
+            "h": 0.01403061224489796
+          }
+        },
+        "bbox": {
+          "x": 0.08656447249774572,
+          "y": 0.2602040816326531,
+          "w": 0.8259693417493237,
+          "h": 0.04846938775510204
+        },
+        "key": "A1"
+      },
+      {
+        "code": {
+          "value": "C-3110",
+          "confidence": 0.96
+        },
+        "description": {
+          "value": "Vino tinto Mencía crianza 75 cl, caja de 6 botellas",
+          "confidence": 0.96
+        },
+        "quantity": {
+          "value": 2,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.5617673579801623,
+            "y": 0.3284438775510204,
+            "w": 0.014427412082957619,
+            "h": 0.01403061224489796
+          }
+        },
+        "unit": {
+          "value": "caja",
+          "confidence": 0.96
+        },
+        "unitPrice": {
+          "value": 56.4,
+          "confidence": 0.96,
+          "bbox": {
+            "x": 0.6943192064923355,
+            "y": 0.3284438775510204,
+            "w": 0.04328223624887286,
+            "h": 0.01403061224489796
+          }
+        },
+        "vatRate": {
+          "value": null,
+          "confidence": 0.9
+        },
+        "total": {
+          "value": 101.52,
+          "confidence": 0.95,
+          "bbox": {
+            "x": 0.8521190261496844,
+            "y": 0.3284438775510204,
+            "w": 0.05139765554553652,
+            "h": 0.01403061224489796
+          }
+        },
+        "bbox": {
+          "x": 0.08656447249774572,
+          "y": 0.3112244897959184,
+          "w": 0.8259693417493237,
+          "h": 0.032525510204081634
+        },
+        "key": "A2"
+      },
+      {
+        "code": {
+          "value": "C-4012",
+          "confidence": 0.96
+        },
+        "description": {
+          "value": "Azúcar blanco saco 10 kg",
+          "confidence": 0.97
+        },
+        "quantity": {
+          "value": 1,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.563570784490532,
+            "y": 0.34630102040816324,
+            "w": 0.012623985572587917,
+            "h": 0.01403061224489796
+          }
+        },
+        "unit": {
+          "value": "ud",
+          "confidence": 0.97
+        },
+        "unitPrice": {
+          "value": 11.8,
+          "confidence": 0.96,
+          "bbox": {
+            "x": 0.6943192064923355,
+            "y": 0.34630102040816324,
+            "w": 0.04328223624887286,
+            "h": 0.01403061224489796
+          }
+        },
+        "vatRate": {
+          "value": null,
+          "confidence": 0.9
+        },
+        "total": {
+          "value": 11.8,
+          "confidence": 0.96,
+          "bbox": {
+            "x": 0.8611361587015329,
+            "y": 0.34630102040816324,
+            "w": 0.04238052299368801,
+            "h": 0.01403061224489796
+          }
+        },
+        "bbox": {
+          "x": 0.08656447249774572,
+          "y": 0.3450255102040816,
+          "w": 0.8259693417493237,
+          "h": 0.01594387755102041
+        },
+        "key": "A3"
+      },
+      {
+        "code": {
+          "value": "C-1040",
+          "confidence": 0.96
+        },
+        "description": {
+          "value": "Arroz bomba saco 5 kg",
+          "confidence": 0.97
+        },
+        "quantity": {
+          "value": 4,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.5626690712353472,
+            "y": 0.36415816326530615,
+            "w": 0.013525698827772768,
+            "h": 0.01403061224489796
+          }
+        },
+        "unit": {
+          "value": "ud",
+          "confidence": 0.97
+        },
+        "unitPrice": {
+          "value": 14.5,
+          "confidence": 0.96,
+          "bbox": {
+            "x": 0.6943192064923355,
+            "y": 0.36415816326530615,
+            "w": 0.04328223624887286,
+            "h": 0.01403061224489796
+          }
+        },
+        "vatRate": {
+          "value": null,
+          "confidence": 0.9
+        },
+        "total": {
+          "value": 58,
+          "confidence": 0.96,
+          "bbox": {
+            "x": 0.8611361587015329,
+            "y": 0.36415816326530615,
+            "w": 0.04238052299368801,
+            "h": 0.01403061224489796
+          }
+        },
+        "bbox": {
+          "x": 0.08656447249774572,
+          "y": 0.3622448979591837,
+          "w": 0.8259693417493237,
+          "h": 0.016581632653061226
+        },
+        "key": "A4"
+      }
+    ],
+    "totals": {
+      "base": {
+        "value": 316.82,
+        "confidence": 0.96
+      },
+      "vat": {
+        "value": null,
+        "confidence": 0.9
+      },
+      "total": {
+        "value": null,
+        "confidence": 0.9
+      },
+      "bbox": {
+        "x": 0.5410279531109107,
+        "y": 0.40688775510204084,
+        "w": 0.3715058611361587,
+        "h": 0.026785714285714284
+      }
+    },
+    "docType": "albaran"
+  }
+}
