@@ -185,10 +185,10 @@
 - Descartado: dejarlo como fallo conocido para enseñarlo en la entrevista.
 - Por qué: la comprobación aritmética es la señal que separa fallo de lectura de discrepancia real, y no debía nacer con un falso positivo conocido.
 
-## Confianza solo en los importes [por defecto]
+## Confianza solo en los importes [borrador, confirmada]
 - Qué: llevan confianza cantidad, precio e importe de cada línea y los tres totales. Código, descripción, unidad, IVA, descuento y cabecera son valores sueltos.
 - Descartado: confianza en todos los campos, que es lo que pedía el encargo y lo que había hasta ahora.
-- Por qué: al añadir `discount` la gramática de la salida estructurada dejó de compilar; estaba justo en el límite. Así compila y quedan 2 campos anulables de margen (hay 14 de 16). Ninguna regla prevista usa la confianza de un texto. Sin confirmar.
+- Por qué: al añadir `discount` la gramática de la salida estructurada dejó de compilar; estaba justo en el límite. Así compila y quedan 2 campos anulables de margen (hay 14 de 16). Ninguna regla prevista usa la confianza de un texto. Si alguna acaba necesitando la de la unidad, es la primera que vuelve a entrar.
 
 ## Lo siguiente, sin implementar: descuento pactado que la factura no aplica [borrador]
 - Qué: una regla nueva que compara el descuento de la factura con el pactado con ese proveedor, guardado en la memoria de proveedor.
@@ -210,7 +210,57 @@
 - Descartado: probar el cruce solo a través del eval.
 - Por qué: Martín pidió tests de reglas y de política; el cruce es igual de determinista y tiene casos límite. Sin confirmar.
 
+## Limitación: el cruce está validado contra el propio seed [borrador]
+- Qué: el cruce coincide con la verdad del seed en los 26 casos, pero esa verdad la escribió el mismo generador que escribe los documentos.
+- Descartado: presentarlo como precisión del cruce.
+- Por qué: mide si el cruce coincide con mis supuestos, no con la realidad.
+
 ## Hallazgo: la confianza cambia de una extracción a otra [por defecto]
 - Qué: al rehacer la caché, la cantidad corregida a boli pasó de 0,6 a 0,8 y la foto mala de 0,88-0,93 a 0,80-0,85, con los mismos documentos y los valores igual de bien leídos.
 - Descartado: fijar el umbral de confianza baja entre 0,6 y 0,88, que era la idea tras la primera extracción.
 - Por qué: ya no hay un valor que separe la corrección a mano de la foto mala. Para decidir, la confianza solo sirve en los extremos (0 cuando no se lee); lo demás lo tiene que dar la aritmética. Se concreta en la fase de decisión. Sin confirmar.
+
+## Corrección al hallazgo anterior: no era el muestreo [por defecto]
+- Qué: entre aquellas dos tandas cambiaron el prompt y el esquema (se añadió el descuento y se reescribió el párrafo de la confianza). No eran las mismas condiciones, y el hallazgo no lo decía.
+- Descartado: atribuir el salto de 0,6 a 0,8 a la variación entre ejecuciones.
+- Por qué: con prompt y esquema idénticos, la confianza de esa cantidad salió 0,8 las dos veces. Lo que la movió fue el prompt.
+
+## La temperatura no se puede fijar [borrador]
+- Qué: ninguna tanda corrió a temperatura 0. Claude Sonnet 5.5 no admite el parámetro: el SDK lo descarta con el aviso "temperature is not supported by claude-sonnet-5-5 and will be ignored".
+- Descartado: repetir la medida a temperatura 0, que era lo pedido.
+- Por qué: no hay forma de separar por esa vía el muestreo del resto. Lo que sí se puede medir es cuánto cambia una segunda lectura en las mismas condiciones; es el experimento siguiente.
+
+## Experimento de autoconsistencia [borrador]
+- Qué: segunda lectura de los 52 documentos sin caché, comparada campo a campo con la primera. Difieren 0 de 2.240 valores. La confianza declarada cambia en 195 de 840 importes (23,2 %), nunca más de 0,07. Informe en `evals/experiments/self-consistency.md`.
+- Descartado: meterlo en el pipeline. Si sobra tiempo, se cablea solo para los documentos que fallen una comprobación determinista.
+- Por qué: la discrepancia entre lecturas es una medida de incertidumbre que no depende de lo que el modelo diga de sí mismo. Que salga 0 en un seed sintético y legible dice poco de documentos reales.
+
+## La duda de lectura se apoya en lo determinista [borrador]
+- Qué: la confianza del modelo solo se usa en el extremo (`minReadConfidence`, que separa "no leído" de todo lo demás). El resto son reglas: aritmética de línea con descuento, suma de líneas contra el total, coherencia de IVA y rango plausible de precio.
+- Descartado: un umbral fino de confianza.
+- Por qué: la confianza se mueve entre lecturas y mucho más al cambiar el prompt.
+
+## Cada regla declara qué significa su finding [por defecto]
+- Qué: el contrato de regla lleva un campo más, `signal`: `discrepancy` (los dos documentos no dicen lo mismo), `inconsistency` (un documento se contradice), `read-doubt` (no me creo lo leído) o `missing-knowledge` (falta saber algo del proveedor). La política decidirá con eso y con el impacto.
+- Descartado: una tabla en la política que diga qué regla es de qué tipo.
+- Por qué: así añadir una regla sigue siendo un fichero y una línea en el index, sin un tercer sitio que tocar. Amplía el contrato que pidió Martín. Sin confirmar.
+
+## Nueve reglas, no seis [por defecto]
+- Qué: a las seis del encargo se suman `line-arithmetic`, `unreadable-amount` e `implausible-price`, que son las señales de duda.
+- Descartado: meter esas comprobaciones dentro de la política.
+- Por qué: como reglas dejan un finding con su evidencia y su caja, que es lo que la interfaz enseña y lo que el modelo necesita para redactar la pregunta. Sin confirmar.
+
+## Un total que no suma se pregunta, no se escala [por defecto]
+- Qué: `total-mismatch` y `vat-inconsistent` son `inconsistency`. El esperado de `carballo-total-no-suma` pasa de `escalate` a `ask`, aunque sean 30 €.
+- Descartado: tratarlos como discrepancia real y escalar por impacto, que es como estaba en el seed.
+- Por qué: Martín puso la suma de líneas y la coherencia de IVA entre las señales de duda. Una factura que se contradice es el mismo caso que la corrección a mano: se pregunta, y la respuesta puede acabar en reclamación. Sin confirmar.
+
+## Sin equivalencia de unidades no se compara nada de esa línea [por defecto]
+- Qué: si albarán y factura van en unidades distintas y no se sabe convertir, solo salta `unit-incompatible`; las reglas de cantidad y precio se callan.
+- Descartado: comparar los números tal cual.
+- Por qué: 2 cajas contra 12 kg daría una diferencia de cantidad y otra de precio que no existen. Sin confirmar.
+
+## Los tests de reglas van en un solo fichero [por defecto]
+- Qué: `rules.test.ts` tiene al menos un test por regla; `src/testing.ts` construye los documentos de prueba.
+- Descartado: un fichero de test por regla.
+- Por qué: comparten los mismos documentos de ejemplo y son tests de pocas líneas. Sin confirmar.
