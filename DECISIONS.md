@@ -226,41 +226,121 @@
 - Por qué: con prompt y esquema idénticos, la confianza de esa cantidad salió 0,8 las dos veces. Lo que la movió fue el prompt.
 
 ## La temperatura no se puede fijar [borrador]
-- Qué: ninguna tanda corrió a temperatura 0. Claude Sonnet 5.5 no admite el parámetro: el SDK lo descarta con el aviso "temperature is not supported by claude-sonnet-5-5 and will be ignored".
+- Qué: ninguna tanda corrió a temperatura 0. Al pedir `temperature: 0` a `claude-sonnet-5-5`, la llamada responde y el AI SDK devuelve este aviso, copiado literal: `The feature "temperature" is not supported. temperature is not supported by claude-sonnet-5-5 and will be ignored`.
 - Descartado: repetir la medida a temperatura 0, que era lo pedido.
 - Por qué: no hay forma de separar por esa vía el muestreo del resto. Lo que sí se puede medir es cuánto cambia una segunda lectura en las mismas condiciones; es el experimento siguiente.
 
 ## Experimento de autoconsistencia [borrador]
 - Qué: segunda lectura de los 52 documentos sin caché, comparada campo a campo con la primera. Difieren 0 de 2.240 valores. La confianza declarada cambia en 195 de 840 importes (23,2 %), nunca más de 0,07. Informe en `evals/experiments/self-consistency.md`.
 - Descartado: meterlo en el pipeline. Si sobra tiempo, se cablea solo para los documentos que fallen una comprobación determinista.
-- Por qué: la discrepancia entre lecturas es una medida de incertidumbre que no depende de lo que el modelo diga de sí mismo. Que salga 0 en un seed sintético y legible dice poco de documentos reales.
+- Por qué: la discrepancia entre lecturas es una medida de incertidumbre que no depende de lo que el modelo diga de sí mismo. Cero diferencias en 2.240 valores es, antes que un buen resultado del modelo, la prueba de que mi corpus es fácil.
 
 ## La duda de lectura se apoya en lo determinista [borrador]
 - Qué: la confianza del modelo solo se usa en el extremo (`minReadConfidence`, que separa "no leído" de todo lo demás). El resto son reglas: aritmética de línea con descuento, suma de líneas contra el total, coherencia de IVA y rango plausible de precio.
 - Descartado: un umbral fino de confianza.
 - Por qué: la confianza se mueve entre lecturas y mucho más al cambiar el prompt.
 
-## Cada regla declara qué significa su finding [por defecto]
+## Cada regla declara qué significa su finding [borrador, confirmada]
 - Qué: el contrato de regla lleva un campo más, `signal`: `discrepancy` (los dos documentos no dicen lo mismo), `inconsistency` (un documento se contradice), `read-doubt` (no me creo lo leído) o `missing-knowledge` (falta saber algo del proveedor). La política decidirá con eso y con el impacto.
 - Descartado: una tabla en la política que diga qué regla es de qué tipo.
-- Por qué: así añadir una regla sigue siendo un fichero y una línea en el index, sin un tercer sitio que tocar. Amplía el contrato que pidió Martín. Sin confirmar.
+- Por qué: así añadir una regla sigue siendo un fichero y una línea en el index, sin un tercer sitio que tocar. Amplía el contrato que pidió Martín, que lo prefiere a lo que pidió.
 
 ## Nueve reglas, no seis [por defecto]
 - Qué: a las seis del encargo se suman `line-arithmetic`, `unreadable-amount` e `implausible-price`, que son las señales de duda.
 - Descartado: meter esas comprobaciones dentro de la política.
 - Por qué: como reglas dejan un finding con su evidencia y su caja, que es lo que la interfaz enseña y lo que el modelo necesita para redactar la pregunta. Sin confirmar.
 
-## Un total que no suma se pregunta, no se escala [por defecto]
+## Un total que no suma se pregunta, no se escala [borrador, confirmada]
 - Qué: `total-mismatch` y `vat-inconsistent` son `inconsistency`. El esperado de `carballo-total-no-suma` pasa de `escalate` a `ask`, aunque sean 30 €.
 - Descartado: tratarlos como discrepancia real y escalar por impacto, que es como estaba en el seed.
-- Por qué: Martín puso la suma de líneas y la coherencia de IVA entre las señales de duda. Una factura que se contradice es el mismo caso que la corrección a mano: se pregunta, y la respuesta puede acabar en reclamación. Sin confirmar.
+- Por qué: Martín puso la suma de líneas y la coherencia de IVA entre las señales de duda. Una factura que se contradice es el mismo caso que la corrección a mano: se pregunta, y la respuesta puede acabar en reclamación o en pedir factura rectificativa.
 
 ## Sin equivalencia de unidades no se compara nada de esa línea [por defecto]
 - Qué: si albarán y factura van en unidades distintas y no se sabe convertir, solo salta `unit-incompatible`; las reglas de cantidad y precio se callan.
 - Descartado: comparar los números tal cual.
 - Por qué: 2 cajas contra 12 kg daría una diferencia de cantidad y otra de precio que no existen. Sin confirmar.
 
-## Los tests de reglas van en un solo fichero [por defecto]
+## Los tests de reglas van en un solo fichero [borrador, confirmada]
 - Qué: `rules.test.ts` tiene al menos un test por regla; `src/testing.ts` construye los documentos de prueba.
 - Descartado: un fichero de test por regla.
-- Por qué: comparten los mismos documentos de ejemplo y son tests de pocas líneas. Sin confirmar.
+- Por qué: comparten los mismos documentos de ejemplo, y en el live-coding añadir regla y test es abrir dos ficheros, no cuatro. Si pasa de unas 400 líneas se parte por tipo de `signal`, no antes.
+
+## `severity` fuera del contrato de regla [borrador]
+- Qué: se quita `severity` de reglas y findings.
+- Descartado: mantenerlo por si la interfaz lo necesita.
+- Por qué: lo pedí, no servía, fuera. No lo usaba nada. Si la interfaz necesita jerarquía visual, la saca de `signal` e `impactEur`, que son datos reales, y no de una etiqueta puesta a mano.
+
+## La política es una función pura con las ramas en orden [por defecto]
+- Qué: `decide(findings)` mira por este orden: sin findings pasa; fallo de lectura, documento ambiguo y falta de conocimiento preguntan; y solo si no hay ninguna duda se mira el importe: 20 € o más de cobro de más escala, menos pregunta.
+- Descartado: decidir línea a línea, de modo que una duda en una línea no frene la reclamación de otra.
+- Por qué: una duda en cualquier parte del documento impide escalar, que es la regla de Martín llevada a su forma más simple. Coste: un sello en una línea retrasa una reclamación clara en otra. Sin confirmar.
+
+## Siete motivos de decisión [por defecto]
+- Qué: cada decisión lleva un `reason`: `all_matched`, `overcharge`, `minor_discrepancy`, `undercharge`, `document_ambiguous`, `low_confidence_read` o `missing_knowledge`. El esperado de cada caso del seed lo incluye.
+- Descartado: solo los dos que nombró Martín.
+- Por qué: el motivo se ve en la interfaz y se comprueba en el eval, así que todo `ask` necesita el suyo. Sin confirmar.
+
+## El cobro de más no se compensa con lo que va a favor [por defecto]
+- Qué: el importe que decide si se escala es la suma de los cobros de más; una línea entregada y sin facturar no resta.
+- Descartado: usar el neto.
+- Por qué: un cobro de más en una línea no debe quedar tapado por un despiste a favor en otra. Sin confirmar.
+
+## Líneas sueltas a los dos lados es falta de conocimiento [por defecto]
+- Qué: si hay una línea sin pareja en el albarán y otra en la factura, `missing-line` marca sus findings como `missing-knowledge` y se pregunta si son el mismo producto. Si solo sobra a un lado, es discrepancia.
+- Descartado: escalar directamente la línea facturada sin pareja.
+- Por qué: es el caso del alias. Sin esto, BOCARTE contra Boquerón fresco escalaría como mercancía cobrada y no entregada. Sin confirmar.
+
+## Los botones los pone el código; el modelo solo redacta [por defecto]
+- Qué: `options.ts` decide las opciones de cada caso y cuatro efectos posibles: aceptar, reclamar (con el importe), pedir factura rectificativa y enseñar un hecho. `question.ts` redacta la pregunta con Claude Haiku 4.5 a partir de los findings y de esas opciones.
+- Descartado: que el modelo proponga las respuestas.
+- Por qué: el efecto de un botón tiene que ser el mismo se redacte como se redacte la pregunta. Sin confirmar.
+
+## Un `ask` que se convierte en dinero [borrador]
+- Qué: la decisión guarda cuánto habría que reclamar aunque el caso se pregunte. En la corrección a mano las opciones son "Recibí 18: reclamar 31,20 €" y "Recibí 24: la factura está bien".
+- Descartado: opciones genéricas de aceptar o rechazar.
+- Por qué: Martín quiere enseñar que la respuesta a una pregunta acaba en reclamación.
+
+## Pedir factura rectificativa [borrador]
+- Qué: es una opción cuando la factura se contradice, no se puede leer o deja algo sin cobrar.
+- Descartado: ofrecer solo confirmar el importe.
+- Por qué: una factura que no cuadra está mal emitida, y en hostelería eso se resuelve pidiéndola de nuevo.
+
+## No se corrige a mano un valor leído [por defecto]
+- Qué: ante un importe ilegible las opciones son dar la factura por buena o pedir rectificativa; no hay un campo para escribir el valor correcto.
+- Descartado: corregir el valor y volver a decidir.
+- Por qué: obligaba a guardar correcciones por campo y aplicarlas antes del cruce. Queda fuera por tiempo. Sin confirmar.
+
+## La pregunta también va en caché [por defecto]
+- Qué: se guarda por hash del modelo, el prompt y los findings. Con los mismos findings no se vuelve a llamar al modelo.
+- Descartado: redactarla en cada ejecución.
+- Por qué: el eval y el reset de la demo corren sin red. Sin confirmar.
+
+## Observabilidad dentro de la Fase 5 [borrador]
+- Qué: una traza por caso con un span por etapa (extraer albarán, extraer factura, cruzar, reglas, decidir) y una generation por llamada real al modelo, con modelo, tokens y coste. La traza lleva el proveedor como etiqueta. `obs/langfuse.ts` es lo único que conoce Langfuse.
+- Descartado: hacerla como fase aparte.
+- Por qué: quedan cuatro días y hay que llegar al frontend y al informe del eval.
+
+## Las extracciones de caché no cuentan como generation [por defecto]
+- Qué: si la extracción sale de caché, su span lleva `cached: true` y lo que costó en su día, pero no se registra una llamada al modelo.
+- Descartado: registrarla igualmente para ver coste por documento en Langfuse.
+- Por qué: Langfuse sumaría un gasto que no se ha producido. Sin confirmar.
+
+## El trazado se enciende a propósito [por defecto]
+- Qué: si nadie llama a `startTracing()`, el pipeline corre igual y no envía nada. El eval y el reset no lo llaman.
+- Descartado: trazar siempre.
+- Por qué: el eval tiene que correr sin red. Sin confirmar.
+
+## Enseñar un hecho vuelve a decidir los casos abiertos del proveedor [por defecto]
+- Qué: al aprender un hecho se reprocesan los casos de ese proveedor que no pasaron solos; al revocarlo, los que se apoyaron en él. Lo que un humano ya cerró no se toca.
+- Descartado: aplicar el hecho solo a los casos nuevos.
+- Por qué: es lo que se ve en la demo: una respuesta resuelve los otros casos de ese proveedor. Sin confirmar.
+
+## Solo las respuestas que enseñan algo entran en el dataset [por defecto]
+- Qué: toda resolución deja un score en Langfuse. Al dataset solo va el caso cuando se aprende un hecho, con sus dos esperados, y solo si esos documentos no estaban ya.
+- Descartado: añadir un caso por cada resolución, que es lo que pedía el encargo.
+- Por qué: aceptar o reclamar no dice qué debería decidir el sistema la próxima vez; un hecho sí. Sin confirmar.
+
+## `npm run reset` deja la cola de la demo montada [por defecto]
+- Qué: borra `data/`, quita del dataset los casos de correcciones y procesa los 26 del seed desde caché, sin hechos.
+- Descartado: dejar `data/` vacío.
+- Por qué: el punto de partida de la demo es la cola con casos sin resolver. Sin confirmar.
