@@ -5,24 +5,26 @@
 export type BBox = { x: number; y: number; w: number; h: number }
 export type DocType = 'albaran' | 'factura'
 
-// La confianza la declara el modelo: no es una probabilidad calibrada.
-export type Field<T> = { value: T | null; confidence: number }
-export type Text = { value: string; confidence: number }
-// Solo los tres campos que se disputan llevan caja propia. Es opcional: si
+// Un número con la confianza que declara el modelo, que no es una
+// probabilidad calibrada. Solo la llevan los importes que se disputan.
+export type Amount = { value: number | null; confidence: number }
+// Los tres números de una línea llevan además caja propia. Es opcional: si
 // es null se usa la caja de la línea.
-export type Located = Field<number> & { bbox: BBox | null }
+export type Located = Amount & { bbox: BBox | null }
 
 export type Line = {
   // Se asigna por posición al extraer ("A1", "F3"). Solo sirve para que un
   // finding señale una línea de esta extracción. No es la identidad del
   // producto: el eval resuelve eso por su cuenta.
   key: string
-  code: Field<string>
-  description: Text
+  code: string | null
+  description: string
   quantity: Located
-  unit: Field<string>
+  unit: string | null
   unitPrice: Located
-  vatRate: Field<number>
+  vatRate: number | null
+  // Descuento de la línea en %. El importe es cantidad × precio × (1 − descuento).
+  discount: number | null
   total: Located
   bbox: BBox
 }
@@ -30,16 +32,17 @@ export type Line = {
 export type ExtractedDoc = {
   // Lo sabe quien sube el documento, no lo decide el modelo.
   docType: DocType
-  supplier: Text
-  supplierTaxId: Field<string>
-  number: Text
-  date: Text
+  supplier: string
+  supplierTaxId: string | null
+  number: string
+  date: string
   lines: Line[]
-  totals: { base: Field<number>; vat: Field<number>; total: Field<number>; bbox: BBox }
+  totals: { base: Amount; vat: Amount; total: Amount; bbox: BBox }
 }
 
 export type MatchResult = {
-  pairs: { albaran: Line; factura: Line; score: number }[]
+  // `by` dice con qué se casaron; `score` solo baja de 1 si fue por descripción.
+  pairs: { albaran: Line; factura: Line; by: 'code' | 'alias' | 'description'; score: number }[]
   onlyAlbaran: Line[]
   onlyFactura: Line[]
 }
