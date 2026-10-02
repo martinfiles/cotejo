@@ -10,6 +10,9 @@ export type Product = {
   unit: string
   unitPrice: number
   vatRate: number
+  // Descuento en % que el proveedor aplica a este producto. Los dos
+  // documentos lo imprimen en su propia columna.
+  discount?: number
   // Cómo escribe el albarán esta misma línea. No es una discrepancia.
   albaranAs?: { description?: string; unit?: string; factor?: number }
   // El hecho que hay que saber del proveedor para ver que es la misma línea.
@@ -33,6 +36,14 @@ export type Tweaks = {
   // 'tilted' es una foto torcida pero nítida; 'poor' además está oscura,
   // desenfocada y con una sombra cruzando la tabla.
   photo?: 'tilted' | 'poor'
+  // Formato de báscula: los kilos con punto y tres decimales ("1.250" es un
+  // kilo y cuarto, "3.000" son tres kilos).
+  scaleFormat?: boolean
+  // Las líneas salen en orden inverso al del pedido.
+  reversed?: boolean
+  // Tabla apretada: sin rayas entre filas, descripción estrecha que salta de
+  // línea y números alineados abajo, pegados a la fila siguiente.
+  cramped?: boolean
 }
 
 export type SeedCase = {
@@ -72,6 +83,9 @@ const vino: Product = { id: 'vino-mencia', code: 'C-3105', description: 'Vino ti
 const cerveza: Product = { id: 'cerveza-lager', code: 'C-3320', description: 'Cerveza lager caja 24x33 cl', unit: 'caja', unitPrice: 18.9, vatRate: 21 }
 const azucar: Product = { id: 'azucar-blanco', code: 'C-4012', description: 'Azúcar blanco saco 10 kg', unit: 'ud', unitPrice: 11.8, vatRate: 10 }
 
+const aceite: Product = { id: 'aceite-girasol', code: 'C-5120', description: 'Aceite de girasol alto oleico para freidora, garrafa 25 L, uso hostelería', unit: 'ud', unitPrice: 48.5, vatRate: 10 }
+const vinoCrianza: Product = { id: 'vino-crianza', code: 'C-3110', description: 'Vino tinto Mencía crianza 75 cl, caja de 6 botellas', unit: 'caja', unitPrice: 56.4, vatRate: 21, discount: 10 }
+
 const pedidoCarballo: SeedCase['lines'] = [
   [arroz, 4],
   [tomateLata, 12],
@@ -104,6 +118,19 @@ const merluza: Product = {
 const rape: Product = {
   id: 'rape-cola', code: null, description: 'Rape cola sin piel', unit: 'kg', unitPrice: 19.9, vatRate: 10,
   albaranAs: { description: 'RAPE COLA S/P' },
+}
+const pulpo: Product = {
+  id: 'pulpo-cocido', code: null, description: 'Pulpo cocido pata', unit: 'kg', unitPrice: 38, vatRate: 10,
+  albaranAs: { description: 'PULPO COCIDO PATA' },
+}
+// Mismo producto en dos formatos: solo los distingue "5 kg" frente a "0,5 kg".
+const berberecho5: Product = {
+  id: 'berberecho-5kg', code: null, description: 'Berberecho malla 5 kg', unit: 'ud', unitPrice: 42, vatRate: 10,
+  albaranAs: { description: 'BERBERECHO MALLA 5 KG' },
+}
+const berberecho05: Product = {
+  id: 'berberecho-05kg', code: null, description: 'Berberecho malla 0,5 kg', unit: 'ud', unitPrice: 4.9, vatRate: 10,
+  albaranAs: { description: 'BERBERECHO MALLA 0,5 KG' },
 }
 const mejillon: Product = {
   id: 'mejillon-roca', code: null, description: 'Mejillón de roca', unit: 'kg', unitPrice: 3.2, vatRate: 10,
@@ -323,5 +350,22 @@ export const cases: SeedCase[] = [
     albaran: { handwritten: true },
     expected: { findings: [], decision: 'pass' },
     note: 'Albarán de talonario con las líneas escritas a mano. Todo cuadra.',
+  },
+  {
+    id: 'rianorte-trampa-bascula',
+    supplier: riaNorte,
+    lines: [[pulpo, 1.25], [rape, 3], [berberecho5, 2], [berberecho05, 6]],
+    albaran: { scaleFormat: true, reversed: true },
+    expected: { findings: [], decision: 'pass' },
+    note: 'Documento limpio con trampas. El albarán da los kilos en formato de báscula ("1.250", "3.000") y lista las líneas en orden inverso; hay dos berberechos que solo se distinguen por el formato. Todo cuadra.',
+  },
+  {
+    id: 'carballo-trampa-columnas',
+    supplier: carballo,
+    lines: [[aceite, 3], [vinoCrianza, 2], [azucar, 1], [arroz, 4]],
+    albaran: { cramped: true },
+    factura: { cramped: true },
+    expected: { findings: [], decision: 'pass' },
+    note: 'Documento limpio con trampas. Columna de descuento (10 % en el vino), una descripción que salta a dos líneas con los números pegados a la fila siguiente, y una línea de una sola unidad donde precio e importe coinciden. Todo cuadra.',
   },
 ]

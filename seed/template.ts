@@ -9,6 +9,7 @@ export type DocLine = {
   unit: string
   unitPrice: number
   vatRate: number
+  discount: number
   total: number
   stamped: NonNullable<Tweaks['stamp']>['field'] | null
   // Cantidad impresa que quedó tachada al corregirla a mano.
@@ -28,6 +29,8 @@ export type DocData = {
   photo: Tweaks['photo'] | null
   handwritten: boolean
   stainOnTotal: boolean
+  scaleFormat: boolean
+  cramped: boolean
 }
 
 const money = (n: number) =>
@@ -36,23 +39,32 @@ const qty = (n: number) => n.toLocaleString('es-ES', { maximumFractionDigits: 2 
 
 const STAMP = '<span class="stamp">RECIBIDO<br>CONFORME</span>'
 
-function row(line: DocLine, withCodes: boolean, withVat: boolean) {
+type Columns = { codes: boolean; vat: boolean; discount: boolean; scale: boolean }
+
+function row(line: DocLine, cols: Columns) {
+  const quantity = cols.scale && line.unit === 'kg' ? line.quantity.toFixed(3) : qty(line.quantity)
   const cell = (field: DocLine['stamped'], text: string) =>
     `<td class="num">${text}${line.stamped === field ? STAMP : ''}</td>`
   return `<tr>
-    ${withCodes ? `<td>${line.code ?? ''}</td>` : ''}
+    ${cols.codes ? `<td>${line.code ?? ''}</td>` : ''}
     <td>${line.description}</td>
-    ${cell('quantity', line.crossedOut === null ? qty(line.quantity) : `<s>${qty(line.crossedOut)}</s><span class="pen">${qty(line.quantity)}</span>`)}
+    ${cell('quantity', line.crossedOut === null ? quantity : `<s>${qty(line.crossedOut)}</s><span class="pen">${quantity}</span>`)}
     <td>${line.unit}</td>
     ${cell('unitPrice', money(line.unitPrice))}
-    ${withVat ? `<td class="num">${line.vatRate}</td>` : ''}
+    ${cols.discount ? `<td class="num">${line.discount || ''}</td>` : ''}
+    ${cols.vat ? `<td class="num">${line.vatRate}</td>` : ''}
     ${cell('total', money(line.total))}
   </tr>`
 }
 
 export function renderHtml(doc: DocData) {
   const isFactura = doc.docType === 'factura'
-  const withCodes = doc.lines.some((l) => l.code)
+  const cols: Columns = {
+    codes: doc.lines.some((l) => l.code),
+    vat: isFactura,
+    discount: doc.lines.some((l) => l.discount),
+    scale: doc.scaleFormat,
+  }
 
   const totals = isFactura
     ? `<tr><td>Base imponible</td><td class="num">${money(doc.base)}</td></tr>
@@ -82,6 +94,8 @@ export function renderHtml(doc: DocData) {
   .lines th.num { text-align: right; }
   .totals { width: 45%; margin: 8mm 0 0 auto; }
   .totals td { padding: 5px 8px; }
+  body.cramped .lines td { border-bottom: 0; vertical-align: bottom; padding-top: 1px; padding-bottom: 1px; }
+  body.cramped .lines td:nth-child(2) { width: 215px; }
   .grand td { border-top: 2px solid #1a1a1a; font-weight: bold; font-size: 15px; }
   .stamp {
     position: absolute; right: -6px; top: -9px; padding: 5px 9px;
@@ -128,7 +142,7 @@ export function renderHtml(doc: DocData) {
   }
 </style>
 </head>
-<body class="${[doc.photo && 'photo', doc.photo === 'poor' && 'poor', doc.handwritten && 'handwritten'].filter(Boolean).join(' ')}">
+<body class="${[doc.photo && 'photo', doc.photo === 'poor' && 'poor', doc.handwritten && 'handwritten', doc.cramped && 'cramped'].filter(Boolean).join(' ')}">
 <div class="sheet">
   <header>
     <div>
@@ -149,15 +163,16 @@ export function renderHtml(doc: DocData) {
   </div>
   <table class="lines">
     <thead><tr>
-      ${withCodes ? '<th>Código</th>' : ''}
+      ${cols.codes ? '<th>Código</th>' : ''}
       <th>Descripción</th>
       <th class="num">Cantidad</th>
       <th>Ud.</th>
-      <th class="num">Precio</th>
+      <th class="num">${doc.cramped ? 'P. unit.' : 'Precio'}</th>
+      ${cols.discount ? '<th class="num">Dto.</th>' : ''}
       ${isFactura ? '<th class="num">IVA %</th>' : ''}
-      <th class="num">Importe</th>
+      <th class="num">${doc.cramped ? 'Neto' : 'Importe'}</th>
     </tr></thead>
-    <tbody>${doc.lines.map((l) => row(l, withCodes, isFactura)).join('')}</tbody>
+    <tbody>${doc.lines.map((l) => row(l, cols)).join('')}</tbody>
   </table>
   <table class="totals">${totals}</table>
 </div>

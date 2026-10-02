@@ -31,10 +31,13 @@ function buildDoc(c: SeedCase, caseIndex: number, docType: DocType): DocData {
       unit: as?.unit ?? product.unit,
       unitPrice,
       vatRate: product.vatRate,
-      total: round2(printedQuantity * unitPrice),
+      discount: product.discount ?? 0,
+      total: round2(printedQuantity * unitPrice * (1 - (product.discount ?? 0) / 100)),
       stamped: tweaks.stamp?.line === n ? tweaks.stamp.field : null,
     }]
   })
+
+  if (tweaks.reversed) lines.reverse()
 
   const base = round2(lines.reduce((sum, l) => sum + l.total, 0))
   const vat = round2(lines.reduce((sum, l) => sum + (l.total * l.vatRate) / 100, 0) + (tweaks.vatDelta ?? 0))
@@ -56,6 +59,8 @@ function buildDoc(c: SeedCase, caseIndex: number, docType: DocType): DocData {
     photo: tweaks.photo ?? null,
     handwritten: tweaks.handwritten ?? false,
     stainOnTotal: tweaks.stainOnTotal ?? false,
+    scaleFormat: tweaks.scaleFormat ?? false,
+    cramped: tweaks.cramped ?? false,
   }
 }
 
