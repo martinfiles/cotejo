@@ -19,17 +19,19 @@ function buildDoc(c: SeedCase, caseIndex: number, docType: DocType): DocData {
     const as = docType === 'albaran' ? product.albaranAs : undefined
     const factor = as?.factor ?? 1
     const set = tweaks.set?.line === n ? tweaks.set : undefined
-    const lineQuantity = set?.quantity ?? quantity / factor
+    const corrected = tweaks.correctedByHand?.line === n ? tweaks.correctedByHand.quantity : null
+    const printedQuantity = set?.quantity ?? quantity / factor
     const unitPrice = set?.unitPrice ?? round2(product.unitPrice * factor)
     return [{
       productId: product.id,
       code: product.code,
       description: as?.description ?? product.description,
-      quantity: lineQuantity,
+      quantity: corrected ?? printedQuantity,
+      crossedOut: corrected === null ? null : printedQuantity,
       unit: as?.unit ?? product.unit,
       unitPrice,
       vatRate: product.vatRate,
-      total: round2(lineQuantity * unitPrice),
+      total: round2(printedQuantity * unitPrice),
       stamped: tweaks.stamp?.line === n ? tweaks.stamp.field : null,
     }]
   })
@@ -51,7 +53,9 @@ function buildDoc(c: SeedCase, caseIndex: number, docType: DocType): DocData {
     base,
     vat,
     total,
-    photo: tweaks.photo ?? false,
+    photo: tweaks.photo ?? null,
+    handwritten: tweaks.handwritten ?? false,
+    stainOnTotal: tweaks.stainOnTotal ?? false,
   }
 }
 
@@ -60,7 +64,7 @@ async function renderFile(browser: Browser, doc: DocData, dir: string) {
   await page.setContent(renderHtml(doc))
   const path = `${dir}/${doc.docType}.${doc.photo ? 'jpg' : 'pdf'}`
   if (doc.photo) {
-    await page.screenshot({ path, type: 'jpeg', quality: 60, fullPage: true })
+    await page.screenshot({ path, type: 'jpeg', quality: doc.photo === 'poor' ? 30 : 60, fullPage: true })
   } else {
     // Chromium escribe la hora de creación en el PDF. Se fija para que
     // regenerar dé los mismos bytes y el hash del fichero no cambie. La

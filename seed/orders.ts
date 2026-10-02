@@ -23,7 +23,16 @@ export type Tweaks = {
   totalDelta?: number
   vatDelta?: number
   stamp?: { line: number; field: 'quantity' | 'unitPrice' | 'total' }
-  photo?: boolean
+  // Mancha que tapa el importe total del documento.
+  stainOnTotal?: boolean
+  // Cantidad impresa tachada y corregida a boli. El importe de la línea se
+  // queda como estaba impreso, así que deja de cuadrar con la cantidad.
+  correctedByHand?: { line: number; quantity: number }
+  // Talonario: cabecera impresa y líneas escritas a mano.
+  handwritten?: boolean
+  // 'tilted' es una foto torcida pero nítida; 'poor' además está oscura,
+  // desenfocada y con una sombra cruzando la tabla.
+  photo?: 'tilted' | 'poor'
 }
 
 export type SeedCase = {
@@ -189,7 +198,7 @@ export const cases: SeedCase[] = [
     id: 'carballo-foto',
     supplier: carballo,
     lines: pedidoCarballo,
-    albaran: { photo: true },
+    albaran: { photo: 'tilted' },
     expected: { findings: [], decision: 'pass' },
     note: 'Albarán fotografiado torcido. Todo cuadra.',
   },
@@ -197,7 +206,7 @@ export const cases: SeedCase[] = [
     id: 'carballo-foto-cantidad',
     supplier: carballo,
     lines: pedidoCarballo,
-    albaran: { photo: true },
+    albaran: { photo: 'tilted' },
     factura: { set: { line: 1, quantity: 6 } },
     expected: { findings: [{ ruleId: 'quantity-mismatch', productId: 'arroz-bomba' }], decision: 'escalate' },
     note: 'Albarán fotografiado torcido; se entregan 4 sacos de arroz y se facturan 6: 29,00 €.',
@@ -273,5 +282,46 @@ export const cases: SeedCase[] = [
     expected: { findings: [{ ruleId: 'unit-price-mismatch', productId: 'vino-mencia' }], decision: 'escalate' },
     boundary: true,
     note: 'La factura sube el vino de 5,20 a 6,05 en 24 botellas: 20,40 €, justo por encima de un umbral de 20 €.',
+  },
+  {
+    id: 'carballo-mancha-total',
+    supplier: carballo,
+    lines: pedidoCarballo,
+    factura: { stainOnTotal: true },
+    expected: { findings: [], decision: 'ask' },
+    note: 'Una mancha tapa el total de la factura. No hay discrepancia, pero no se puede comprobar que el total suma.',
+  },
+  {
+    id: 'carballo-corregido-a-mano',
+    supplier: carballo,
+    lines: pedidoCarballo,
+    albaran: { correctedByHand: { line: 3, quantity: 18 } },
+    expected: { findings: [{ ruleId: 'quantity-mismatch', productId: 'vino-mencia' }], decision: 'ask' },
+    note: 'En el albarán las 24 botellas están tachadas y pone 18 a boli; la factura cobra 24: 31,20 €. El impacto es de escalar, pero el dato sale de una corrección a mano y el importe impreso de esa línea ya no cuadra: se pregunta.',
+  },
+  {
+    id: 'carballo-foto-mala',
+    supplier: carballo,
+    lines: pedidoCarballo,
+    albaran: { photo: 'poor' },
+    expected: { findings: [], decision: 'pass' },
+    note: 'Albarán fotografiado con poca luz, desenfocado y con sombra. Se lee con esfuerzo y todo cuadra.',
+  },
+  {
+    id: 'carballo-foto-mala-precio',
+    supplier: carballo,
+    lines: pedidoCarballo,
+    albaran: { photo: 'poor' },
+    factura: { set: { line: 4, unitPrice: 23.9 } },
+    expected: { findings: [{ ruleId: 'unit-price-mismatch', productId: 'cerveza-lager' }], decision: 'escalate' },
+    note: 'Misma foto mala; la factura sube la cerveza de 18,90 a 23,90 en 6 cajas: 30,00 €.',
+  },
+  {
+    id: 'rianorte-manuscrito',
+    supplier: riaNorte,
+    lines: [[merluza, 6], [rape, 5], [mejillon, 12]],
+    albaran: { handwritten: true },
+    expected: { findings: [], decision: 'pass' },
+    note: 'Albarán de talonario con las líneas escritas a mano. Todo cuadra.',
   },
 ]

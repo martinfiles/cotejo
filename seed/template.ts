@@ -11,6 +11,8 @@ export type DocLine = {
   vatRate: number
   total: number
   stamped: NonNullable<Tweaks['stamp']>['field'] | null
+  // Cantidad impresa que quedó tachada al corregirla a mano.
+  crossedOut: number | null
 }
 
 export type DocData = {
@@ -23,7 +25,9 @@ export type DocData = {
   base: number
   vat: number
   total: number
-  photo: boolean
+  photo: Tweaks['photo'] | null
+  handwritten: boolean
+  stainOnTotal: boolean
 }
 
 const money = (n: number) =>
@@ -38,7 +42,7 @@ function row(line: DocLine, withCodes: boolean, withVat: boolean) {
   return `<tr>
     ${withCodes ? `<td>${line.code ?? ''}</td>` : ''}
     <td>${line.description}</td>
-    ${cell('quantity', qty(line.quantity))}
+    ${cell('quantity', line.crossedOut === null ? qty(line.quantity) : `<s>${qty(line.crossedOut)}</s><span class="pen">${qty(line.quantity)}</span>`)}
     <td>${line.unit}</td>
     ${cell('unitPrice', money(line.unitPrice))}
     ${withVat ? `<td class="num">${line.vatRate}</td>` : ''}
@@ -53,7 +57,7 @@ export function renderHtml(doc: DocData) {
   const totals = isFactura
     ? `<tr><td>Base imponible</td><td class="num">${money(doc.base)}</td></tr>
        <tr><td>Cuota IVA</td><td class="num">${money(doc.vat)}</td></tr>
-       <tr class="grand"><td>Total factura</td><td class="num">${money(doc.total)} €</td></tr>`
+       <tr class="grand"><td>Total factura</td><td class="num${doc.stainOnTotal ? ' stained' : ''}">${money(doc.total)} €${doc.stainOnTotal ? '<span class="stain"></span>' : ''}</td></tr>`
     : `<tr class="grand"><td>Total albarán (sin IVA)</td><td class="num">${money(doc.base)} €</td></tr>`
 
   return `<!doctype html>
@@ -95,9 +99,36 @@ export function renderHtml(doc: DocData) {
     box-shadow: 14px 22px 40px rgba(0, 0, 0, 0.55);
     filter: blur(0.45px) contrast(0.93);
   }
+  /* Foto mala: más torcida, oscura, desenfocada y con una sombra cruzando la tabla. */
+  body.poor { background: #1f1913; }
+  body.poor .sheet {
+    position: relative;
+    transform: rotateX(13deg) rotateZ(5.5deg);
+    filter: blur(0.9px) brightness(0.72) contrast(0.85);
+  }
+  body.poor .sheet::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(100deg, transparent 30%, rgba(0, 0, 0, 0.45) 48%, rgba(0, 0, 0, 0.38) 60%, transparent 75%);
+  }
+
+  /* Tinta de boli: correcciones a mano y albaranes de talonario. */
+  .pen, body.handwritten .lines td, body.handwritten .totals td {
+    font-family: 'Ink Free', 'Segoe Print', cursive; color: #1b2f7a;
+  }
+  .pen { display: inline-block; margin-left: 5px; font-size: 19px; line-height: 1; transform: rotate(-6deg); }
+  .lines s { text-decoration: line-through 2px #1b2f7a; }
+  body.handwritten .lines td, body.handwritten .totals td { font-size: 18px; }
+
+  td.stained { position: relative; }
+  .stain {
+    position: absolute; right: -14px; top: -10px; width: 118px; height: 46px;
+    border-radius: 47% 53% 58% 42% / 55% 44% 56% 45%;
+    background: radial-gradient(ellipse at 45% 50%, #4a2c12 0%, #5b3717 55%, rgba(91, 55, 23, 0.85) 80%, rgba(91, 55, 23, 0) 100%);
+    transform: rotate(-4deg);
+  }
 </style>
 </head>
-<body class="${doc.photo ? 'photo' : ''}">
+<body class="${[doc.photo && 'photo', doc.photo === 'poor' && 'poor', doc.handwritten && 'handwritten'].filter(Boolean).join(' ')}">
 <div class="sheet">
   <header>
     <div>
