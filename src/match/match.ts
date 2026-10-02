@@ -1,15 +1,11 @@
 import { config } from '../config'
+import { normalize, sameCode } from '../text'
 import type { ExtractedDoc, Fact, Line, MatchResult } from '../types'
 
 // Cruce determinista de las líneas del albarán con las de la factura. Aquí no
 // hay modelo: si dos líneas se casan, se puede explicar por qué.
 
 const STOPWORDS = new Set(['de', 'del', 'la', 'el', 'en', 'con'])
-
-const normalize = (text: string) =>
-  text.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim()
-
-const sameCode = (a: string, b: string) => a.replace(/[^a-z0-9]/gi, '').toLowerCase() === b.replace(/[^a-z0-9]/gi, '').toLowerCase()
 
 // Palabras y números de una descripción. "0,5" se queda entero para que no
 // se confunda con "5", y las letras sueltas ("S/P", "24x33") se descartan.
