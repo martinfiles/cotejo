@@ -1,0 +1,325 @@
+{
+  "fingerprint": "3c4bcaccc26fdb2f7a639bc2114273f3bf25a27be03690158599a8312cec363a",
+  "model": "claude-sonnet-5-5",
+  "usage": {
+    "inputTokens": 7264,
+    "outputTokens": 1317
+  },
+  "latencyMs": 11570,
+  "doc": {
+    "supplier": {
+      "value": "Distribuciones Carballo S.L.",
+      "confidence": 0.93
+    },
+    "supplierTaxId": {
+      "value": "B15004417",
+      "confidence": 0.8
+    },
+    "number": {
+      "value": "ALB-26-4121",
+      "confidence": 0.85
+    },
+    "date": {
+      "value": "2026-09-22",
+      "confidence": 0.85
+    },
+    "lines": [
+      {
+        "code": {
+          "value": "C-1040",
+          "confidence": 0.88
+        },
+        "description": {
+          "value": "Arroz bomba saco 5 kg",
+          "confidence": 0.92
+        },
+        "quantity": {
+          "value": 4,
+          "confidence": 0.93,
+          "bbox": {
+            "x": 0.5826666666666667,
+            "y": 0.2819047619047619,
+            "w": 0.010666666666666666,
+            "h": 0.009523809523809525
+          }
+        },
+        "unit": {
+          "value": "ud",
+          "confidence": 0.93
+        },
+        "unitPrice": {
+          "value": 14.5,
+          "confidence": 0.9,
+          "bbox": {
+            "x": 0.704,
+            "y": 0.2895238095238095,
+            "w": 0.03133333333333333,
+            "h": 0.011428571428571429
+          }
+        },
+        "vatRate": {
+          "value": null,
+          "confidence": 0.95
+        },
+        "total": {
+          "value": 58,
+          "confidence": 0.9,
+          "bbox": {
+            "x": 0.788,
+            "y": 0.29523809523809524,
+            "w": 0.03266666666666666,
+            "h": 0.010476190476190476
+          }
+        },
+        "bbox": {
+          "x": 0.20333333333333334,
+          "y": 0.2571428571428571,
+          "w": 0.6186666666666667,
+          "h": 0.05
+        },
+        "key": "A1"
+      },
+      {
+        "code": {
+          "value": "C-2210",
+          "confidence": 0.88
+        },
+        "description": {
+          "value": "Tomate triturado lata 2,5 kg",
+          "confidence": 0.92
+        },
+        "quantity": {
+          "value": 12,
+          "confidence": 0.92,
+          "bbox": {
+            "x": 0.574,
+            "y": 0.30238095238095236,
+            "w": 0.015333333333333332,
+            "h": 0.010476190476190476
+          }
+        },
+        "unit": {
+          "value": "ud",
+          "confidence": 0.93
+        },
+        "unitPrice": {
+          "value": 3.95,
+          "confidence": 0.88,
+          "bbox": {
+            "x": 0.708,
+            "y": 0.310952380952381,
+            "w": 0.026,
+            "h": 0.010952380952380953
+          }
+        },
+        "vatRate": {
+          "value": null,
+          "confidence": 0.95
+        },
+        "total": {
+          "value": 47.4,
+          "confidence": 0.9,
+          "bbox": {
+            "x": 0.786,
+            "y": 0.31666666666666665,
+            "w": 0.03266666666666666,
+            "h": 0.010476190476190476
+          }
+        },
+        "bbox": {
+          "x": 0.198,
+          "y": 0.27904761904761904,
+          "w": 0.622,
+          "h": 0.049523809523809526
+        },
+        "key": "A2"
+      },
+      {
+        "code": {
+          "value": "C-3105",
+          "confidence": 0.88
+        },
+        "description": {
+          "value": "Vino tinto Mencía joven 75 cl",
+          "confidence": 0.9
+        },
+        "quantity": {
+          "value": 24,
+          "confidence": 0.92,
+          "bbox": {
+            "x": 0.5706666666666667,
+            "y": 0.3242857142857143,
+            "w": 0.016,
+            "h": 0.010476190476190476
+          }
+        },
+        "unit": {
+          "value": "botella",
+          "confidence": 0.9
+        },
+        "unitPrice": {
+          "value": 5.2,
+          "confidence": 0.88,
+          "bbox": {
+            "x": 0.7053333333333334,
+            "y": 0.33285714285714285,
+            "w": 0.02666666666666667,
+            "h": 0.010476190476190476
+          }
+        },
+        "vatRate": {
+          "value": null,
+          "confidence": 0.95
+        },
+        "total": {
+          "value": 124.8,
+          "confidence": 0.9,
+          "bbox": {
+            "x": 0.778,
+            "y": 0.3380952380952381,
+            "w": 0.04,
+            "h": 0.010952380952380953
+          }
+        },
+        "bbox": {
+          "x": 0.19333333333333333,
+          "y": 0.3,
+          "w": 0.6253333333333333,
+          "h": 0.05095238095238095
+        },
+        "key": "A3"
+      },
+      {
+        "code": {
+          "value": "C-3320",
+          "confidence": 0.86
+        },
+        "description": {
+          "value": "Cerveza lager caja 24x33 cl",
+          "confidence": 0.9
+        },
+        "quantity": {
+          "value": 6,
+          "confidence": 0.92,
+          "bbox": {
+            "x": 0.5746666666666667,
+            "y": 0.3466666666666667,
+            "w": 0.010666666666666666,
+            "h": 0.01
+          }
+        },
+        "unit": {
+          "value": "caja",
+          "confidence": 0.92
+        },
+        "unitPrice": {
+          "value": 18.9,
+          "confidence": 0.88,
+          "bbox": {
+            "x": 0.6966666666666667,
+            "y": 0.3547619047619048,
+            "w": 0.03266666666666666,
+            "h": 0.010952380952380953
+          }
+        },
+        "vatRate": {
+          "value": null,
+          "confidence": 0.95
+        },
+        "total": {
+          "value": 113.4,
+          "confidence": 0.9,
+          "bbox": {
+            "x": 0.776,
+            "y": 0.36047619047619045,
+            "w": 0.04,
+            "h": 0.010952380952380953
+          }
+        },
+        "bbox": {
+          "x": 0.18866666666666668,
+          "y": 0.3219047619047619,
+          "w": 0.6286666666666667,
+          "h": 0.05095238095238095
+        },
+        "key": "A4"
+      },
+      {
+        "code": {
+          "value": "C-4012",
+          "confidence": 0.86
+        },
+        "description": {
+          "value": "Azúcar blanco saco 10 kg",
+          "confidence": 0.9
+        },
+        "quantity": {
+          "value": 2,
+          "confidence": 0.92,
+          "bbox": {
+            "x": 0.5713333333333334,
+            "y": 0.36904761904761907,
+            "w": 0.010666666666666666,
+            "h": 0.01
+          }
+        },
+        "unit": {
+          "value": "ud",
+          "confidence": 0.92
+        },
+        "unitPrice": {
+          "value": 11.8,
+          "confidence": 0.88,
+          "bbox": {
+            "x": 0.6946666666666667,
+            "y": 0.37714285714285717,
+            "w": 0.03266666666666666,
+            "h": 0.010952380952380953
+          }
+        },
+        "vatRate": {
+          "value": null,
+          "confidence": 0.95
+        },
+        "total": {
+          "value": 23.6,
+          "confidence": 0.9,
+          "bbox": {
+            "x": 0.78,
+            "y": 0.3823809523809524,
+            "w": 0.034,
+            "h": 0.010952380952380953
+          }
+        },
+        "bbox": {
+          "x": 0.18333333333333332,
+          "y": 0.3438095238095238,
+          "w": 0.632,
+          "h": 0.05047619047619047
+        },
+        "key": "A5"
+      }
+    ],
+    "totals": {
+      "base": {
+        "value": 367.2,
+        "confidence": 0.9
+      },
+      "vat": {
+        "value": null,
+        "confidence": 0.93
+      },
+      "total": {
+        "value": null,
+        "confidence": 0.93
+      },
+      "bbox": {
+        "x": 0.5266666666666666,
+        "y": 0.4023809523809524,
+        "w": 0.29333333333333333,
+        "h": 0.0380952380952381
+      }
+    },
+    "docType": "albaran"
+  }
+}

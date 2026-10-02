@@ -1,0 +1,215 @@
+{
+  "fingerprint": "3c4bcaccc26fdb2f7a639bc2114273f3bf25a27be03690158599a8312cec363a",
+  "model": "claude-sonnet-5-5",
+  "usage": {
+    "inputTokens": 5454,
+    "outputTokens": 838
+  },
+  "latencyMs": 7593,
+  "doc": {
+    "supplier": {
+      "value": "Pescados Ría Norte S.L.",
+      "confidence": 0.97
+    },
+    "supplierTaxId": {
+      "value": "B27003358",
+      "confidence": 0.95
+    },
+    "number": {
+      "value": "ALB-26-4123",
+      "confidence": 0.95
+    },
+    "date": {
+      "value": "2026-09-24",
+      "confidence": 0.95
+    },
+    "lines": [
+      {
+        "code": {
+          "value": null,
+          "confidence": 0.95
+        },
+        "description": {
+          "value": "MERLUZA PINCHO 2/3",
+          "confidence": 0.93
+        },
+        "quantity": {
+          "value": 6,
+          "confidence": 0.93,
+          "bbox": {
+            "x": 0.5843101893597836,
+            "y": 0.26785714285714285,
+            "w": 0.016230838593327322,
+            "h": 0.016581632653061226
+          }
+        },
+        "unit": {
+          "value": "kg",
+          "confidence": 0.95
+        },
+        "unitPrice": {
+          "value": 11.5,
+          "confidence": 0.95,
+          "bbox": {
+            "x": 0.7249774571686204,
+            "y": 0.2684948979591837,
+            "w": 0.05229936880072137,
+            "h": 0.017857142857142856
+          }
+        },
+        "vatRate": {
+          "value": null,
+          "confidence": 0.95
+        },
+        "total": {
+          "value": 69,
+          "confidence": 0.95,
+          "bbox": {
+            "x": 0.8449053201082056,
+            "y": 0.2684948979591837,
+            "w": 0.058611361587015326,
+            "h": 0.017857142857142856
+          }
+        },
+        "bbox": {
+          "x": 0.08566275924256087,
+          "y": 0.25956632653061223,
+          "w": 0.8277727682596934,
+          "h": 0.035076530612244895
+        },
+        "key": "A1"
+      },
+      {
+        "code": {
+          "value": null,
+          "confidence": 0.95
+        },
+        "description": {
+          "value": "RAPE COLA S/P",
+          "confidence": 0.93
+        },
+        "quantity": {
+          "value": 5,
+          "confidence": 0.93,
+          "bbox": {
+            "x": 0.5861136158701533,
+            "y": 0.3048469387755102,
+            "w": 0.014427412082957619,
+            "h": 0.015306122448979591
+          }
+        },
+        "unit": {
+          "value": "kg",
+          "confidence": 0.95
+        },
+        "unitPrice": {
+          "value": 19.9,
+          "confidence": 0.93,
+          "bbox": {
+            "x": 0.7195671776375113,
+            "y": 0.3042091836734694,
+            "w": 0.057709648331830475,
+            "h": 0.017857142857142856
+          }
+        },
+        "vatRate": {
+          "value": null,
+          "confidence": 0.95
+        },
+        "total": {
+          "value": 99.5,
+          "confidence": 0.93,
+          "bbox": {
+            "x": 0.8431018935978359,
+            "y": 0.3042091836734694,
+            "w": 0.060414788097385035,
+            "h": 0.017857142857142856
+          }
+        },
+        "bbox": {
+          "x": 0.08566275924256087,
+          "y": 0.29528061224489793,
+          "w": 0.8277727682596934,
+          "h": 0.035076530612244895
+        },
+        "key": "A2"
+      },
+      {
+        "code": {
+          "value": null,
+          "confidence": 0.95
+        },
+        "description": {
+          "value": "MEJILLON ROCA",
+          "confidence": 0.93
+        },
+        "quantity": {
+          "value": 12,
+          "confidence": 0.95,
+          "bbox": {
+            "x": 0.5716862037871957,
+            "y": 0.3405612244897959,
+            "w": 0.028854824165915238,
+            "h": 0.016581632653061226
+          }
+        },
+        "unit": {
+          "value": "kg",
+          "confidence": 0.95
+        },
+        "unitPrice": {
+          "value": 3.2,
+          "confidence": 0.95,
+          "bbox": {
+            "x": 0.7285843101893598,
+            "y": 0.3399234693877551,
+            "w": 0.04869251577998197,
+            "h": 0.017857142857142856
+          }
+        },
+        "vatRate": {
+          "value": null,
+          "confidence": 0.95
+        },
+        "total": {
+          "value": 38.4,
+          "confidence": 0.95,
+          "bbox": {
+            "x": 0.8376916140667268,
+            "y": 0.3399234693877551,
+            "w": 0.06582506762849413,
+            "h": 0.017857142857142856
+          }
+        },
+        "bbox": {
+          "x": 0.08566275924256087,
+          "y": 0.3309948979591837,
+          "w": 0.8277727682596934,
+          "h": 0.03571428571428571
+        },
+        "key": "A3"
+      }
+    ],
+    "totals": {
+      "base": {
+        "value": 206.9,
+        "confidence": 0.95
+      },
+      "vat": {
+        "value": null,
+        "confidence": 0.95
+      },
+      "total": {
+        "value": null,
+        "confidence": 0.95
+      },
+      "bbox": {
+        "x": 0.5410279531109107,
+        "y": 0.3947704081632653,
+        "w": 0.37240757439134353,
+        "h": 0.0274234693877551
+      }
+    },
+    "docType": "albaran"
+  }
+}

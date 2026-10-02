@@ -1,0 +1,215 @@
+{
+  "fingerprint": "6c4d520de85b1fb6277501ba12771f21a3a16dbb855afa51b815dfdf74f46ffa",
+  "model": "claude-sonnet-5-5",
+  "usage": {
+    "inputTokens": 5453,
+    "outputTokens": 838
+  },
+  "latencyMs": 5689,
+  "doc": {
+    "supplier": {
+      "value": "Pescados Ría Norte S.L.",
+      "confidence": 0.98
+    },
+    "supplierTaxId": {
+      "value": "B27003358",
+      "confidence": 0.97
+    },
+    "number": {
+      "value": "FAC-26-903",
+      "confidence": 0.97
+    },
+    "date": {
+      "value": "2026-09-30",
+      "confidence": 0.97
+    },
+    "lines": [
+      {
+        "code": {
+          "value": null,
+          "confidence": 0.95
+        },
+        "description": {
+          "value": "Merluza de pincho 2-3 kg",
+          "confidence": 0.97
+        },
+        "quantity": {
+          "value": 6,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.49864743011722273,
+            "y": 0.28316326530612246,
+            "w": 0.019837691614066726,
+            "h": 0.012755102040816327
+          }
+        },
+        "unit": {
+          "value": "kg",
+          "confidence": 0.97
+        },
+        "unitPrice": {
+          "value": 11.5,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.6510369702434626,
+            "y": 0.28316326530612246,
+            "w": 0.04238052299368801,
+            "h": 0.012755102040816327
+          }
+        },
+        "vatRate": {
+          "value": 10,
+          "confidence": 0.97
+        },
+        "total": {
+          "value": 69,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.8602344454463481,
+            "y": 0.28316326530612246,
+            "w": 0.04328223624887286,
+            "h": 0.012755102040816327
+          }
+        },
+        "bbox": {
+          "x": 0.08656447249774572,
+          "y": 0.2780612244897959,
+          "w": 0.8268710550045085,
+          "h": 0.026785714285714284
+        },
+        "key": "F1"
+      },
+      {
+        "code": {
+          "value": null,
+          "confidence": 0.95
+        },
+        "description": {
+          "value": "Rape cola sin piel",
+          "confidence": 0.97
+        },
+        "quantity": {
+          "value": 5,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.5067628494138864,
+            "y": 0.3125,
+            "w": 0.011722272317403066,
+            "h": 0.012755102040816327
+          }
+        },
+        "unit": {
+          "value": "kg",
+          "confidence": 0.97
+        },
+        "unitPrice": {
+          "value": 19.9,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.6510369702434626,
+            "y": 0.3125,
+            "w": 0.04238052299368801,
+            "h": 0.012755102040816327
+          }
+        },
+        "vatRate": {
+          "value": 10,
+          "confidence": 0.97
+        },
+        "total": {
+          "value": 99.5,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.8602344454463481,
+            "y": 0.3125,
+            "w": 0.04328223624887286,
+            "h": 0.012755102040816327
+          }
+        },
+        "bbox": {
+          "x": 0.08656447249774572,
+          "y": 0.30612244897959184,
+          "w": 0.8268710550045085,
+          "h": 0.028698979591836735
+        },
+        "key": "F2"
+      },
+      {
+        "code": {
+          "value": null,
+          "confidence": 0.95
+        },
+        "description": {
+          "value": "Mejillón de roca",
+          "confidence": 0.97
+        },
+        "quantity": {
+          "value": 12,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.4995491433724076,
+            "y": 0.34311224489795916,
+            "w": 0.018935978358881875,
+            "h": 0.012755102040816327
+          }
+        },
+        "unit": {
+          "value": "kg",
+          "confidence": 0.97
+        },
+        "unitPrice": {
+          "value": 3.2,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.6600541027953111,
+            "y": 0.34311224489795916,
+            "w": 0.033363390441839495,
+            "h": 0.012755102040816327
+          }
+        },
+        "vatRate": {
+          "value": 10,
+          "confidence": 0.97
+        },
+        "total": {
+          "value": 38.4,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.8602344454463481,
+            "y": 0.34311224489795916,
+            "w": 0.04328223624887286,
+            "h": 0.012755102040816327
+          }
+        },
+        "bbox": {
+          "x": 0.08656447249774572,
+          "y": 0.3360969387755102,
+          "w": 0.8268710550045085,
+          "h": 0.028698979591836735
+        },
+        "key": "F3"
+      }
+    ],
+    "totals": {
+      "base": {
+        "value": 206.9,
+        "confidence": 0.98
+      },
+      "vat": {
+        "value": 20.69,
+        "confidence": 0.98
+      },
+      "total": {
+        "value": 227.59,
+        "confidence": 0.98
+      },
+      "bbox": {
+        "x": 0.5410279531109107,
+        "y": 0.39413265306122447,
+        "w": 0.37240757439134353,
+        "h": 0.07461734693877552
+      }
+    },
+    "docType": "factura"
+  }
+}
