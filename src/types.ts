@@ -49,10 +49,19 @@ export type MatchResult = {
 
 export type Severity = 'low' | 'medium' | 'high'
 
+// Qué le dice un finding a la política de decisión. Lo fija la regla:
+// - discrepancy: los dos documentos, bien leídos, no dicen lo mismo.
+// - inconsistency: un documento se contradice consigo mismo.
+// - read-doubt: no me creo lo que he leído.
+// - missing-knowledge: falta saber algo del proveedor para poder comparar.
+export type Signal = 'discrepancy' | 'inconsistency' | 'read-doubt' | 'missing-knowledge'
+
+// El dato concreto del documento en que se apoya un finding, con la caja
+// para recortarlo en la interfaz.
 export type Evidence = {
   doc: DocType
   field: string
-  value: string | number | null
+  value: number | null
   confidence: number
   bbox: BBox
 }
@@ -60,12 +69,14 @@ export type Evidence = {
 export type Finding = {
   ruleId: string
   severity: Severity
-  // Línea afectada: la de la factura si hay par, la del albarán si solo
-  // existe allí, null si el finding es del documento entero.
+  signal: Signal
+  // Línea afectada: la de la factura si hay par, la del propio documento si
+  // el finding es de uno solo, null si es del documento entero.
   lineKey: string | null
   message: string
+  // Euros que la factura cobra de más (negativo si es a favor). null si el
+  // finding no tiene importe.
   impactEur: number | null
-  confidence: number
   evidence: Evidence[]
 }
 
@@ -93,6 +104,7 @@ export type RuleContext = {
 export type Rule = {
   id: string
   severity: Severity
+  signal: Signal
   description: string
   check(ctx: RuleContext): Finding[]
 }

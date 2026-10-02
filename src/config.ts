@@ -31,6 +31,31 @@ export const config = {
     minSimilarity: 0.6,
   },
 
+  rules: {
+    // Diferencia por debajo de la cual dos precios unitarios son el mismo:
+    // medio céntimo, para absorber el redondeo al céntimo.
+    priceToleranceEur: 0.005,
+    // Lo mismo para importes y sumas, donde el redondeo de varias líneas
+    // puede acumular algún céntimo.
+    amountToleranceEur: 0.05,
+    // Las básculas dan tres decimales; por debajo de un gramo es la misma
+    // cantidad.
+    quantityTolerance: 0.001,
+    // Un precio que se multiplica o divide por más de esto entre albarán y
+    // factura se trata como lectura dudosa (una coma mal leída), no como
+    // subida de precio. Ningún caso del seed llega; valor sin calibrar.
+    maxPriceRatio: 5,
+    // Único uso de la confianza que declara el modelo. Solo en el extremo:
+    // el modelo devuelve 0 cuando no puede leer un importe. La confianza NO
+    // es estable entre ejecuciones y no sirve como umbral fino: con el mismo
+    // prompt se movió hasta 0,07 en una segunda lectura, y al cambiar el
+    // prompt la misma cantidad pasó de 0,6 a 0,8 (ver
+    // evals/experiments/self-consistency.md). Este corte solo separa "no
+    // leído" de todo lo demás. La duda sobre una lectura la dan las reglas
+    // deterministas (aritmética de línea, sumas, IVA, rango de precio).
+    minReadConfidence: 0.5,
+  },
+
   extract: {
     // Sonnet 5.5 siempre razona antes de responder; el esfuerzo regula
     // cuánto. Transcribir una tabla no necesita deliberar.
