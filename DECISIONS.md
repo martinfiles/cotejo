@@ -83,7 +83,7 @@
 ## El esquema del modelo está separado de los tipos de dominio [por defecto]
 - Qué: `extract/schema.ts` es el contrato con el modelo y `types.ts` lo que usa el resto; `normalize()` en `extract.ts` traduce de uno a otro.
 - Descartado: un solo esquema del que se infieren los tipos, que es como estaba en la Fase 1.
-- Por qué: la salida estructurada de Anthropic rechazó el esquema original dos veces: admite 16 campos anulables como mucho (ahora hay 13) y la gramática no compila con las cajas como objetos, sí como listas. Sin confirmar.
+- Por qué: la salida estructurada de Anthropic rechazó el esquema original dos veces: admite 16 campos anulables como mucho y la gramática no compila con las cajas como objetos, sí como listas. Sin confirmar.
 
 ## La caché recuerda con qué se extrajo [por defecto]
 - Qué: cada entrada va por hash del fichero y guarda una huella del modelo, el esfuerzo, el prompt y el esquema. Si la huella no coincide, la entrada no vale.
@@ -165,10 +165,10 @@
 - Descartado: seguir con las fases siguientes probando solo contra documentos limpios.
 - Por qué: Martín pidió ensuciarlos para que fuera más realista. Con el seed limpio, la rama de fallo de lectura solo la ejercitaba el sello.
 
-## Una corrección a mano se pregunta, no se escala [por defecto]
-- Qué: en `carballo-corregido-a-mano` la discrepancia es de 31,20 €, por encima del umbral de escalado, pero el esperado es `ask`.
-- Descartado: esperar `escalate` por impacto.
-- Por qué: la cantidad sale de una corrección a boli y el importe impreso de esa línea ya no cuadra con ella, que es una de las señales de fallo de lectura. Sin confirmar.
+## Una corrección a mano se pregunta con su propio motivo, `document_ambiguous` [borrador]
+- Qué: en `carballo-corregido-a-mano` el esperado es `ask` con motivo `document_ambiguous`, distinto de `low_confidence_read`. Las opciones de la pregunta incluyen el camino a reclamación: si el humano responde "recibí 18", el caso pasa a `escalate` con 31,20 € de cobro de más.
+- Descartado: `escalate` directo por impacto; tratarlo como fallo de lectura.
+- Por qué: el modelo leyó bien el 18 del boli. Es el documento el que se contradice consigo mismo, y eso no lo arregla un OCR mejor: solo lo sabe quien recibió la mercancía. El motivo acaba en la interfaz y en el eval.
 
 ## Hallazgo: ninguna lectura equivocada con confianza alta [borrador]
 - Qué: se añadieron dos casos limpios con trampa estructural (kilos en formato de báscula "1.250" y "3.000", dos productos que solo difieren en "5 kg" y "0,5 kg", líneas en orden inverso, columna de descuento, descripción que salta de línea, precio e importe iguales). El modelo leyó bien los cuatro documentos.
@@ -179,3 +179,38 @@
 - Qué: en `carballo-trampa-columnas` el modelo lee bien precio e importe, pero cantidad × precio no da el importe porque hay un 10 % de descuento y el esquema no tiene ese campo.
 - Descartado: nada todavía; está sin resolver.
 - Por qué: la trampa no engañó al modelo, sino a nuestra señal de fallo de lectura, que mandaría a preguntar un documento que cuadra. Pendiente de que Martín decida si se añade el campo o se deja como fallo conocido.
+
+## Qué se hizo con el hallazgo del descuento [borrador]
+- Qué: se añadió `discount` al esquema y a los tipos, y la aritmética de línea pasa a ser cantidad × precio × (1 − descuento). Se rehízo la caché entera. `carballo-trampa-columnas` se queda en el eval como test de regresión.
+- Descartado: dejarlo como fallo conocido para enseñarlo en la entrevista.
+- Por qué: la comprobación aritmética es la señal que separa fallo de lectura de discrepancia real, y no debía nacer con un falso positivo conocido.
+
+## Confianza solo en los importes [por defecto]
+- Qué: llevan confianza cantidad, precio e importe de cada línea y los tres totales. Código, descripción, unidad, IVA, descuento y cabecera son valores sueltos.
+- Descartado: confianza en todos los campos, que es lo que pedía el encargo y lo que había hasta ahora.
+- Por qué: al añadir `discount` la gramática de la salida estructurada dejó de compilar; estaba justo en el límite. Así compila y quedan 2 campos anulables de margen (hay 14 de 16). Ninguna regla prevista usa la confianza de un texto. Sin confirmar.
+
+## Lo siguiente, sin implementar: descuento pactado que la factura no aplica [borrador]
+- Qué: una regla nueva que compara el descuento de la factura con el pactado con ese proveedor, guardado en la memoria de proveedor.
+- Descartado: hacerla ahora.
+- Por qué: con el descuento modelado se abre una regla que sí vale dinero.
+
+## Cruce por código, luego por alias, luego por parecido [por defecto]
+- Qué: `match.ts` casa primero por código de producto, después por alias aprendido y por último por parecido de descripción (Dice sobre palabras, umbral en `config.ts`). Dos líneas con códigos distintos nunca se casan por descripción.
+- Descartado: un único criterio de parecido para todo.
+- Por qué: el código es lo único inequívoco y cada pareja queda con el motivo por el que se casó (`by`). Sin confirmar.
+
+## Los números de la descripción son el formato [por defecto]
+- Qué: si dos descripciones traen números y no coinciden ("5 kg" frente a "0,5 kg"), no se casan aunque el resto sea igual.
+- Descartado: dejar que el parecido decida.
+- Por qué: sin esta guarda, los dos berberechos de `rianorte-trampa-bascula` se cruzarían cuando solo hay uno a cada lado, y saldría una diferencia de precio falsa. Mejor dos líneas sueltas que un cruce falso. Sin confirmar.
+
+## Tests también para el cruce [por defecto]
+- Qué: `match.test.ts` con seis casos, incluidos los dos ejemplos que justifican el umbral.
+- Descartado: probar el cruce solo a través del eval.
+- Por qué: Martín pidió tests de reglas y de política; el cruce es igual de determinista y tiene casos límite. Sin confirmar.
+
+## Hallazgo: la confianza cambia de una extracción a otra [por defecto]
+- Qué: al rehacer la caché, la cantidad corregida a boli pasó de 0,6 a 0,8 y la foto mala de 0,88-0,93 a 0,80-0,85, con los mismos documentos y los valores igual de bien leídos.
+- Descartado: fijar el umbral de confianza baja entre 0,6 y 0,88, que era la idea tras la primera extracción.
+- Por qué: ya no hay un valor que separe la corrección a mano de la foto mala. Para decidir, la confianza solo sirve en los extremos (0 cuando no se lee); lo demás lo tiene que dar la aritmética. Se concreta en la fase de decisión. Sin confirmar.
