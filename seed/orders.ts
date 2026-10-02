@@ -202,8 +202,8 @@ export const cases: SeedCase[] = [
     supplier: carballo,
     lines: pedidoCarballo,
     factura: { totalDelta: 30 },
-    expected: { findings: [{ ruleId: 'total-mismatch', productId: null }], decision: 'escalate' },
-    note: 'El total impreso de la factura son 30 € más que base + IVA.',
+    expected: { findings: [{ ruleId: 'total-mismatch', productId: null }], decision: 'ask' },
+    note: 'El total impreso de la factura son 30 € más que base + IVA. La factura se contradice consigo misma: se pregunta antes de reclamar, aunque el importe sea de escalar.',
   },
   {
     id: 'carballo-iva',
@@ -218,7 +218,7 @@ export const cases: SeedCase[] = [
     supplier: carballo,
     lines: pedidoCarballo,
     factura: { stamp: { line: 3, field: 'unitPrice' } },
-    expected: { findings: [], decision: 'ask' },
+    expected: { findings: [{ ruleId: 'unreadable-amount', productId: 'vino-mencia' }], decision: 'ask' },
     note: 'Sello encima del precio del vino en la factura. No hay discrepancia, pero el dato no se puede leer.',
   },
   {
@@ -315,7 +315,7 @@ export const cases: SeedCase[] = [
     supplier: carballo,
     lines: pedidoCarballo,
     factura: { stainOnTotal: true },
-    expected: { findings: [], decision: 'ask' },
+    expected: { findings: [{ ruleId: 'unreadable-amount', productId: null }], decision: 'ask' },
     note: 'Una mancha tapa el total de la factura. No hay discrepancia, pero no se puede comprobar que el total suma.',
   },
   {
@@ -323,7 +323,13 @@ export const cases: SeedCase[] = [
     supplier: carballo,
     lines: pedidoCarballo,
     albaran: { correctedByHand: { line: 3, quantity: 18 } },
-    expected: { findings: [{ ruleId: 'quantity-mismatch', productId: 'vino-mencia' }], decision: 'ask' },
+    expected: {
+      findings: [
+        { ruleId: 'quantity-mismatch', productId: 'vino-mencia' },
+        { ruleId: 'line-arithmetic', productId: 'vino-mencia' },
+      ],
+      decision: 'ask',
+    },
     note: 'En el albarán las 24 botellas están tachadas y pone 18 a boli; la factura cobra 24: 31,20 €. No es un fallo de lectura: el documento se contradice consigo mismo (cantidad a boli frente a importe impreso) y solo lo sabe quien recibió la mercancía. Se pregunta; si responde que recibió 18, pasa a reclamación.',
   },
   {
