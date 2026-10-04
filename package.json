@@ -6,6 +6,7 @@
     "seed": "tsx seed/generate.ts",
     "typecheck": "tsc --noEmit",
     "reset": "tsx scripts/reset.ts",
+    "eval": "tsx --env-file-if-exists=.env evals/run.ts",
     "experiment:consistency": "tsx --env-file=.env evals/experiments/self-consistency.ts",
     "test": "node --import tsx --test \"src/**/*.test.ts\""
   },
