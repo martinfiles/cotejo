@@ -1,15 +1,15 @@
-import { appendFile, readFile } from 'node:fs/promises'
+import { readFile, writeFile } from 'node:fs/promises'
 import { score } from './obs/langfuse'
 import { processCase, type CaseResult } from './pipeline'
 import { addFact, getCase, listCases, listFacts, revokeFact, saveCase, type StoredCase } from './store'
 import { normalize } from './text'
-import type { DatasetCase, Expected, Line } from './types'
+import type { DatasetCase, Expected, Line, Outcome, Resolution } from './types'
 
 // El ciclo de vida de un caso: se procesa, queda abierto si no pasa solo, y
 // un humano lo resuelve. Aquí se cierra el bucle del proyecto: una respuesta
-// que enseña algo del proveedor se guarda como hecho, vuelve a decidir los
-// casos abiertos de ese proveedor, deja un score en Langfuse y un caso nuevo
-// en el dataset de evals.
+// que enseña algo del proveedor se guarda como hecho y vuelve a decidir los
+// casos abiertos de ese proveedor. Toda respuesta deja un score en Langfuse y
+// un caso de corrección en el dataset de evals.
 
 const DATASET = 'evals/dataset.jsonl'
 
@@ -44,11 +44,11 @@ export async function resolveCase(id: string, optionIndex: number, factor?: numb
     const fact = await addFact(knowledge, id)
     // Un hecho nuevo puede desbloquear los casos de ese proveedor que no pasaron solos.
     await rerun((c) => c.decision.outcome !== 'pass' && c.factura.doc.supplierTaxId === fact.supplierTaxId)
-    const after = await getCase(id)
-    if (after) await addToDataset(before, after)
+    await addToDataset(before, option, await getCase(id))
   } else {
     const amountEur = option.kind === 'claim' ? before.decision.overchargeEur : null
     await saveCase({ ...before, resolution: { ...option, at: new Date().toISOString(), amountEur } })
+    await addToDataset(before, option, null)
   }
 
   if (before.traceId) await score(before.traceId, 'resolucion_humana', option.kind, option.label)
@@ -61,13 +61,17 @@ export async function revoke(factId: string) {
   if (fact) await rerun((c) => c.facts.some((f) => f.id === factId))
 }
 
-// El caso que enseñó algo entra en el dataset con sus dos esperados: lo que
-// el sistema decidía antes de saberlo y lo que decide después, que es lo que
-// el humano ha dado por bueno.
-async function addToDataset(before: CaseResult & { files: Files }, after: CaseResult) {
-  const existing = (await readFile(DATASET, 'utf8')).trim().split('\n').map((l) => JSON.parse(l) as DatasetCase)
-  if (existing.some((c) => c.albaran === before.files.albaran && c.factura === before.files.factura)) return
+// Qué debería haber decidido el sistema según lo que respondió el humano. Es
+// una etiqueta más ruidosa que un hecho, pero es una etiqueta. Pedir otra
+// factura también es intervenir: cuenta como escalar.
+const LABEL: Record<Exclude<Resolution['kind'], 'learn'>, Outcome> = { accept: 'pass', claim: 'escalate', rectify: 'escalate' }
 
+// Toda respuesta entra en el dataset como corrección, con el efecto que tuvo.
+// Si enseñó un hecho, lleva sus dos esperados: lo que el sistema decidía antes
+// de saberlo y lo que decide después, que el humano ha dado por bueno. Si no,
+// lleva la decisión que el humano dio por buena. El eval las reporta aparte
+// de las del seed.
+async function addToDataset(before: StoredCase, option: Resolution, after: CaseResult | null) {
   // Sin catálogo, el producto de una línea es su código o su descripción. Las
   // dos líneas de un par comparten el de la factura.
   const own = (line: Line) => line.code ?? normalize(line.description)
@@ -82,20 +86,28 @@ async function addToDataset(before: CaseResult & { files: Files }, after: CaseRe
     decision: result.decision.outcome,
     reason: result.decision.reason,
   })
-  const ids = productOf(after)
+  const final = after ?? before
+  const ids = productOf(final)
   const truth = (lines: Line[]) =>
     lines.map((l) => ({ productId: ids.get(l.key)!, code: l.code, description: l.description, quantity: l.quantity.value ?? 0 }))
+  const labelled: Expected | null =
+    option.kind === 'learn' ? null : { ...expected(before, ids), decision: LABEL[option.kind], reason: null }
 
   const entry: DatasetCase = {
     id: `correccion-${before.id}`,
     ...before.files,
-    lines: { albaran: truth(after.albaran.doc.lines), factura: truth(after.factura.doc.lines) },
-    requires: after.facts.map(({ id, learnedAt, fromCase, revokedAt, ...knowledge }) => knowledge),
-    expected: { withoutKnowledge: expected(before, ids), withKnowledge: expected(after, ids) },
+    lines: { albaran: truth(final.albaran.doc.lines), factura: truth(final.factura.doc.lines) },
+    requires: final.facts.map(({ id, learnedAt, fromCase, revokedAt, ...knowledge }) => knowledge),
+    expected: labelled
+      ? { withoutKnowledge: labelled, withKnowledge: labelled }
+      : { withoutKnowledge: expected(before, ids), withKnowledge: expected(final, ids) },
     holdout: false,
     boundary: false,
     source: 'correction',
-    note: `Añadido al resolver a mano el caso ${before.id}.`,
+    correction: { effect: option.kind, label: option.label, fromCase: before.id, at: new Date().toISOString() },
+    note: `Respuesta a mano al caso ${before.id}: "${option.label}".`,
   }
-  await appendFile(DATASET, JSON.stringify(entry) + '\n')
+  // Un caso que se vuelve a resolver sustituye a su corrección anterior.
+  const others = (await readFile(DATASET, 'utf8')).trim().split('\n').filter((l) => JSON.parse(l).id !== entry.id)
+  await writeFile(DATASET, [...others, JSON.stringify(entry)].join('\n') + '\n')
 }

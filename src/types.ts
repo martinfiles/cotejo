@@ -145,7 +145,9 @@ export type Decision = {
 export type Expected = {
   findings: { ruleId: string; productId: string | null }[]
   decision: Outcome
-  reason: Reason
+  // null cuando la etiqueta viene de una respuesta humana que dice qué había
+  // que decidir pero no por qué.
+  reason: Reason | null
 }
 
 // Lo que cada documento dice de verdad. El eval lo usa para saber a qué
@@ -171,5 +173,7 @@ export type DatasetCase = {
   // Frontera: impacto pegado al umbral de escalado. Se reporta aparte.
   boundary: boolean
   source: 'seed' | 'correction'
+  // Solo en las correcciones: qué respondió el humano y a qué caso.
+  correction?: { effect: Resolution['kind']; label: string; fromCase: string; at: string }
   note: string
 }
