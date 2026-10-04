@@ -1,0 +1,9 @@
+{
+  "text": "En el albarán de Distribuciones Carballo aparece una botella de vino tinto Mencía joven de 75 cl, pero en la factura no se ve claro cuál es su precio. Mira la línea de ese vino en la factura y cuéntame si el precio está legible o si hay que pedir una factura rectificativa.",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 440,
+    "outputTokens": 91
+  },
+  "latencyMs": 1522
+}

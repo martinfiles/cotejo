@@ -1,0 +1,9 @@
+{
+  "text": "En el albarán de Distribuciones Carballo aparece una base de 430,12 euros más IVA, pero en la factura el total es 460,12 euros, lo que supone una diferencia de 30 euros que no coincide con el IVA que debería aplicarse. Mira la factura que tienes delante: ¿esa cantidad de 460,12 euros es correcta según lo que recibiste, o hay un error en el cálculo que deberíamos corregir con una factura rectificativa?",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 439,
+    "outputTokens": 134
+  },
+  "latencyMs": 1929
+}

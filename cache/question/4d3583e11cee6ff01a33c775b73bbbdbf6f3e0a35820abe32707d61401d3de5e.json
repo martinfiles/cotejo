@@ -1,9 +1,0 @@
-{
-  "text": "En el albarán que firmaste pone que recibiste 18 botellas de Vino tinto Mencía joven 75 cl, pero la factura dice 24 botellas. Además, en el albarán la cantidad y el precio unitario no cuadran con el importe total que aparece. Mira el papel que tienes y dime: ¿cuántas botellas recibiste realmente en el reparto?",
-  "model": "claude-haiku-4-5",
-  "usage": {
-    "inputTokens": 433,
-    "outputTokens": 110
-  },
-  "latencyMs": 1771
-}

@@ -1,0 +1,9 @@
+{
+  "text": "Mira el albarán y la factura de Distribuciones Carballo: en el albarán aparece una lata de tomate triturado de 2,5 kg que no está facturada. ¿Recibiste realmente ese producto o fue un error al hacer el albarán?",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 438,
+    "outputTokens": 75
+  },
+  "latencyMs": 1319
+}

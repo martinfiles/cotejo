@@ -1,9 +1,0 @@
-{
-  "text": "En el albarán de Distribuciones Carballo pone que la base es 430,12 € más IVA, pero la factura total suma 460,12 €. Mira la factura que tienes y dime: ¿el IVA que aparece es correcto o crees que hay un error en la suma?",
-  "model": "claude-haiku-4-5",
-  "usage": {
-    "inputTokens": 359,
-    "outputTokens": 83
-  },
-  "latencyMs": 1424
-}

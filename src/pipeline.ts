@@ -73,7 +73,7 @@ export function processCase(input: { id: string; albaran: string; factura: strin
         const options = resolutionsFor(routing, findings, ctx)
         const question =
           routing.outcome === 'ask'
-            ? await draftQuestion({ ...routing, options }, findings, factura.doc.supplier, { cacheOnly: opts.cacheOnly })
+            ? await draftQuestion({ ...routing, options }, findings, ctx.match, factura.doc.supplier, { cacheOnly: opts.cacheOnly })
             : null
         const decision: Decision = { ...routing, options, question: question?.text ?? null }
         s.update({ output: decision })

@@ -1,0 +1,9 @@
+{
+  "text": "Mira el albarán y la factura de Distribuciones Carballo S.L.: según los productos y sus tipos de IVA, la cuota debería ser 62,92 € pero en la factura aparece 66,07 €, una diferencia de 3,15 €. ¿Es posible que haya productos que cambiasen de tipo de IVA o que recuerdes algún ajuste, o prefieres que pidamos una factura rectificativa?",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 446,
+    "outputTokens": 118
+  },
+  "latencyMs": 1724
+}

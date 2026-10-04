@@ -1,9 +1,0 @@
-{
-  "text": "En el albarán de Pescados Ría Norte aparece \"BOCARTE\" pero en la factura pone \"Boquerón fresco\". Mira ambos papeles: ¿son el mismo producto con nombres diferentes, o son cosas distintas que se han mezclado?",
-  "model": "claude-haiku-4-5",
-  "usage": {
-    "inputTokens": 381,
-    "outputTokens": 70
-  },
-  "latencyMs": 1348
-}

@@ -1,9 +1,0 @@
-{
-  "text": "En la factura de Distribuciones Carballo, el precio del Vino tinto Mencía joven de 75 cl no se puede leer bien. Mira la factura que tienes delante y dime: ¿logras ver claramente cuánto vale ese vino, o prefieres que pidamos una factura rectificativa al proveedor?",
-  "model": "claude-haiku-4-5",
-  "usage": {
-    "inputTokens": 360,
-    "outputTokens": 90
-  },
-  "latencyMs": 1882
-}

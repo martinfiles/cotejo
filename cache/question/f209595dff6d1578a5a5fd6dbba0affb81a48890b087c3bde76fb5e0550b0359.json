@@ -1,9 +1,0 @@
-{
-  "text": "En el albarán de Distribuciones Carballo, la cuota de IVA que corresponde según los tipos impositivos de cada producto sería 62,92 €, pero la factura que recibiste refleja 66,07 €. Mira los tipos de IVA que aparecen en tu copia del albarán y comprueba si coinciden con los de la factura. ¿Debemos dar la factura por buena o solicitar una factura rectificativa?",
-  "model": "claude-haiku-4-5",
-  "usage": {
-    "inputTokens": 366,
-    "outputTokens": 120
-  },
-  "latencyMs": 1703
-}

@@ -3,7 +3,8 @@ import { generateText } from 'ai'
 import { readCache, sha256, writeCache } from '../cache'
 import { config, costUsd, type Usage } from '../config'
 import { generation } from '../obs/langfuse'
-import type { Decision, Finding } from '../types'
+import { eur } from '../rules/shared'
+import type { Decision, Finding, MatchResult } from '../types'
 
 // La pregunta al humano la redacta el modelo a partir de los findings. Es lo
 // único que hace aquí: qué se pregunta y qué botones hay ya lo decidió el
@@ -17,26 +18,44 @@ Cómo tiene que ser:
 - Dos o tres frases, en español de España, de tú, sin saludos ni despedidas.
 - Primero qué pasa, con el producto y los números concretos de los hallazgos. Luego la pregunta.
 - La persona tiene el papel delante y poco tiempo: di qué tiene que mirar o recordar.
+- Si te paso "ademas", son cobros de más que están claros en otras líneas. Menciónalos con su importe en una frase, para que no se pierdan aunque la pregunta sea por otra cosa.
 - No uses nombres internos (ni "finding", ni identificadores de reglas o de líneas como "F3").
-- No inventes datos ni propongas respuestas que no estén entre las opciones.
+- No inventes datos ni supongas nada que no esté en ellos (quién firmó, quién hizo el pedido), y no propongas respuestas que no estén entre las opciones.
 - Texto plano, sin listas ni negritas.`
 
 export type Question = { text: string; model: string; usage: Usage; costUsd: number; latencyMs: number; cached: boolean }
 
 type CacheEntry = Omit<Question, 'cached' | 'costUsd'>
 
+// Una duda bloquea el caso entero, pero un cobro de más claro en otra línea no
+// debe perderse de vista. "Claro" es que ni su línea ni su pareja en el otro
+// documento tengan ninguna duda.
+function firmOvercharges(findings: Finding[], match: MatchResult) {
+  const doubtful = new Set(findings.filter((f) => f.signal !== 'discrepancy' && f.lineKey).map((f) => f.lineKey!))
+  for (const { albaran, factura } of match.pairs) {
+    if (doubtful.has(albaran.key) || doubtful.has(factura.key)) [albaran.key, factura.key].forEach((k) => doubtful.add(k))
+  }
+  return findings.filter(
+    (f) => f.signal === 'discrepancy' && (f.impactEur ?? 0) > 0 && f.lineKey && !doubtful.has(f.lineKey),
+  )
+}
+
 export async function draftQuestion(
   decision: Pick<Decision, 'reason' | 'options'>,
   findings: Finding[],
+  match: MatchResult,
   supplier: string,
   opts: { cacheOnly?: boolean; refresh?: boolean } = {},
 ): Promise<Question> {
   const model = config.models.question
+  const isDoubt = findings.some((f) => f.signal !== 'discrepancy')
+  const firm = isDoubt ? firmOvercharges(findings, match) : []
   const prompt = JSON.stringify(
     {
       proveedor: supplier,
       motivo: decision.reason,
-      hallazgos: findings.map((f) => f.message),
+      hallazgos: findings.filter((f) => !firm.includes(f)).map((f) => f.message),
+      ...(firm.length ? { ademas: firm.map((f) => `${f.message} Son ${eur(f.impactEur!)} de más.`) } : {}),
       opciones: decision.options.map((o) => o.factorPrompt ?? o.label),
     },
     null,

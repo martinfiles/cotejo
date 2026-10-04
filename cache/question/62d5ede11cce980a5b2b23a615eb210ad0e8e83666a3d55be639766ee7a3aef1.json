@@ -1,0 +1,9 @@
+{
+  "text": "En el albarán de Frutas Hermanos Vidal aparece una caja de Tomate pera, pero en la factura está expresado en kg y no sabemos cuántos kg contiene una caja de este proveedor. Mira el albarán y la factura que tienes delante: ¿cuántos kg tiene una caja de Tomate pera según lo que recibiste?",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 465,
+    "outputTokens": 100
+  },
+  "latencyMs": 1496
+}
