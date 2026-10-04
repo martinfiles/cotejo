@@ -270,25 +270,35 @@
 - Descartado: mantenerlo por si la interfaz lo necesita.
 - Por qué: lo pedí, no servía, fuera. No lo usaba nada. Si la interfaz necesita jerarquía visual, la saca de `signal` e `impactEur`, que son datos reales, y no de una etiqueta puesta a mano.
 
-## La política es una función pura con las ramas en orden [por defecto]
+## La política es una función pura con las ramas en orden [borrador, confirmada]
 - Qué: `decide(findings)` mira por este orden: sin findings pasa; fallo de lectura, documento ambiguo y falta de conocimiento preguntan; y solo si no hay ninguna duda se mira el importe: 20 € o más de cobro de más escala, menos pregunta.
 - Descartado: decidir línea a línea, de modo que una duda en una línea no frene la reclamación de otra.
-- Por qué: una duda en cualquier parte del documento impide escalar, que es la regla de Martín llevada a su forma más simple. Coste: un sello en una línea retrasa una reclamación clara en otra. Sin confirmar.
+- Por qué: una duda en cualquier parte del documento impide escalar, que es la regla de Martín llevada a su forma más simple. Coste: un sello en una línea retrasa una reclamación clara en otra; para que no se pierda de vista, la pregunta menciona ese cobro de más con su importe.
 
-## Siete motivos de decisión [por defecto]
+## Siete motivos de decisión, repasados [borrador]
 - Qué: cada decisión lleva un `reason`: `all_matched`, `overcharge`, `minor_discrepancy`, `undercharge`, `document_ambiguous`, `low_confidence_read` o `missing_knowledge`. El esperado de cada caso del seed lo incluye.
 - Descartado: solo los dos que nombró Martín.
-- Por qué: el motivo se ve en la interfaz y se comprueba en el eval, así que todo `ask` necesita el suyo. Sin confirmar.
+- Por qué: un motivo se justifica si la persona hace algo distinto con él. Repasados con ese criterio, ninguno se fusiona:
+  | Motivo | Botones | Qué hace la persona |
+  |---|---|---|
+  | `all_matched` | ninguno | nada |
+  | `overcharge` | reclamar, aceptar | reclamar: el caso ya llega escalado |
+  | `minor_discrepancy` | reclamar, aceptar | decidir si una diferencia pequeña merece reclamarse |
+  | `undercharge` | aceptar, rectificativa | decidir si avisa al proveedor de lo que no cobró |
+  | `low_confidence_read` | aceptar, rectificativa (y reclamar si hay cobro de más claro) | mirar el papel y leer lo que el sistema no pudo |
+  | `document_ambiguous` | reclamar, aceptar, rectificativa | decir qué pasó de verdad, que solo sabe quien recibió |
+  | `missing_knowledge` | enseñar el hecho, aceptar | enseñarle algo del proveedor |
+  Los más parecidos son `low_confidence_read` y `document_ambiguous`: comparten botones, pero en uno la persona lee y en el otro recuerda. Además, Martín pidió que fueran motivos distintos.
 
 ## El cobro de más no se compensa con lo que va a favor [por defecto]
 - Qué: el importe que decide si se escala es la suma de los cobros de más; una línea entregada y sin facturar no resta.
 - Descartado: usar el neto.
 - Por qué: un cobro de más en una línea no debe quedar tapado por un despiste a favor en otra. Sin confirmar.
 
-## Líneas sueltas a los dos lados es falta de conocimiento [por defecto]
+## Líneas sueltas a los dos lados es falta de conocimiento [borrador, confirmada]
 - Qué: si hay una línea sin pareja en el albarán y otra en la factura, `missing-line` marca sus findings como `missing-knowledge` y se pregunta si son el mismo producto. Si solo sobra a un lado, es discrepancia.
 - Descartado: escalar directamente la línea facturada sin pareja.
-- Por qué: es el caso del alias. Sin esto, BOCARTE contra Boquerón fresco escalaría como mercancía cobrada y no entregada. Sin confirmar.
+- Por qué: es el caso del alias. Sin esto, BOCARTE contra Boquerón fresco escalaría como mercancía cobrada y no entregada. Y es el camino que alimenta la memoria de proveedor.
 
 ## Los botones los pone el código; el modelo solo redacta [por defecto]
 - Qué: `options.ts` decide las opciones de cada caso y cuatro efectos posibles: aceptar, reclamar (con el importe), pedir factura rectificativa y enseñar un hecho. `question.ts` redacta la pregunta con Claude Haiku 4.5 a partir de los findings y de esas opciones.
@@ -305,10 +315,10 @@
 - Descartado: ofrecer solo confirmar el importe.
 - Por qué: una factura que no cuadra está mal emitida, y en hostelería eso se resuelve pidiéndola de nuevo.
 
-## No se corrige a mano un valor leído [por defecto]
+## No se teclea a mano un importe ilegible [borrador, confirmada]
 - Qué: ante un importe ilegible las opciones son dar la factura por buena o pedir rectificativa; no hay un campo para escribir el valor correcto.
 - Descartado: corregir el valor y volver a decidir.
-- Por qué: obligaba a guardar correcciones por campo y aplicarlas antes del cruce. Queda fuera por tiempo. Sin confirmar.
+- Por qué: son las dos salidas correctas. Si el total no se lee, en España se pide un duplicado; no se teclea un número a ojo.
 
 ## La pregunta también va en caché [por defecto]
 - Qué: se guarda por hash del modelo, el prompt y los findings. Con los mismos findings no se vuelve a llamar al modelo.
@@ -335,12 +345,47 @@
 - Descartado: aplicar el hecho solo a los casos nuevos.
 - Por qué: es lo que se ve en la demo: una respuesta resuelve los otros casos de ese proveedor. Sin confirmar.
 
-## Solo las respuestas que enseñan algo entran en el dataset [por defecto]
-- Qué: toda resolución deja un score en Langfuse. Al dataset solo va el caso cuando se aprende un hecho, con sus dos esperados, y solo si esos documentos no estaban ya.
-- Descartado: añadir un caso por cada resolución, que es lo que pedía el encargo.
-- Por qué: aceptar o reclamar no dice qué debería decidir el sistema la próxima vez; un hecho sí. Sin confirmar.
+## Toda respuesta entra en el dataset como corrección [borrador]
+- Qué: cada resolución deja un score en Langfuse y un caso `source: 'correction'` con el efecto que tuvo. Aceptar etiqueta `pass`, reclamar y pedir rectificativa etiquetan `escalate`, y enseñar un hecho deja los dos esperados, antes y después. Solo los hechos cambian lo que hace el pipeline.
+- Descartado: meter solo las respuestas que enseñan un hecho, que era mi propuesta.
+- Por qué: aceptar cuando el sistema preguntó dice que debió pasar, y reclamar que debió escalar. Son etiquetas más ruidosas que un hecho, pero etiquetas. El eval las reporta aparte y nunca entran en la métrica de cabecera.
 
 ## `npm run reset` deja la cola de la demo montada [por defecto]
 - Qué: borra `data/`, quita del dataset los casos de correcciones y procesa los 26 del seed desde caché, sin hechos.
 - Descartado: dejar `data/` vacío.
 - Por qué: el punto de partida de la demo es la cola con casos sin resolver. Sin confirmar.
+
+## Lo siguiente, sin implementar: decidir línea a línea [borrador]
+- Qué: que una duda en una línea no impida escalar un cobro de más claro en otra.
+- Descartado: hacerlo antes de la entrevista.
+- Por qué: es más correcto, pero no a tres días. Mientras tanto, la pregunta menciona los dos asuntos.
+
+## El score de la resolución llega a Langfuse [borrador]
+- Qué: comprobado que el score `resolucion_humana` (valor `accept`) está en la traza `2ec91ee58a5341004fe1ebd64668ab07`.
+- Descartado: comprobarlo por la interfaz, que pidió Martín; queda para que lo mire él.
+- Por qué: las API de lectura de trazas y scores devuelven 410 en cuentas creadas después del 16-09-2026. Se consultó con `GET /api/public/v2/metrics` (vista `scores-categorical`), que es la que funciona.
+
+## El eval corre el dataset en dos estados [borrador]
+- Qué: sin hechos y con los hechos vigentes en `data/facts.json`. Cada caso se compara con el esperado que le toca según tenga o no los hechos que necesita; un hecho con el factor equivocado cuenta como fallo.
+- Descartado: un segundo estado con todos los hechos del seed.
+- Por qué: con los hechos aprendidos de verdad, el eval enseña lo que ha cambiado por corregir a mano, que es lo que se quiere demostrar.
+
+## `--refresh` rellena lo que falta, no vuelve a leer [por defecto]
+- Qué: `npm run eval` corre solo de caché y falla si falta algo; con `--refresh` llama al modelo para lo que no esté en caché. No repite lo que ya está.
+- Descartado: que `--refresh` vuelva a leer los 52 documentos.
+- Por qué: costaría 1 USD cada vez y no aporta nada mientras no cambien modelo, prompt o esquema; si cambian, la caché ya invalida sola esas entradas. Sin confirmar.
+
+## Qué separa el informe del eval [borrador]
+- Qué: la cabecera es el % de casos resueltos solos en cada estado, junto al acierto de decisión y de motivo y al techo de autonomía del dataset. Aparte van el holdout (con cuántos pasan a escalar), los casos de frontera, las correcciones, la precisión y el recall por regla con su número de casos, las líneas sin alinear y el coste y la latencia por documento.
+- Descartado: mezclar frontera o correcciones en la cabecera.
+- Por qué: lo pidió Martín. El informe dice con esas palabras que lo que mejora al aprender es la autonomía, no la corrección.
+
+## Los dos informes de la demo van al repo [borrador]
+- Qué: `evals/results/demo-antes` (sin hechos: 25 % de casos resueltos solos, 6 de 24) y `demo-despues` (tras enseñar la caja de tomate y el alias del boquerón: 41,7 %, 10 de 24, que es el techo del dataset). Acierto de decisión del 100 % en los dos. En holdout se pasa de 0 a 2 casos resueltos solos, y los otros 2 pasan a escalar por discrepancias que antes no se veían.
+- Descartado: generarlos solo en directo.
+- Por qué: poder comparar aunque algo falle en la demo.
+
+## Un acierto del 100 % no es una buena noticia sin más [borrador]
+- Qué: el eval da 100 % de acierto de decisión y de motivo en los dos estados.
+- Descartado: presentarlo como precisión del sistema.
+- Por qué: el esperado lo escribió el mismo generador que los documentos, y las reglas se ajustaron mirando ese seed. Mide coherencia con mis supuestos; el informe lo dice.
