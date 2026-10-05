@@ -1,0 +1,9 @@
+{
+  "text": "¿Qué hacemos con el Vino tinto Mencía joven 75 cl que no se puede leer el precio en la factura? Necesitamos aclarar cuánto cuesta exactamente para regularizar la compra.",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 177,
+    "outputTokens": 61
+  },
+  "latencyMs": 1159
+}

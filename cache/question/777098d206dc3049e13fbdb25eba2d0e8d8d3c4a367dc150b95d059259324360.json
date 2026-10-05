@@ -1,9 +1,0 @@
-{
-  "text": "Mira el albarán y la factura de Distribuciones Carballo: en el tomate triturado de lata 2,5 kg aparece un precio de 3,95 € en el albarán pero la factura dice 4,05 €. ¿Qué precio es el correcto, el que os pasó el proveedor inicialmente o el que aparece en la factura que habéis recibido?",
-  "model": "claude-haiku-4-5",
-  "usage": {
-    "inputTokens": 458,
-    "outputTokens": 107
-  },
-  "latencyMs": 1882
-}

@@ -1,0 +1,9 @@
+{
+  "text": "¿Qué hago con el tomate triturado lata 2,5 kg que tiene diferencia entre el albarán a 3,95 € por ud y la factura a 4,05 €? ¿Aceptamos la mercancía o reclamamos la discrepancia de precio?",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 189,
+    "outputTokens": 78
+  },
+  "latencyMs": 1435
+}

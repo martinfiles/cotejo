@@ -73,10 +73,14 @@ export function processCase(input: { id: string; albaran: string; factura: strin
         const options = resolutionsFor(routing, findings, ctx)
         const question =
           routing.outcome === 'ask'
-            ? await draftQuestion({ ...routing, options }, findings, ctx.match, factura.doc.supplier, { cacheOnly: opts.cacheOnly })
+            ? await draftQuestion(routing.reason, findings, ctx.match, { cacheOnly: opts.cacheOnly })
             : null
         const decision: Decision = { ...routing, options, question: question?.text ?? null }
-        s.update({ output: decision })
+        // Si el modelo se inventó una cifra, queda dicho en la traza.
+        s.update({
+          output: decision,
+          metadata: question ? { preguntaDePlantilla: question.fromTemplate, cifrasInventadas: question.invented } : undefined,
+        })
         return { decision, question }
       })
 

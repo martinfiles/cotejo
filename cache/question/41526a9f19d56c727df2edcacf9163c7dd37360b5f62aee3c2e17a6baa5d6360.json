@@ -1,9 +1,0 @@
-{
-  "text": "En la factura de Distribuciones Carballo S.L. no se ve claramente el total final, así que no podemos verificar que la cantidad que pagasteis coincida con lo que aparece en el albarán. Mira el pie de la factura donde está el importe total y dinos si se lee bien o si la cifra está borrosa o cortada.",
-  "model": "claude-haiku-4-5",
-  "usage": {
-    "inputTokens": 425,
-    "outputTokens": 90
-  },
-  "latencyMs": 1703
-}

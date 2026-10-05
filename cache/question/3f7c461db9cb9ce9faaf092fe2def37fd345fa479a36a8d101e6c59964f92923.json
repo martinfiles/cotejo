@@ -1,0 +1,9 @@
+{
+  "text": "¿Viste que la base más IVA son 430,12 € pero el total de la factura dice 460,12 €? Hay una diferencia de 30 € que no cuadra. ¿Qué hacemos con esto?",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 177,
+    "outputTokens": 65
+  },
+  "latencyMs": 1225
+}

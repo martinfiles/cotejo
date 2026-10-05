@@ -1,0 +1,9 @@
+{
+  "text": "¿Qué hacemos con el Vino tinto Mencía joven 75 cl que tiene discrepancias entre albarán y factura: el albarán dice 18 botellas pero la factura 24 botellas, y además el albarán marca 93,60 € (18 × 5,20 €) pero aparece un importe de 124,80 €?",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 239,
+    "outputTokens": 101
+  },
+  "latencyMs": 1342
+}

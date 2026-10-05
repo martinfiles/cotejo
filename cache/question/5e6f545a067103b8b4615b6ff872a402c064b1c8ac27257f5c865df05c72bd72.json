@@ -1,9 +1,0 @@
-{
-  "text": "Mira en el albarán y en la factura de Distribuciones Carballo: la cerveza lager caja 24x33 cl aparece con 6 cajas en el albarán pero la factura dice 7 cajas. ¿Recibisteis realmente las 7 cajas o solo fueron 6?",
-  "model": "claude-haiku-4-5",
-  "usage": {
-    "inputTokens": 453,
-    "outputTokens": 84
-  },
-  "latencyMs": 1811
-}

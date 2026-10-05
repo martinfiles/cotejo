@@ -1,9 +1,0 @@
-{
-  "text": "En el albarán que tienes delante pone que recibiste 18 botellas de Vino tinto Mencía joven 75 cl, pero la factura dice 24 botellas. Además, hay una diferencia en el importe: con 18 botellas a 5,20 € cada una salen 93,60 €, pero en el albarán aparece 124,80 €. ¿Cuántas botellas recibiste realmente ese día?",
-  "model": "claude-haiku-4-5",
-  "usage": {
-    "inputTokens": 513,
-    "outputTokens": 123
-  },
-  "latencyMs": 1529
-}

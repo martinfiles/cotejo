@@ -1,0 +1,9 @@
+{
+  "text": "¿Qué hacemos con el Tomate pera que tiene el albarán en caja pero la factura en kg, y no sabemos cuántos kg tiene 1 caja de este proveedor?",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 192,
+    "outputTokens": 54
+  },
+  "latencyMs": 1022
+}

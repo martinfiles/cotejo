@@ -1,0 +1,9 @@
+{
+  "text": "¿Qué hacemos con el Boquerón fresco que aparece en la factura pero no en el albarán, y el BOCARTE que está en el albarán pero no en la factura? ¿Estos productos se recibieron realmente o hay un error en la documentación?",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 190,
+    "outputTokens": 74
+  },
+  "latencyMs": 1211
+}

@@ -10,7 +10,7 @@ export const unitIncompatible: Rule = {
       if (unitFactor(albaran, factura, facts) !== null) return []
       return finding(unitIncompatible, {
         lineKey: factura.key,
-        message: `${factura.description}: el albarán va en ${albaran.unit} y la factura en ${factura.unit}, y no se sabe cuántos ${factura.unit} tiene un ${albaran.unit} de este proveedor.`,
+        message: `${factura.description}: el albarán va en ${albaran.unit} y la factura en ${factura.unit}, y no se sabe cuántos ${factura.unit} tiene 1 ${albaran.unit} de este proveedor.`,
         impactEur: null,
         evidence: [evidence('albaran', albaran, 'quantity'), evidence('factura', factura, 'quantity')],
       })

@@ -1,0 +1,9 @@
+{
+  "text": "¿Qué hacemos con la discrepancia de Cerveza lager caja 24x33 cl? El albarán registra 6 caja pero la factura indica 7 caja. ¿Cuántas cajas recibiste realmente?",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 184,
+    "outputTokens": 68
+  },
+  "latencyMs": 1036
+}

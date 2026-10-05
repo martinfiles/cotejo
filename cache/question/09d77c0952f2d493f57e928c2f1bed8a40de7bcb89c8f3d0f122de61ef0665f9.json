@@ -1,0 +1,9 @@
+{
+  "text": "¿Viste que según los tipos de las líneas la cuota de IVA debería ser 62,92 € y sin embargo en la factura dice 66,07 €? ¿Qué pasó con esa diferencia?",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 184,
+    "outputTokens": 62
+  },
+  "latencyMs": 1087
+}

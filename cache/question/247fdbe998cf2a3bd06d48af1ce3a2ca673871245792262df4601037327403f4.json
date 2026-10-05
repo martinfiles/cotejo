@@ -1,0 +1,9 @@
+{
+  "text": "¿Qué hacemos? No se puede leer el total de la factura.",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 162,
+    "outputTokens": 24
+  },
+  "latencyMs": 666
+}

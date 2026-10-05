@@ -1,0 +1,9 @@
+{
+  "text": "¿Qué pasa con el Tomate triturado lata 2,5 kg que aparece en el albarán pero no figura en la factura? Necesitamos verificar si se cobró o no y regularizar la documentación.",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 178,
+    "outputTokens": 62
+  },
+  "latencyMs": 1234
+}
