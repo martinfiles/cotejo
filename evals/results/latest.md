@@ -1,8 +1,8 @@
 # Informe del eval
 
-Ejecutado el 2026-10-05T09:17:32.069Z, llamando al modelo para lo que faltaba en caché.
+Ejecutado el 2026-10-05T17:24:42.785Z, solo desde caché.
 
-Dataset: 26 casos del seed (4 holdout y 2 en la frontera del umbral) y 1 de correcciones a mano. Hechos aprendidos vigentes: 0.
+Dataset: 26 casos del seed (4 holdout y 2 en la frontera del umbral) y 0 de correcciones a mano. Hechos aprendidos vigentes: 0.
 
 **Esto son señales, no estadística.** Son casos sintéticos y pocos, y el esperado lo escribió el mismo generador que los documentos: un acierto alto dice que el sistema coincide con mis supuestos, no con la realidad. Cada regla se mide sobre el número de casos que aparece en su tabla.
 
@@ -74,22 +74,19 @@ Fuera de la cabecera. Muestran qué pasa justo alrededor del umbral de escalado.
 
 Fuera de la cabecera: son etiquetas puestas por una persona al responder, más ruidosas que las del seed. Solo las que enseñan un hecho cambian el comportamiento del pipeline.
 
-| Caso | Estado | Respuesta | Esperado | Obtenido | Coincide |
-|---|---|---|---|---|---|
-| correccion-carballo-precio | sin-hechos | claim | escalate  | escalate overcharge | sí |
-| correccion-carballo-precio | con-hechos | claim | escalate  | escalate overcharge | sí |
+Todavía no hay ninguna.
 
 ## Coste y latencia
 
-Lo que costó y tardó cada llamada al modelo cuando se hizo, aunque hoy venga de caché (100 % (54 de 54) de los documentos en esta ejecución).
+Lo que costó y tardó cada llamada al modelo cuando se hizo, aunque hoy venga de caché (100 % (52 de 52) de los documentos en esta ejecución).
 
 | Documento | Documentos | Modelo | Coste medio | Latencia media | Latencia p95 |
 |---|---|---|---|---|---|
-| albaran | 27 | claude-sonnet-5-5 | 0.0196 USD | 6.6 s | 9.0 s |
-| factura | 27 | claude-sonnet-5-5 | 0.0190 USD | 6.7 s | 8.9 s |
+| albaran | 26 | claude-sonnet-5-5 | 0.0195 USD | 6.6 s | 9.0 s |
+| factura | 26 | claude-sonnet-5-5 | 0.0190 USD | 6.6 s | 8.9 s |
 
 - Coste medio por documento: 0.0193 USD
 - Coste medio por caso, con la pregunta: 0.0388 USD
 - Coste de redactar las preguntas, en total: 0.0072 USD
-- Coste total del dataset: 1.0488 USD
+- Coste total del dataset: 1.0085 USD
 - Latencia p95 por documento: 8.9 s; por caso: 9.9 s

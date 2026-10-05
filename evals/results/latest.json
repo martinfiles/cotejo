@@ -1,9 +1,9 @@
 {
-  "runAt": "2026-10-05T09:17:32.069Z",
-  "cacheOnly": false,
+  "runAt": "2026-10-05T17:24:42.785Z",
+  "cacheOnly": true,
   "dataset": {
     "seed": 26,
-    "corrections": 1,
+    "corrections": 0,
     "holdout": 4,
     "boundary": 2
   },
@@ -149,26 +149,26 @@
         }
       ],
       "corrections": {
-        "cases": 1,
+        "cases": 0,
         "autonomous": {
           "n": 0,
-          "of": 1,
-          "pct": 0
+          "of": 0,
+          "pct": null
         },
         "ask": {
           "n": 0,
-          "of": 1,
-          "pct": 0
+          "of": 0,
+          "pct": null
         },
         "escalate": {
-          "n": 1,
-          "of": 1,
-          "pct": 100
+          "n": 0,
+          "of": 0,
+          "pct": null
         },
         "decisionCorrect": {
-          "n": 1,
-          "of": 1,
-          "pct": 100
+          "n": 0,
+          "of": 0,
+          "pct": null
         },
         "reasonCorrect": {
           "n": 0,
@@ -314,26 +314,26 @@
         }
       ],
       "corrections": {
-        "cases": 1,
+        "cases": 0,
         "autonomous": {
           "n": 0,
-          "of": 1,
-          "pct": 0
+          "of": 0,
+          "pct": null
         },
         "ask": {
           "n": 0,
-          "of": 1,
-          "pct": 0
+          "of": 0,
+          "pct": null
         },
         "escalate": {
-          "n": 1,
-          "of": 1,
-          "pct": 100
+          "n": 0,
+          "of": 0,
+          "pct": null
         },
         "decisionCorrect": {
-          "n": 1,
-          "of": 1,
-          "pct": 100
+          "n": 0,
+          "of": 0,
+          "pct": null
         },
         "reasonCorrect": {
           "n": 0,
@@ -535,144 +535,39 @@
       "latencyMs": 9042
     }
   ],
-  "corrections": [
-    {
-      "caseId": "correccion-carballo-precio",
-      "state": "sin-hechos",
-      "group": "correction",
-      "holdout": false,
-      "correction": {
-        "effect": "claim",
-        "label": "Reclamar 36,00 € al proveedor",
-        "fromCase": "carballo-precio",
-        "at": "2026-10-05T08:52:25.731Z"
-      },
-      "expected": {
-        "findings": [
-          {
-            "ruleId": "unit-price-mismatch",
-            "productId": "C-3105"
-          }
-        ],
-        "decision": "escalate",
-        "reason": null
-      },
-      "got": {
-        "outcome": "escalate",
-        "reason": "overcharge",
-        "findings": [
-          "unit-price-mismatch:C-3105"
-        ]
-      },
-      "expectedFindings": [
-        "unit-price-mismatch:C-3105"
-      ],
-      "unresolvedLines": [],
-      "docs": [
-        {
-          "docType": "albaran",
-          "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 7814,
-          "cached": true
-        },
-        {
-          "docType": "factura",
-          "model": "claude-sonnet-5-5",
-          "costUsd": 0.020152,
-          "latencyMs": 8873,
-          "cached": true
-        }
-      ],
-      "questionCostUsd": 0,
-      "costUsd": 0.040256,
-      "latencyMs": 8873
-    },
-    {
-      "caseId": "correccion-carballo-precio",
-      "state": "con-hechos",
-      "group": "correction",
-      "holdout": false,
-      "correction": {
-        "effect": "claim",
-        "label": "Reclamar 36,00 € al proveedor",
-        "fromCase": "carballo-precio",
-        "at": "2026-10-05T08:52:25.731Z"
-      },
-      "expected": {
-        "findings": [
-          {
-            "ruleId": "unit-price-mismatch",
-            "productId": "C-3105"
-          }
-        ],
-        "decision": "escalate",
-        "reason": null
-      },
-      "got": {
-        "outcome": "escalate",
-        "reason": "overcharge",
-        "findings": [
-          "unit-price-mismatch:C-3105"
-        ]
-      },
-      "expectedFindings": [
-        "unit-price-mismatch:C-3105"
-      ],
-      "unresolvedLines": [],
-      "docs": [
-        {
-          "docType": "albaran",
-          "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 7814,
-          "cached": true
-        },
-        {
-          "docType": "factura",
-          "model": "claude-sonnet-5-5",
-          "costUsd": 0.020152,
-          "latencyMs": 8873,
-          "cached": true
-        }
-      ],
-      "questionCostUsd": 0,
-      "costUsd": 0.040256,
-      "latencyMs": 8873
-    }
-  ],
+  "corrections": [],
   "cost": {
     "byType": [
       {
         "docType": "albaran",
-        "documents": 27,
+        "documents": 26,
         "models": [
           "claude-sonnet-5-5"
         ],
-        "meanCostUsd": 0.019556962962962967,
-        "meanLatencyMs": 6597.185185185185,
+        "meanCostUsd": 0.019535923076923083,
+        "meanLatencyMs": 6550.384615384615,
         "p95LatencyMs": 9042
       },
       {
         "docType": "factura",
-        "documents": 27,
+        "documents": 26,
         "models": [
           "claude-sonnet-5-5"
         ],
-        "meanCostUsd": 0.019020888888888886,
-        "meanLatencyMs": 6710.7037037037035,
+        "meanCostUsd": 0.018977384615384615,
+        "meanLatencyMs": 6627.538461538462,
         "p95LatencyMs": 8873
       }
     ],
-    "perDocumentUsd": 0.019288925925925925,
-    "perCaseUsd": 0.03884307407407408,
+    "perDocumentUsd": 0.019256653846153847,
+    "perCaseUsd": 0.03878873076923077,
     "questionsUsd": 0.007160999999999994,
-    "totalUsd": 1.0487630000000001,
+    "totalUsd": 1.008507,
     "p95DocumentLatencyMs": 8942,
     "p95CaseLatencyMs": 9910,
     "fromCache": {
-      "n": 54,
-      "of": 54,
+      "n": 52,
+      "of": 52,
       "pct": 100
     }
   },
@@ -1852,58 +1747,6 @@
       "latencyMs": 8444
     },
     {
-      "caseId": "correccion-carballo-precio",
-      "state": "sin-hechos",
-      "group": "correction",
-      "holdout": false,
-      "correction": {
-        "effect": "claim",
-        "label": "Reclamar 36,00 € al proveedor",
-        "fromCase": "carballo-precio",
-        "at": "2026-10-05T08:52:25.731Z"
-      },
-      "expected": {
-        "findings": [
-          {
-            "ruleId": "unit-price-mismatch",
-            "productId": "C-3105"
-          }
-        ],
-        "decision": "escalate",
-        "reason": null
-      },
-      "got": {
-        "outcome": "escalate",
-        "reason": "overcharge",
-        "findings": [
-          "unit-price-mismatch:C-3105"
-        ]
-      },
-      "expectedFindings": [
-        "unit-price-mismatch:C-3105"
-      ],
-      "unresolvedLines": [],
-      "docs": [
-        {
-          "docType": "albaran",
-          "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 7814,
-          "cached": true
-        },
-        {
-          "docType": "factura",
-          "model": "claude-sonnet-5-5",
-          "costUsd": 0.020152,
-          "latencyMs": 8873,
-          "cached": true
-        }
-      ],
-      "questionCostUsd": 0,
-      "costUsd": 0.040256,
-      "latencyMs": 8873
-    },
-    {
       "caseId": "carballo-limpio",
       "state": "con-hechos",
       "group": "headline",
@@ -3076,58 +2919,6 @@
       "questionCostUsd": 0,
       "costUsd": 0.037276000000000004,
       "latencyMs": 8444
-    },
-    {
-      "caseId": "correccion-carballo-precio",
-      "state": "con-hechos",
-      "group": "correction",
-      "holdout": false,
-      "correction": {
-        "effect": "claim",
-        "label": "Reclamar 36,00 € al proveedor",
-        "fromCase": "carballo-precio",
-        "at": "2026-10-05T08:52:25.731Z"
-      },
-      "expected": {
-        "findings": [
-          {
-            "ruleId": "unit-price-mismatch",
-            "productId": "C-3105"
-          }
-        ],
-        "decision": "escalate",
-        "reason": null
-      },
-      "got": {
-        "outcome": "escalate",
-        "reason": "overcharge",
-        "findings": [
-          "unit-price-mismatch:C-3105"
-        ]
-      },
-      "expectedFindings": [
-        "unit-price-mismatch:C-3105"
-      ],
-      "unresolvedLines": [],
-      "docs": [
-        {
-          "docType": "albaran",
-          "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 7814,
-          "cached": true
-        },
-        {
-          "docType": "factura",
-          "model": "claude-sonnet-5-5",
-          "costUsd": 0.020152,
-          "latencyMs": 8873,
-          "cached": true
-        }
-      ],
-      "questionCostUsd": 0,
-      "costUsd": 0.040256,
-      "latencyMs": 8873
     }
   ]
 }
