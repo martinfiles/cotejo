@@ -7,6 +7,7 @@
     "typecheck": "tsc --noEmit",
     "reset": "tsx scripts/reset.ts",
     "eval": "tsx --env-file-if-exists=.env evals/run.ts",
+    "web": "next dev apps/web",
     "experiment:consistency": "tsx --env-file=.env evals/experiments/self-consistency.ts",
     "test": "node --import tsx --test \"src/**/*.test.ts\""
   },
@@ -18,10 +19,15 @@
     "@opentelemetry/sdk-trace-node": "^2.11.0",
     "ai": "^7.0.127",
     "mupdf": "^1.28.1",
+    "next": "^16.3.8",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "zod": "^4.6.5"
   },
   "devDependencies": {
     "@types/node": "^26.6.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "playwright": "^1.63.0",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
