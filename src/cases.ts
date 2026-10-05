@@ -62,9 +62,10 @@ export async function revoke(factId: string) {
 }
 
 // Qué debería haber decidido el sistema según lo que respondió el humano. Es
-// una etiqueta más ruidosa que un hecho, pero es una etiqueta. Pedir otra
-// factura también es intervenir: cuenta como escalar.
-const LABEL: Record<Exclude<Resolution['kind'], 'learn'>, Outcome> = { accept: 'pass', claim: 'escalate', rectify: 'escalate' }
+// una etiqueta más ruidosa que un hecho, pero es una etiqueta. Solo reclamar
+// confirma un cobro de más: pedir rectificativa es un trámite, y el sistema
+// acertó al preguntar.
+const LABEL: Record<Exclude<Resolution['kind'], 'learn'>, Outcome> = { accept: 'pass', claim: 'escalate', rectify: 'ask' }
 
 // Toda respuesta entra en el dataset como corrección, con el efecto que tuvo.
 // Si enseñó un hecho, lleva sus dos esperados: lo que el sistema decidía antes
