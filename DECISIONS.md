@@ -346,9 +346,9 @@
 - Por qué: es lo que se ve en la demo: una respuesta resuelve los otros casos de ese proveedor. Sin confirmar.
 
 ## Toda respuesta entra en el dataset como corrección [borrador]
-- Qué: cada resolución deja un score en Langfuse y un caso `source: 'correction'` con el efecto que tuvo. Aceptar etiqueta `pass`, reclamar y pedir rectificativa etiquetan `escalate`, y enseñar un hecho deja los dos esperados, antes y después. Solo los hechos cambian lo que hace el pipeline.
+- Qué: cada resolución deja un score en Langfuse y un caso `source: 'correction'` con el efecto que tuvo. Aceptar etiqueta `pass`, reclamar etiqueta `escalate`, pedir rectificativa etiqueta `ask`, y enseñar un hecho deja los dos esperados, antes y después. Solo los hechos cambian lo que hace el pipeline.
 - Descartado: meter solo las respuestas que enseñan un hecho, que era mi propuesta.
-- Por qué: aceptar cuando el sistema preguntó dice que debió pasar, y reclamar que debió escalar. Son etiquetas más ruidosas que un hecho, pero etiquetas. El eval las reporta aparte y nunca entran en la métrica de cabecera.
+- Por qué: aceptar cuando el sistema preguntó dice que debió pasar, y reclamar que debió escalar. Pedir rectificativa no: el sistema acertó al preguntar y no hay cobro de más confirmado; etiquetarla `escalate` enseñaría al eval a escalar sin dinero detrás, que es el ruido que hace que un equipo deje de fiarse. Son etiquetas más ruidosas que un hecho y el eval las reporta aparte, nunca en la cabecera.
 
 ## `npm run reset` deja la cola de la demo montada [por defecto]
 - Qué: borra `data/`, quita del dataset los casos de correcciones y procesa los 26 del seed desde caché, sin hechos.
@@ -389,3 +389,33 @@
 - Qué: el eval da 100 % de acierto de decisión y de motivo en los dos estados.
 - Descartado: presentarlo como precisión del sistema.
 - Por qué: el esperado lo escribió el mismo generador que los documentos, y las reglas se ajustaron mirando ese seed. Mide coherencia con mis supuestos; el informe lo dice.
+
+## Frontend: cuatro pantallas, en este orden [borrador]
+- Qué: caso (documentos, líneas cruzadas, discrepancias y recorte del dato), decisión con su motivo y botones, cola de pendientes con lo aprendido, y métricas que leen `evals/results/latest.json`. CSS plano, letra grande, pensado para 1080p.
+- Descartado: librería de componentes, animaciones y modo oscuro.
+- Por qué: es lo que van a ver. Si algo no entraba, se caían las métricas, nunca el recorte.
+
+## El recorte es CSS sobre la imagen de la página [por defecto]
+- Qué: la ruta `/pagina` sirve la misma imagen que vio el modelo (la rasteriza `toPageImage`). El recorte la desplaza y amplía con CSS hasta la caja, con algo de margen y un zoom máximo, y la marca en rojo.
+- Descartado: generar una imagen recortada por cada dato.
+- Por qué: no añade dependencias y la caja del modelo vale tal cual porque es la misma imagen. Sin confirmar.
+
+## Sin JavaScript de cliente [por defecto]
+- Qué: los botones son formularios con server actions (`app/actions.ts`), que llaman a `src/cases.ts` y refrescan la página.
+- Descartado: componentes de cliente con estado.
+- Por qué: menos código que explicar; toda la lógica sigue en `src/`. Sin confirmar.
+
+## La interfaz se arranca desde la raíz del repo [por defecto]
+- Qué: `npm run web` lanza `next dev apps/web` desde la raíz, `next.config.ts` carga el `.env` de la raíz y la app importa `src/` con el alias `@cotejo/*`. Las trazas a Langfuse se encienden en `instrumentation.ts`.
+- Descartado: un paquete aparte para la app.
+- Por qué: así las rutas relativas del pipeline (`data/`, `cache/`, `seed/out/`) valen igual desde la interfaz que desde los scripts. Sin confirmar.
+
+## Sin pantalla de subida [por defecto]
+- Qué: la interfaz trabaja sobre los casos que hay en `data/` (los 26 del seed tras `npm run reset`). No se pueden subir documentos nuevos desde la interfaz.
+- Descartado: la pantalla de subida del encargo original.
+- Por qué: no estaba en el alcance cerrado del frontend. El pipeline ya acepta ficheros de `data/uploads/`. Sin confirmar.
+
+## Next.js sin sus extras [por defecto]
+- Qué: `agentRules: false` y `devIndicators: false` en `next.config.ts`.
+- Descartado: lo que Next trae por defecto.
+- Por qué: Next 16 genera un `AGENTS.md` y un `CLAUDE.md` en la carpeta de la app, que son ficheros de relleno, y pinta un icono en la esquina que sobra al compartir pantalla. Sin confirmar.
