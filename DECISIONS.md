@@ -419,3 +419,19 @@
 - Qué: `agentRules: false` y `devIndicators: false` en `next.config.ts`.
 - Descartado: lo que Next trae por defecto.
 - Por qué: Next 16 genera un `AGENTS.md` y un `CLAUDE.md` en la carpeta de la app, que son ficheros de relleno, y pinta un icono en la esquina que sobra al compartir pantalla. Sin confirmar.
+
+## El modelo redacta la pregunta, pero el código comprueba que no se inventa cifras; si lo hace, no se publica [borrador]
+- Qué: tras redactar, `inventedNumbers` busca cada cifra del texto, con dígitos o con letra delante de una unidad ("una botella"), y la exige en los findings o en su evidencia. Si falta alguna, se publica una plantilla hecha con los mensajes de los findings y la traza lo marca (`preguntaDePlantilla`, `cifrasInventadas`). Ejemplo real: en el caso del sello, Haiku escribió "aparece una botella de vino tinto Mencía joven" cuando el albarán dice 24; ese texto exacto es uno de los tests y ahora se rechaza.
+- Descartado: ajustar el prompt y confiar.
+- Por qué: un número inventado en la pregunta es justo lo que hace que el restaurante deje de fiarse. La comprobación se hace también sobre las preguntas que vienen de caché.
+
+## Prompt de la pregunta reducido al mínimo [borrador]
+- Qué: el modelo recibe solo los mensajes de los findings y tiene prohibido añadir cifras, cantidades, productos o nombres que no estén en ellos.
+- Descartado: pasarle también el proveedor, el motivo y las opciones.
+- Por qué: cuanto menos le llega, menos tiene de dónde sacar algo que no está en los findings. En un primer intento demasiado restrictivo dejó de nombrar productos y cifras; ahora se le pide que use los de los findings. Con este prompt, las 14 preguntas del seed pasan la comprobación.
+
+## Límite de la comprobación de cifras [por defecto]
+- Qué: las cifras escritas con letra solo se detectan delante de una unidad conocida: una lista fija (botella, caja, kg, lata…) más las palabras que siguen a una cifra en los findings.
+- Descartado: tratar cualquier "un" o "una" como número, porque rechazaría casi todas las preguntas.
+- Por qué: "una factura rectificativa" es un artículo, "una botella" es una cantidad. Una unidad que no esté en la lista se escapa. Sin confirmar.
+
