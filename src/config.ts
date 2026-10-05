@@ -30,7 +30,7 @@ export const config = {
     // Parecido mínimo entre dos descripciones (Dice sobre palabras, de 0 a 1)
     // para casarlas cuando no hay código. Con 0,6 casa "RAPE COLA S/P" con
     // "Rape cola sin piel" (0,67) y no casa "Tomate pera" con "Tomate
-    // triturado lata 2,5 kg" (0,29). Elegido a ojo sobre el seed.
+    // triturado lata 2,5 kg" (0,29).
     minSimilarity: 0.6,
   },
 
