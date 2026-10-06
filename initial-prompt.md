@@ -71,16 +71,6 @@ a mano mejora el eval. Es el núcleo de la presentación.
 - Al cerrar cada fase dime en cinco líneas qué has hecho y, sobre todo: **si quisiera
   cambiar X, qué fichero toco**. Eso es lo que necesito memorizar para el live-coding.
 
-## Commits: me avisas, yo los hago
-- Tú NO ejecutas git commit nunca. Pero al terminar cada fase, y también cuando dentro de
-  una fase quede un trozo que ya funciona por sí solo, dime: "momento de commit" con
-  el mensaje que propones y los ficheros que entran.
-- Mensajes cortos, en imperativo y en castellano, sin prefijos tipo feat/chore y sin
-  mención a asistentes de IA. Ejemplo: "añade caché de extracción por hash".
-- Prefiero muchos commits pequeños y legibles a pocos y gordos: la historia del repo la
-  van a mirar.
-- Si ves que llevo rato sin commitear y hay trabajo acumulado, recuérdamelo.
-
 ## DECISIONS.md
 - Créalo desde la Fase 0 y mantenlo actualizado al cerrar cada fase.
 - Formato: una sección por decisión, y cada sección con tres líneas como máximo: qué
