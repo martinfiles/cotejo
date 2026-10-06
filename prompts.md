@@ -57,12 +57,6 @@ que incluir el camino a reclamación. Si el humano responde "recibí 18", el cas
 escalate con 31,20 € de cobro de más. Es un `ask` que se convierte en dinero y quiero
 poder enseñarlo.
 
-**Commits:** sin prefijos feat/chore/docs, como te pedí. Déjalos así:
-  "añade casos sucios y con trampa estructural al seed"
-  "añade la caché de extracción de los casos nuevos"
-  "anota los hallazgos de los casos nuevos"
-Y el commit de la caché va DESPUÉS de rehacerla con el campo de descuento, no antes.
-
 **prompts.md:** no lo toques y no lo commitees. Lo reviso yo.
 
 Arranca la Fase 3 con el cruce de líneas en paralelo, que no depende de esto.
@@ -89,17 +83,6 @@ líneas, pártelo por tipo de signal, no antes.
 lo que te dije de no añadir abstracciones por si acaso. Si la interfaz necesita jerarquía
 visual, la deriva de `signal` más `impactEur`, que son datos reales, y no de una etiqueta
 que yo asigné a mano. Anótalo en DECISIONS.md con ese motivo: lo pedí, no servía, fuera.
-
-**Dos cosas sobre cómo queda escrito:**
-
-- En la nota de la temperatura, cita literal el aviso del SDK. Si me preguntan, quiero estar
-  citando algo que observé, no una creencia sobre el modelo.
-- En la conclusión de autoconsistencia, dale la vuelta a la frase: cero diferencias en 2.240
-  valores no es solo un buen resultado del modelo, es sobre todo la prueba de que mi corpus
-  es fácil. Prefiero que se lea así.
-
-**El commit de la caché: no lo reescribas.** Un rebase por un mensaje cosmético no vale el
-riesgo a cuatro días de la entrevista. Lo dejamos como está.
 
 **Y una cosa de ritmo:** no hagas la observabilidad como fase aparte. Instrumenta con
 Langfuse mientras construyes la Fase 5, en el mismo paso. Me quedan cuatro días y necesito
