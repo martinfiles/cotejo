@@ -1,0 +1,9 @@
+{
+  "text": "El Vino tinto Mencía joven 75 cl no se puede leer el precio en la factura.",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 206,
+    "outputTokens": 30
+  },
+  "latencyMs": 789
+}

@@ -1,0 +1,9 @@
+{
+  "text": "La cerveza lager caja 24x33 cl presenta discrepancia: el albarán registra 6 caja mientras que la factura indica 7 caja.",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 213,
+    "outputTokens": 44
+  },
+  "latencyMs": 872
+}

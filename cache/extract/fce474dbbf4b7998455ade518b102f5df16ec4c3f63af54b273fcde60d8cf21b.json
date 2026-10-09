@@ -1,23 +1,30 @@
 {
-  "fingerprint": "95f6d2d5eaa37b33abdd9efb7957a4772bf89db59dd7a15acd4b4ff25399cb51",
+  "fingerprint": "cc15ca06517ca9481de47345515a7cffdf7f19cf58f2365a3c2cd1d7f1dc347e",
   "model": "claude-sonnet-5-5",
   "usage": {
-    "inputTokens": 4951,
-    "outputTokens": 643
+    "inputTokens": 5345,
+    "outputTokens": 675
   },
-  "latencyMs": 6098,
+  "latencyMs": 5644,
   "doc": {
     "supplier": "Pescados Ría Norte S.L.",
     "supplierTaxId": "B27003358",
     "number": "FAC-26-896",
     "date": "2026-09-30",
+    "refs": [
+      {
+        "kind": "albaran",
+        "number": "ALB-26-4116",
+        "date": null
+      }
+    ],
     "lines": [
       {
         "code": null,
         "description": "Boquerón fresco",
         "quantity": {
           "value": 8,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.4643823264201984,
             "y": 0.28316326530612246,
@@ -28,7 +35,7 @@
         "unit": "kg",
         "unitPrice": {
           "value": 10.4,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.6284941388638413,
             "y": 0.28316326530612246,
@@ -40,7 +47,7 @@
         "discount": null,
         "total": {
           "value": 83.2,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.8611361587015329,
             "y": 0.28316326530612246,
@@ -50,18 +57,19 @@
         },
         "bbox": {
           "x": 0.08566275924256087,
-          "y": 0.2774234693877551,
+          "y": 0.2780612244897959,
           "w": 0.8277727682596934,
-          "h": 0.026785714285714284
+          "h": 0.02614795918367347
         },
-        "key": "F1"
+        "key": "F1",
+        "source": 0
       },
       {
         "code": null,
         "description": "Rape cola sin piel",
         "quantity": {
           "value": 3,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.4643823264201984,
             "y": 0.3125,
@@ -72,7 +80,7 @@
         "unit": "kg",
         "unitPrice": {
           "value": 19.9,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.6284941388638413,
             "y": 0.3125,
@@ -84,7 +92,7 @@
         "discount": null,
         "total": {
           "value": 59.7,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.8611361587015329,
             "y": 0.3125,
@@ -94,18 +102,19 @@
         },
         "bbox": {
           "x": 0.08566275924256087,
-          "y": 0.3067602040816326,
+          "y": 0.30612244897959184,
           "w": 0.8277727682596934,
-          "h": 0.0274234693877551
+          "h": 0.02806122448979592
         },
-        "key": "F2"
+        "key": "F2",
+        "source": 0
       },
       {
         "code": null,
         "description": "Mejillón de roca",
         "quantity": {
           "value": 6,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.4643823264201984,
             "y": 0.34311224489795916,
@@ -116,7 +125,7 @@
         "unit": "kg",
         "unitPrice": {
           "value": 3.2,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.6375112714156899,
             "y": 0.34311224489795916,
@@ -128,7 +137,7 @@
         "discount": null,
         "total": {
           "value": 19.2,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.8611361587015329,
             "y": 0.34311224489795916,
@@ -138,31 +147,32 @@
         },
         "bbox": {
           "x": 0.08566275924256087,
-          "y": 0.336734693877551,
+          "y": 0.3360969387755102,
           "w": 0.8277727682596934,
-          "h": 0.0274234693877551
+          "h": 0.02806122448979592
         },
-        "key": "F3"
+        "key": "F3",
+        "source": 0
       }
     ],
     "totals": {
       "base": {
         "value": 162.1,
-        "confidence": 0.98
+        "confidence": 0.97
       },
       "vat": {
         "value": 16.21,
-        "confidence": 0.98
+        "confidence": 0.97
       },
       "total": {
         "value": 178.31,
-        "confidence": 0.98
+        "confidence": 0.97
       },
       "bbox": {
         "x": 0.5410279531109107,
-        "y": 0.39540816326530615,
+        "y": 0.39413265306122447,
         "w": 0.37240757439134353,
-        "h": 0.07334183673469388
+        "h": 0.07461734693877552
       }
     },
     "docType": "factura"

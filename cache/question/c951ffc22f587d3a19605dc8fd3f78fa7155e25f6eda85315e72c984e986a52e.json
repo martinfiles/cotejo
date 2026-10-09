@@ -1,0 +1,9 @@
+{
+  "text": "El Vino tinto Mencía joven 75 cl presenta discrepancias: el albarán refleja 18 botellas mientras que la factura registra 24 botellas. Además, en el albarán aparece un cálculo de 18 × 5,20 € = 93,60 € pero el importe consignado es 124,80 €.",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 268,
+    "outputTokens": 97
+  },
+  "latencyMs": 1393
+}

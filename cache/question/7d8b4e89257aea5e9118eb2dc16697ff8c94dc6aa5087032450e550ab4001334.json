@@ -1,0 +1,9 @@
+{
+  "text": "Los albaranes registran 3 cajas de Tomate pera (12 kg) mientras que la factura indica 18 kg. El precio también difiere: los albaranes señalan 3,45 € por kg frente a 2,30 € por kg en la factura.",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 268,
+    "outputTokens": 72
+  },
+  "latencyMs": 1159
+}

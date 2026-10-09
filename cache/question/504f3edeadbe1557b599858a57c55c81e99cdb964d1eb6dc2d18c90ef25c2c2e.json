@@ -1,0 +1,9 @@
+{
+  "text": "El albarán ALB-26-4622 está en el caso y la factura no lo cita. Aceite de girasol alto oleico para freidora, garrafa 25 L, uso hostelería está en el albarán ALB-26-4622 y no en la factura.",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 256,
+    "outputTokens": 76
+  },
+  "latencyMs": 991
+}

@@ -1,0 +1,9 @@
+{
+  "text": "La factura cita el albarán ALB-26-4611 del 10/09/2026 que no está entre los albaranes del caso. Vino tinto Mencía joven 75 cl está en la factura y no en ningún albarán.",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 248,
+    "outputTokens": 68
+  },
+  "latencyMs": 839
+}

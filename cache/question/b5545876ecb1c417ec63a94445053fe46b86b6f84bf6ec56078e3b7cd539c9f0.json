@@ -1,0 +1,9 @@
+{
+  "text": "La base más IVA son 430,12 € y el total de la factura dice 460,12 €.",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 206,
+    "outputTokens": 31
+  },
+  "latencyMs": 753
+}

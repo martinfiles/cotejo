@@ -1,0 +1,9 @@
+{
+  "text": "Tomate triturado lata 2,5 kg está en el albarán y no en la factura.",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 207,
+    "outputTokens": 30
+  },
+  "latencyMs": 721
+}

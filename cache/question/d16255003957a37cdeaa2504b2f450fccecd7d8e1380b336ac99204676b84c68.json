@@ -1,0 +1,9 @@
+{
+  "text": "El albarán registra tomate pera por cajas, pero la factura está en kg y se desconoce la equivalencia de kg por caja de este proveedor.",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 221,
+    "outputTokens": 44
+  },
+  "latencyMs": 910
+}

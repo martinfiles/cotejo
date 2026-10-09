@@ -1,0 +1,9 @@
+{
+  "text": "Boquerón fresco está en la factura y no en el albarán. BOCARTE está en el albarán y no en la factura.",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 219,
+    "outputTokens": 38
+  },
+  "latencyMs": 743
+}

@@ -1,0 +1,9 @@
+{
+  "text": "La factura registra Tomate triturado lata 2,5 kg a 4,05 € por unidad mientras que el albarán indica 3,95 € por unidad.",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 218,
+    "outputTokens": 49
+  },
+  "latencyMs": 1250
+}

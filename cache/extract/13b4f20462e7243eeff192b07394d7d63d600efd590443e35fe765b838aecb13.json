@@ -1,23 +1,30 @@
 {
-  "fingerprint": "95f6d2d5eaa37b33abdd9efb7957a4772bf89db59dd7a15acd4b4ff25399cb51",
+  "fingerprint": "cc15ca06517ca9481de47345515a7cffdf7f19cf58f2365a3c2cd1d7f1dc347e",
   "model": "claude-sonnet-5-5",
   "usage": {
-    "inputTokens": 4951,
-    "outputTokens": 644
+    "inputTokens": 5345,
+    "outputTokens": 676
   },
-  "latencyMs": 6182,
+  "latencyMs": 6038,
   "doc": {
     "supplier": "Frutas Hermanos Vidal S.L.",
     "supplierTaxId": "B36009823",
     "number": "FAC-26-892",
     "date": "2026-09-30",
+    "refs": [
+      {
+        "kind": "albaran",
+        "number": "ALB-26-4112",
+        "date": null
+      }
+    ],
     "lines": [
       {
         "code": "V-101",
         "description": "Tomate pera",
         "quantity": {
           "value": 18,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.4914337240757439,
             "y": 0.2825255102040816,
@@ -28,7 +35,7 @@
         "unit": "kg",
         "unitPrice": {
           "value": 2.3,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.6564472497745717,
             "y": 0.2825255102040816,
@@ -40,7 +47,7 @@
         "discount": null,
         "total": {
           "value": 41.4,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.8611361587015329,
             "y": 0.2825255102040816,
@@ -50,18 +57,19 @@
         },
         "bbox": {
           "x": 0.08566275924256087,
-          "y": 0.2755102040816326,
+          "y": 0.2780612244897959,
           "w": 0.8277727682596934,
-          "h": 0.028698979591836735
+          "h": 0.02614795918367347
         },
-        "key": "F1"
+        "key": "F1",
+        "source": 0
       },
       {
         "code": "V-118",
         "description": "Cebolla dulce",
         "quantity": {
           "value": 15,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.4914337240757439,
             "y": 0.31186224489795916,
@@ -72,7 +80,7 @@
         "unit": "kg",
         "unitPrice": {
           "value": 1.15,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.6564472497745717,
             "y": 0.31186224489795916,
@@ -84,7 +92,7 @@
         "discount": null,
         "total": {
           "value": 17.25,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.8611361587015329,
             "y": 0.31186224489795916,
@@ -94,18 +102,19 @@
         },
         "bbox": {
           "x": 0.08566275924256087,
-          "y": 0.305484693877551,
+          "y": 0.30739795918367346,
           "w": 0.8277727682596934,
-          "h": 0.028698979591836735
+          "h": 0.026785714285714284
         },
-        "key": "F2"
+        "key": "F2",
+        "source": 0
       },
       {
         "code": "V-310",
         "description": "Limón",
         "quantity": {
           "value": 8,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.5013525698827773,
             "y": 0.3424744897959184,
@@ -116,7 +125,7 @@
         "unit": "kg",
         "unitPrice": {
           "value": 1.9,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.6564472497745717,
             "y": 0.3424744897959184,
@@ -128,7 +137,7 @@
         "discount": null,
         "total": {
           "value": 15.2,
-          "confidence": 0.98,
+          "confidence": 0.97,
           "bbox": {
             "x": 0.8611361587015329,
             "y": 0.3424744897959184,
@@ -138,25 +147,26 @@
         },
         "bbox": {
           "x": 0.08566275924256087,
-          "y": 0.3354591836734694,
+          "y": 0.33737244897959184,
           "w": 0.8277727682596934,
-          "h": 0.028698979591836735
+          "h": 0.026785714285714284
         },
-        "key": "F3"
+        "key": "F3",
+        "source": 0
       }
     ],
     "totals": {
       "base": {
         "value": 73.85,
-        "confidence": 0.98
+        "confidence": 0.96
       },
       "vat": {
         "value": 2.95,
-        "confidence": 0.98
+        "confidence": 0.96
       },
       "total": {
         "value": 76.8,
-        "confidence": 0.98
+        "confidence": 0.96
       },
       "bbox": {
         "x": 0.5410279531109107,

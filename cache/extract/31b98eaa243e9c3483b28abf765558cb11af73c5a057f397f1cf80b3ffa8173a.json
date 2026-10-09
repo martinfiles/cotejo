@@ -1,0 +1,129 @@
+{
+  "fingerprint": "89a89ec60b11a05fd33db10cfc13145f6d23e769aed26f1915c1c61b9edaecb3",
+  "model": "claude-sonnet-5-5",
+  "usage": {
+    "inputTokens": 7156,
+    "outputTokens": 491
+  },
+  "latencyMs": 5026,
+  "doc": {
+    "supplier": "Pescados Ría Norte S.L.",
+    "supplierTaxId": "B27003358",
+    "number": "ALB-26-4640",
+    "date": "2026-09-06",
+    "refs": [],
+    "lines": [
+      {
+        "code": null,
+        "description": "MERLUZA PINCHO 2/3",
+        "quantity": {
+          "value": 6,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.5106666666666667,
+            "y": 0.26761904761904765,
+            "w": 0.010666666666666666,
+            "h": 0.009523809523809525
+          }
+        },
+        "unit": "kg",
+        "unitPrice": {
+          "value": 11.5,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.6426666666666667,
+            "y": 0.26095238095238094,
+            "w": 0.03333333333333333,
+            "h": 0.011428571428571429
+          }
+        },
+        "vatRate": null,
+        "discount": null,
+        "total": {
+          "value": 69,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.752,
+            "y": 0.2561904761904762,
+            "w": 0.034666666666666665,
+            "h": 0.011428571428571429
+          }
+        },
+        "bbox": {
+          "x": 0.15333333333333332,
+          "y": 0.25476190476190474,
+          "w": 0.6366666666666667,
+          "h": 0.03666666666666667
+        },
+        "key": "A1",
+        "source": 0
+      },
+      {
+        "code": null,
+        "description": "RAPE COLA S/P",
+        "quantity": {
+          "value": 4,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.514,
+            "y": 0.2895238095238095,
+            "w": 0.01,
+            "h": 0.01
+          }
+        },
+        "unit": "kg",
+        "unitPrice": {
+          "value": 19.9,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.6446666666666667,
+            "y": 0.28285714285714286,
+            "w": 0.034,
+            "h": 0.011428571428571429
+          }
+        },
+        "vatRate": null,
+        "discount": null,
+        "total": {
+          "value": 79.6,
+          "confidence": 0.97,
+          "bbox": {
+            "x": 0.754,
+            "y": 0.2785714285714286,
+            "w": 0.034666666666666665,
+            "h": 0.011428571428571429
+          }
+        },
+        "bbox": {
+          "x": 0.15466666666666667,
+          "y": 0.27714285714285714,
+          "w": 0.6386666666666667,
+          "h": 0.0380952380952381
+        },
+        "key": "A2",
+        "source": 0
+      }
+    ],
+    "totals": {
+      "base": {
+        "value": 148.6,
+        "confidence": 0.97
+      },
+      "vat": {
+        "value": null,
+        "confidence": 0.95
+      },
+      "total": {
+        "value": null,
+        "confidence": 0.95
+      },
+      "bbox": {
+        "x": 0.51,
+        "y": 0.31666666666666665,
+        "w": 0.29,
+        "h": 0.029523809523809525
+      }
+    },
+    "docType": "albaran"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "text": "El Tomate pera tiene discrepancias: el albarán registra 2 caja (8 kg) mientras que la factura indica 12 kg, y el precio por kg es de 3,45 € según el albarán pero de 2,30 € en la factura.",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 242,
+    "outputTokens": 73
+  },
+  "latencyMs": 1355
+}

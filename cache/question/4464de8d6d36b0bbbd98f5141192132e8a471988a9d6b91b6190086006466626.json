@@ -1,0 +1,9 @@
+{
+  "text": "Por los tipos de las líneas la cuota de IVA sería 62,92 € y la factura dice 66,07 €.",
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "inputTokens": 213,
+    "outputTokens": 37
+  },
+  "latencyMs": 739
+}
