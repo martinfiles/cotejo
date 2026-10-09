@@ -14,6 +14,8 @@ export type DocLine = {
   stamped: NonNullable<Tweaks['stamp']>['field'] | null
   // Cantidad impresa que quedó tachada al corregirla a mano.
   crossedOut: number | null
+  // Factura agrupada por albarán: el rótulo del grupo al que pertenece la línea.
+  section: string | null
 }
 
 export type DocData = {
@@ -21,7 +23,9 @@ export type DocData = {
   supplier: Supplier
   number: string
   date: string
-  albaranRef: string | null
+  // Lo que el documento cita en la cabecera: sus albaranes, las fechas de
+  // entrega o el pedido. Una línea de texto por cita.
+  cites: string[]
   lines: DocLine[]
   base: number
   vat: number
@@ -65,6 +69,18 @@ export function renderHtml(doc: DocData) {
     discount: doc.lines.some((l) => l.discount),
     scale: doc.scaleFormat,
   }
+
+  // El rótulo de grupo va en una fila propia, antes de la primera línea del
+  // grupo. El estilo va en la fila y no en la hoja de estilos para no cambiar
+  // el HTML de los documentos que no tienen grupos.
+  const span = 5 + Number(cols.codes) + Number(cols.discount) + Number(cols.vat)
+  const rows = doc.lines
+    .map((l, i) => {
+      const opens = l.section !== null && l.section !== doc.lines[i - 1]?.section
+      const header = `<tr><td colspan="${span}" style="padding-top: 14px; font-weight: bold; background: #f1f1f1;">${l.section}</td></tr>`
+      return (opens ? header : '') + row(l, cols)
+    })
+    .join('')
 
   const totals = isFactura
     ? `<tr><td>Base imponible</td><td class="num">${money(doc.base)}</td></tr>
@@ -154,7 +170,7 @@ export function renderHtml(doc: DocData) {
       <h2>${isFactura ? 'FACTURA' : 'ALBARÁN'}</h2>
       <p>Nº ${doc.number}</p>
       <p>Fecha ${doc.date}</p>
-      ${doc.albaranRef ? `<p>Albarán ${doc.albaranRef}</p>` : ''}
+      ${doc.cites.map((text) => `<p>${text}</p>`).join('')}
     </div>
   </header>
   <div class="client">
@@ -172,7 +188,7 @@ export function renderHtml(doc: DocData) {
       ${isFactura ? '<th class="num">IVA %</th>' : ''}
       <th class="num">${doc.cramped ? 'Neto' : 'Importe'}</th>
     </tr></thead>
-    <tbody>${doc.lines.map((l) => row(l, cols)).join('')}</tbody>
+    <tbody>${rows}</tbody>
   </table>
   <table class="totals">${totals}</table>
 </div>

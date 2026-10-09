@@ -1,4 +1,5 @@
 import type { Rule, RuleContext } from '../types'
+import { albaranLink } from './albaran-link'
 import { implausiblePrice } from './implausible-price'
 import { lineArithmetic } from './line-arithmetic'
 import { missingLine } from './missing-line'
@@ -11,6 +12,7 @@ import { vatInconsistent } from './vat-inconsistent'
 
 // Para añadir una regla: un fichero nuevo en esta carpeta y una línea aquí.
 export const rules: Rule[] = [
+  albaranLink,
   quantityMismatch,
   unitPriceMismatch,
   missingLine,

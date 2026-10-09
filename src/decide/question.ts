@@ -2,21 +2,28 @@ import { anthropic } from '@ai-sdk/anthropic'
 import { generateText } from 'ai'
 import { readCache, sha256, writeCache } from '../cache'
 import { config, costUsd, type Usage } from '../config'
+import { keysOf } from '../match/match'
 import { generation } from '../obs/langfuse'
 import { eur } from '../rules/shared'
 import type { Finding, MatchResult, Reason } from '../types'
 
-// La pregunta al humano la redacta el modelo a partir de los findings, y el
-// código comprueba que no se inventa cifras. Si se inventa alguna, la
-// pregunta no se publica: se usa una plantilla hecha con los findings.
+// La pregunta al humano tiene dos partes. Lo que pasa lo cuenta el modelo a
+// partir de los findings, y el código comprueba que no se inventa cifras. La
+// pregunta en sí la pone el código según el motivo: tiene que ser la que
+// responden los botones, y el modelo no sabe cuáles son. Si el modelo se
+// inventa una cifra o pregunta por su cuenta, su texto no se publica: se usa
+// una plantilla hecha con los findings.
 
-const SYSTEM = `Escribe, en dos o tres frases, de tú y sin saludos, la pregunta para la persona que ha recibido la mercancía en un restaurante: qué dicen los hallazgos, con sus productos y sus cifras, y qué hacemos.
+const SYSTEM = `Cuenta, en una o dos frases y sin saludos, lo que dicen los hallazgos a la persona que ha recibido la mercancía en un restaurante, con sus productos y sus cifras.
+
+Solo cuentas lo que pasa, en afirmativo. No preguntes nada ni propongas qué hacer: la pregunta va en otro texto, detrás del tuyo.
 
 Usa solo los datos de los hallazgos, escritos como aparecen en ellos. No añadas ninguna cifra, cantidad, producto ni nombre que no esté. Si hay "ademas", menciónalo con su importe. Texto plano.`
 
 export type Question = {
   text: string
-  // true si el texto del modelo traía cifras que no están en los findings.
+  // true si el texto del modelo no se pudo usar: traía cifras que no están en
+  // los findings o hacía su propia pregunta.
   fromTemplate: boolean
   invented: string[]
   model: string
@@ -78,18 +85,31 @@ export function inventedNumbers(text: string, findings: Finding[]) {
     .map((n) => n.token)
 }
 
-// --- Plantilla --------------------------------------------------------------
+// --- La pregunta ------------------------------------------------------------
 
+// Una por motivo: lo que se pregunta es lo que los botones de ese motivo
+// permiten responder (decide/options.ts).
 const ASK: Partial<Record<Reason, string>> = {
   minor_discrepancy: '¿Lo reclamamos o damos la factura por buena?',
-  undercharge: '¿Avisamos al proveedor o damos la factura por buena?',
+  undercharge: '¿Pedimos una factura rectificativa o damos la factura por buena?',
   document_ambiguous: 'Mira el papel: ¿qué es lo correcto?',
-  low_confidence_read: 'Mira el documento: ¿se puede leer bien, o pedimos otro?',
-  missing_knowledge: '¿Nos lo aclaras para la próxima vez?',
+  low_confidence_read: 'Mira el documento: ¿lo damos por bueno o pedimos otro?',
+  missing_knowledge: '¿Nos lo dices? Lo recordaremos para las próximas facturas de este proveedor.',
+  missing_document: 'Revisa los albaranes de esta factura: ¿falta o sobra alguno?',
 }
 
+const ask = (reason: Reason) => ASK[reason] ?? '¿Qué hacemos?'
+
 export function templateQuestion(reason: Reason, findings: Finding[]) {
-  return [...findings.map((f) => f.message), ASK[reason] ?? '¿Qué hacemos?'].join(' ')
+  return [...findings.map((f) => f.message), ask(reason)].join(' ')
+}
+
+// Lo que contó el modelo más la pregunta del código. El texto del modelo solo
+// vale si no trae cifras inventadas ni pregunta nada por su cuenta.
+export function composeQuestion(told: string, reason: Reason, findings: Finding[]) {
+  const invented = inventedNumbers(told, findings)
+  const usable = invented.length === 0 && !told.includes('?')
+  return { text: usable ? `${told} ${ask(reason)}` : templateQuestion(reason, findings), fromTemplate: !usable, invented }
 }
 
 // --- Redacción --------------------------------------------------------------
@@ -100,7 +120,9 @@ export function templateQuestion(reason: Reason, findings: Finding[]) {
 function firmOvercharges(findings: Finding[], match: MatchResult) {
   const doubtful = new Set(findings.filter((f) => f.signal !== 'discrepancy' && f.lineKey).map((f) => f.lineKey!))
   for (const { albaran, factura } of match.pairs) {
-    if (doubtful.has(albaran.key) || doubtful.has(factura.key)) [albaran.key, factura.key].forEach((k) => doubtful.add(k))
+    // Una duda en cualquiera de las líneas que suma un par afecta al par entero.
+    const keys = [...keysOf(albaran), ...keysOf(factura)]
+    if (keys.some((k) => doubtful.has(k))) keys.forEach((k) => doubtful.add(k))
   }
   return findings.filter(
     (f) => f.signal === 'discrepancy' && (f.impactEur ?? 0) > 0 && f.lineKey && !doubtful.has(f.lineKey),
@@ -145,13 +167,5 @@ export async function draftQuestion(
   }
 
   // La caché guarda lo que escribió el modelo; la comprobación se hace siempre al usarlo.
-  const invented = inventedNumbers(entry.text, findings)
-  return {
-    ...entry,
-    text: invented.length ? templateQuestion(reason, findings) : entry.text,
-    fromTemplate: invented.length > 0,
-    invented,
-    costUsd: costUsd(entry.model, entry.usage),
-    cached,
-  }
+  return { ...entry, ...composeQuestion(entry.text, reason, findings), costUsd: costUsd(entry.model, entry.usage), cached }
 }

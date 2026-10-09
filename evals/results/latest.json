@@ -1,17 +1,17 @@
 {
-  "runAt": "2026-10-05T17:24:42.785Z",
+  "runAt": "2026-10-06T16:17:42.346Z",
   "cacheOnly": true,
   "dataset": {
-    "seed": 26,
+    "seed": 35,
     "corrections": 0,
-    "holdout": 4,
+    "holdout": 5,
     "boundary": 2
   },
   "facts": [],
   "ceiling": {
-    "n": 10,
-    "of": 24,
-    "pct": 41.7
+    "n": 15,
+    "of": 33,
+    "pct": 45.5
   },
   "states": [
     {
@@ -19,62 +19,160 @@
       "label": "Sin hechos aprendidos",
       "facts": 0,
       "headline": {
-        "cases": 24,
+        "cases": 33,
         "autonomous": {
-          "n": 6,
-          "of": 24,
-          "pct": 25
+          "n": 10,
+          "of": 33,
+          "pct": 30.3
         },
         "ask": {
-          "n": 13,
-          "of": 24,
-          "pct": 54.2
+          "n": 16,
+          "of": 33,
+          "pct": 48.5
         },
         "escalate": {
-          "n": 5,
-          "of": 24,
-          "pct": 20.8
+          "n": 7,
+          "of": 33,
+          "pct": 21.2
         },
         "decisionCorrect": {
-          "n": 24,
-          "of": 24,
+          "n": 33,
+          "of": 33,
           "pct": 100
         },
         "reasonCorrect": {
-          "n": 24,
-          "of": 24,
+          "n": 33,
+          "of": 33,
           "pct": 100
         }
       },
       "holdout": {
-        "cases": 4,
+        "cases": 5,
         "autonomous": {
           "n": 0,
-          "of": 4,
+          "of": 5,
           "pct": 0
         },
         "ask": {
-          "n": 4,
-          "of": 4,
+          "n": 5,
+          "of": 5,
           "pct": 100
         },
         "escalate": {
           "n": 0,
-          "of": 4,
+          "of": 5,
           "pct": 0
         },
         "decisionCorrect": {
-          "n": 4,
-          "of": 4,
+          "n": 5,
+          "of": 5,
           "pct": 100
         },
         "reasonCorrect": {
-          "n": 4,
-          "of": 4,
+          "n": 5,
+          "of": 5,
           "pct": 100
         }
       },
+      "byAlbaranes": [
+        {
+          "label": "1",
+          "cases": 24,
+          "autonomous": {
+            "n": 6,
+            "of": 24,
+            "pct": 25
+          },
+          "ask": {
+            "n": 13,
+            "of": 24,
+            "pct": 54.2
+          },
+          "escalate": {
+            "n": 5,
+            "of": 24,
+            "pct": 20.8
+          },
+          "decisionCorrect": {
+            "n": 24,
+            "of": 24,
+            "pct": 100
+          },
+          "reasonCorrect": {
+            "n": 24,
+            "of": 24,
+            "pct": 100
+          }
+        },
+        {
+          "label": "2",
+          "cases": 5,
+          "autonomous": {
+            "n": 2,
+            "of": 5,
+            "pct": 40
+          },
+          "ask": {
+            "n": 2,
+            "of": 5,
+            "pct": 40
+          },
+          "escalate": {
+            "n": 1,
+            "of": 5,
+            "pct": 20
+          },
+          "decisionCorrect": {
+            "n": 5,
+            "of": 5,
+            "pct": 100
+          },
+          "reasonCorrect": {
+            "n": 5,
+            "of": 5,
+            "pct": 100
+          }
+        },
+        {
+          "label": "3 o más",
+          "cases": 4,
+          "autonomous": {
+            "n": 2,
+            "of": 4,
+            "pct": 50
+          },
+          "ask": {
+            "n": 1,
+            "of": 4,
+            "pct": 25
+          },
+          "escalate": {
+            "n": 1,
+            "of": 4,
+            "pct": 25
+          },
+          "decisionCorrect": {
+            "n": 4,
+            "of": 4,
+            "pct": 100
+          },
+          "reasonCorrect": {
+            "n": 4,
+            "of": 4,
+            "pct": 100
+          }
+        }
+      ],
       "rules": [
+        {
+          "rule": "albaran-link",
+          "expected": 2,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "precision": 100,
+          "recall": 100
+        },
         {
           "rule": "line-arithmetic",
           "expected": 1,
@@ -86,8 +184,8 @@
         },
         {
           "rule": "missing-line",
-          "expected": 5,
-          "tp": 5,
+          "expected": 7,
+          "tp": 7,
           "fp": 0,
           "fn": 0,
           "precision": 100,
@@ -95,8 +193,8 @@
         },
         {
           "rule": "quantity-mismatch",
-          "expected": 3,
-          "tp": 3,
+          "expected": 4,
+          "tp": 4,
           "fp": 0,
           "fn": 0,
           "precision": 100,
@@ -113,8 +211,8 @@
         },
         {
           "rule": "unit-incompatible",
-          "expected": 3,
-          "tp": 3,
+          "expected": 4,
+          "tp": 4,
           "fp": 0,
           "fn": 0,
           "precision": 100,
@@ -122,8 +220,8 @@
         },
         {
           "rule": "unit-price-mismatch",
-          "expected": 3,
-          "tp": 3,
+          "expected": 4,
+          "tp": 4,
           "fp": 0,
           "fn": 0,
           "precision": 100,
@@ -184,62 +282,160 @@
       "label": "Con los hechos aprendidos hasta ahora",
       "facts": 0,
       "headline": {
-        "cases": 24,
+        "cases": 33,
         "autonomous": {
-          "n": 6,
-          "of": 24,
-          "pct": 25
+          "n": 10,
+          "of": 33,
+          "pct": 30.3
         },
         "ask": {
-          "n": 13,
-          "of": 24,
-          "pct": 54.2
+          "n": 16,
+          "of": 33,
+          "pct": 48.5
         },
         "escalate": {
-          "n": 5,
-          "of": 24,
-          "pct": 20.8
+          "n": 7,
+          "of": 33,
+          "pct": 21.2
         },
         "decisionCorrect": {
-          "n": 24,
-          "of": 24,
+          "n": 33,
+          "of": 33,
           "pct": 100
         },
         "reasonCorrect": {
-          "n": 24,
-          "of": 24,
+          "n": 33,
+          "of": 33,
           "pct": 100
         }
       },
       "holdout": {
-        "cases": 4,
+        "cases": 5,
         "autonomous": {
           "n": 0,
-          "of": 4,
+          "of": 5,
           "pct": 0
         },
         "ask": {
-          "n": 4,
-          "of": 4,
+          "n": 5,
+          "of": 5,
           "pct": 100
         },
         "escalate": {
           "n": 0,
-          "of": 4,
+          "of": 5,
           "pct": 0
         },
         "decisionCorrect": {
-          "n": 4,
-          "of": 4,
+          "n": 5,
+          "of": 5,
           "pct": 100
         },
         "reasonCorrect": {
-          "n": 4,
-          "of": 4,
+          "n": 5,
+          "of": 5,
           "pct": 100
         }
       },
+      "byAlbaranes": [
+        {
+          "label": "1",
+          "cases": 24,
+          "autonomous": {
+            "n": 6,
+            "of": 24,
+            "pct": 25
+          },
+          "ask": {
+            "n": 13,
+            "of": 24,
+            "pct": 54.2
+          },
+          "escalate": {
+            "n": 5,
+            "of": 24,
+            "pct": 20.8
+          },
+          "decisionCorrect": {
+            "n": 24,
+            "of": 24,
+            "pct": 100
+          },
+          "reasonCorrect": {
+            "n": 24,
+            "of": 24,
+            "pct": 100
+          }
+        },
+        {
+          "label": "2",
+          "cases": 5,
+          "autonomous": {
+            "n": 2,
+            "of": 5,
+            "pct": 40
+          },
+          "ask": {
+            "n": 2,
+            "of": 5,
+            "pct": 40
+          },
+          "escalate": {
+            "n": 1,
+            "of": 5,
+            "pct": 20
+          },
+          "decisionCorrect": {
+            "n": 5,
+            "of": 5,
+            "pct": 100
+          },
+          "reasonCorrect": {
+            "n": 5,
+            "of": 5,
+            "pct": 100
+          }
+        },
+        {
+          "label": "3 o más",
+          "cases": 4,
+          "autonomous": {
+            "n": 2,
+            "of": 4,
+            "pct": 50
+          },
+          "ask": {
+            "n": 1,
+            "of": 4,
+            "pct": 25
+          },
+          "escalate": {
+            "n": 1,
+            "of": 4,
+            "pct": 25
+          },
+          "decisionCorrect": {
+            "n": 4,
+            "of": 4,
+            "pct": 100
+          },
+          "reasonCorrect": {
+            "n": 4,
+            "of": 4,
+            "pct": 100
+          }
+        }
+      ],
       "rules": [
+        {
+          "rule": "albaran-link",
+          "expected": 2,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "precision": 100,
+          "recall": 100
+        },
         {
           "rule": "line-arithmetic",
           "expected": 1,
@@ -251,8 +447,8 @@
         },
         {
           "rule": "missing-line",
-          "expected": 5,
-          "tp": 5,
+          "expected": 7,
+          "tp": 7,
           "fp": 0,
           "fn": 0,
           "precision": 100,
@@ -260,8 +456,8 @@
         },
         {
           "rule": "quantity-mismatch",
-          "expected": 3,
-          "tp": 3,
+          "expected": 4,
+          "tp": 4,
           "fp": 0,
           "fn": 0,
           "precision": 100,
@@ -278,8 +474,8 @@
         },
         {
           "rule": "unit-incompatible",
-          "expected": 3,
-          "tp": 3,
+          "expected": 4,
+          "tp": 4,
           "fp": 0,
           "fn": 0,
           "precision": 100,
@@ -287,8 +483,8 @@
         },
         {
           "rule": "unit-price-mismatch",
-          "expected": 3,
-          "tp": 3,
+          "expected": 4,
+          "tp": 4,
           "fp": 0,
           "fn": 0,
           "precision": 100,
@@ -351,6 +547,7 @@
       "state": "sin-hechos",
       "group": "boundary",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -377,27 +574,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 5973,
+          "costUsd": 0.020952,
+          "latencyMs": 6375,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 8332,
+          "costUsd": 0.02124,
+          "latencyMs": 5920,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.0005239999999999967,
-      "costUsd": 0.04076,
-      "latencyMs": 9368
+      "questionCostUsd": 0.0004330000000000028,
+      "costUsd": 0.042624999999999996,
+      "latencyMs": 7247
     },
     {
       "caseId": "carballo-frontera-sobre",
       "state": "sin-hechos",
       "group": "boundary",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -424,27 +622,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 9042,
+          "costUsd": 0.020952,
+          "latencyMs": 6326,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 6108,
+          "costUsd": 0.02124,
+          "latencyMs": 6750,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.040236,
-      "latencyMs": 9042
+      "costUsd": 0.04219199999999999,
+      "latencyMs": 6750
     },
     {
       "caseId": "carballo-frontera-bajo",
       "state": "con-hechos",
       "group": "boundary",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -471,27 +670,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 5973,
+          "costUsd": 0.020952,
+          "latencyMs": 6375,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 8332,
+          "costUsd": 0.02124,
+          "latencyMs": 5920,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.0005239999999999967,
-      "costUsd": 0.04076,
-      "latencyMs": 9368
+      "questionCostUsd": 0.0004330000000000028,
+      "costUsd": 0.042624999999999996,
+      "latencyMs": 7247
     },
     {
       "caseId": "carballo-frontera-sobre",
       "state": "con-hechos",
       "group": "boundary",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -518,21 +718,21 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 9042,
+          "costUsd": 0.020952,
+          "latencyMs": 6326,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 6108,
+          "costUsd": 0.02124,
+          "latencyMs": 6750,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.040236,
-      "latencyMs": 9042
+      "costUsd": 0.04219199999999999,
+      "latencyMs": 6750
     }
   ],
   "corrections": [],
@@ -540,34 +740,34 @@
     "byType": [
       {
         "docType": "albaran",
-        "documents": 26,
+        "documents": 48,
         "models": [
           "claude-sonnet-5-5"
         ],
-        "meanCostUsd": 0.019535923076923083,
-        "meanLatencyMs": 6550.384615384615,
-        "p95LatencyMs": 9042
+        "meanCostUsd": 0.018736791666666665,
+        "meanLatencyMs": 5841.1875,
+        "p95LatencyMs": 8484
       },
       {
         "docType": "factura",
-        "documents": 26,
+        "documents": 35,
         "models": [
           "claude-sonnet-5-5"
         ],
-        "meanCostUsd": 0.018977384615384615,
-        "meanLatencyMs": 6627.538461538462,
-        "p95LatencyMs": 8873
+        "meanCostUsd": 0.020745999999999997,
+        "meanLatencyMs": 6807.2,
+        "p95LatencyMs": 11726
       }
     ],
-    "perDocumentUsd": 0.019256653846153847,
-    "perCaseUsd": 0.03878873076923077,
-    "questionsUsd": 0.007160999999999994,
-    "totalUsd": 1.008507,
-    "p95DocumentLatencyMs": 8942,
-    "p95CaseLatencyMs": 9910,
+    "perDocumentUsd": 0.019584048192771077,
+    "perCaseUsd": 0.046659371428571426,
+    "questionsUsd": 0.007601999999999991,
+    "totalUsd": 1.6330779999999998,
+    "p95DocumentLatencyMs": 9270,
+    "p95CaseLatencyMs": 12168,
     "fromCache": {
-      "n": 52,
-      "of": 52,
+      "n": 83,
+      "of": 83,
       "pct": 100
     }
   },
@@ -577,6 +777,7 @@
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [],
@@ -594,27 +795,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 6451,
+          "costUsd": 0.020952,
+          "latencyMs": 12168,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 6804,
+          "costUsd": 0.02124,
+          "latencyMs": 7347,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.040236,
-      "latencyMs": 6804
+      "costUsd": 0.04219199999999999,
+      "latencyMs": 12168
     },
     {
       "caseId": "carballo-precio",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -641,27 +843,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 7814,
+          "costUsd": 0.020952,
+          "latencyMs": 8462,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020152,
-          "latencyMs": 8873,
+          "costUsd": 0.02124,
+          "latencyMs": 16196,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.040256,
-      "latencyMs": 8873
+      "costUsd": 0.04219199999999999,
+      "latencyMs": 16196
     },
     {
       "caseId": "carballo-precio-centimos",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -688,27 +891,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 5943,
+          "costUsd": 0.020952,
+          "latencyMs": 7119,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 6024,
+          "costUsd": 0.02124,
+          "latencyMs": 7193,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.0005790000000000031,
-      "costUsd": 0.040815000000000004,
-      "latencyMs": 7459
+      "questionCostUsd": 0.00046299999999999814,
+      "costUsd": 0.04265499999999999,
+      "latencyMs": 8443
     },
     {
       "caseId": "carballo-cantidad",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -735,27 +939,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 5922,
+          "costUsd": 0.020952,
+          "latencyMs": 6350,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020112,
-          "latencyMs": 6442,
+          "costUsd": 0.02122,
+          "latencyMs": 6315,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.040216,
-      "latencyMs": 6442
+      "costUsd": 0.042172,
+      "latencyMs": 6350
     },
     {
       "caseId": "carballo-facturado-sin-entregar",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -782,27 +987,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.018354,
-          "latencyMs": 7881,
+          "costUsd": 0.019202,
+          "latencyMs": 5516,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 8467,
+          "costUsd": 0.02124,
+          "latencyMs": 6312,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.038486,
-      "latencyMs": 8467
+      "costUsd": 0.040442,
+      "latencyMs": 6312
     },
     {
       "caseId": "carballo-sin-facturar",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -829,27 +1035,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 8676,
+          "costUsd": 0.020952,
+          "latencyMs": 8405,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.018372,
-          "latencyMs": 4760,
+          "costUsd": 0.01948,
+          "latencyMs": 5375,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.0004880000000000023,
-      "costUsd": 0.038964,
-      "latencyMs": 9910
+      "questionCostUsd": 0.00035700000000000315,
+      "costUsd": 0.040789,
+      "latencyMs": 9126
     },
     {
       "caseId": "carballo-total-no-suma",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -876,27 +1083,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 6429,
+          "costUsd": 0.020952,
+          "latencyMs": 8484,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 8746,
+          "costUsd": 0.02124,
+          "latencyMs": 6405,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.0005020000000000024,
-      "costUsd": 0.040738,
-      "latencyMs": 9971
+      "questionCostUsd": 0.0003610000000000002,
+      "costUsd": 0.042552999999999994,
+      "latencyMs": 9237
     },
     {
       "caseId": "carballo-iva",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -923,27 +1131,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 8689,
+          "costUsd": 0.020952,
+          "latencyMs": 6224,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 5729,
+          "costUsd": 0.02124,
+          "latencyMs": 6610,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.0004940000000000014,
-      "costUsd": 0.04073,
-      "latencyMs": 9776
+      "questionCostUsd": 0.0003980000000000025,
+      "costUsd": 0.042589999999999996,
+      "latencyMs": 7349
     },
     {
       "caseId": "carballo-sello",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -970,27 +1179,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 6414,
+          "costUsd": 0.020952,
+          "latencyMs": 6032,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020092,
-          "latencyMs": 8381,
+          "costUsd": 0.0212,
+          "latencyMs": 6010,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.00048200000000000326,
-      "costUsd": 0.040678,
-      "latencyMs": 9540
+      "questionCostUsd": 0.00035600000000000215,
+      "costUsd": 0.042508,
+      "latencyMs": 6821
     },
     {
       "caseId": "carballo-foto",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [],
@@ -1008,27 +1218,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.023874,
-          "latencyMs": 7279,
+          "costUsd": 0.024722,
+          "latencyMs": 7073,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 8942,
+          "costUsd": 0.02124,
+          "latencyMs": 6104,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.044006,
-      "latencyMs": 8942
+      "costUsd": 0.045962,
+      "latencyMs": 7073
     },
     {
       "caseId": "carballo-foto-cantidad",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -1055,27 +1266,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.023874,
-          "latencyMs": 6779,
+          "costUsd": 0.024722,
+          "latencyMs": 9270,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 5955,
+          "costUsd": 0.02124,
+          "latencyMs": 6598,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.044006,
-      "latencyMs": 6779
+      "costUsd": 0.045962,
+      "latencyMs": 9270
     },
     {
       "caseId": "vidal-cajas-1",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -1102,27 +1314,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.018004,
-          "latencyMs": 4918,
+          "costUsd": 0.018852,
+          "latencyMs": 5301,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.018032,
-          "latencyMs": 4968,
+          "costUsd": 0.01914,
+          "latencyMs": 6078,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.00046199999999999714,
-      "costUsd": 0.036497999999999996,
-      "latencyMs": 5990
+      "questionCostUsd": 0.00044099999999999695,
+      "costUsd": 0.038432999999999995,
+      "latencyMs": 6988
     },
     {
       "caseId": "vidal-cajas-2",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": true,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -1149,27 +1362,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016314,
-          "latencyMs": 4052,
+          "costUsd": 0.017162,
+          "latencyMs": 4508,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016342,
-          "latencyMs": 6182,
+          "costUsd": 0.01745,
+          "latencyMs": 6038,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.00046199999999999714,
-      "costUsd": 0.033117999999999995,
-      "latencyMs": 7204
+      "questionCostUsd": 0.00044099999999999695,
+      "costUsd": 0.035053,
+      "latencyMs": 6948
     },
     {
       "caseId": "vidal-cajas-cantidad",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": true,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -1196,27 +1410,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016384,
-          "latencyMs": 6146,
+          "costUsd": 0.017232,
+          "latencyMs": 4929,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016412,
-          "latencyMs": 4133,
+          "costUsd": 0.01752,
+          "latencyMs": 5255,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.00046199999999999714,
-      "costUsd": 0.033257999999999996,
-      "latencyMs": 7168
+      "questionCostUsd": 0.00044099999999999695,
+      "costUsd": 0.035193,
+      "latencyMs": 6165
     },
     {
       "caseId": "rianorte-alias-1",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -1243,27 +1458,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016324,
-          "latencyMs": 6108,
+          "costUsd": 0.017172,
+          "latencyMs": 4248,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016362,
-          "latencyMs": 5294,
+          "costUsd": 0.01747,
+          "latencyMs": 6139,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.000559999999999998,
-      "costUsd": 0.033246000000000005,
-      "latencyMs": 7319
+      "questionCostUsd": 0.00040899999999999964,
+      "costUsd": 0.035051,
+      "latencyMs": 6882
     },
     {
       "caseId": "rianorte-alias-2",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": true,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -1290,27 +1506,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016344,
-          "latencyMs": 6243,
+          "costUsd": 0.017192,
+          "latencyMs": 4034,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016372,
-          "latencyMs": 3984,
+          "costUsd": 0.01748,
+          "latencyMs": 4374,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.000559999999999998,
-      "costUsd": 0.033276,
-      "latencyMs": 7454
+      "questionCostUsd": 0.00040899999999999964,
+      "costUsd": 0.035080999999999994,
+      "latencyMs": 5117
     },
     {
       "caseId": "rianorte-alias-precio",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": true,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -1337,27 +1554,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016314,
-          "latencyMs": 6056,
+          "costUsd": 0.017162,
+          "latencyMs": 4275,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016332,
-          "latencyMs": 6098,
+          "costUsd": 0.01744,
+          "latencyMs": 5644,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.000559999999999998,
-      "costUsd": 0.03320599999999999,
-      "latencyMs": 7309
+      "questionCostUsd": 0.00040899999999999964,
+      "costUsd": 0.035011,
+      "latencyMs": 6387
     },
     {
       "caseId": "carballo-frontera-bajo",
       "state": "sin-hechos",
       "group": "boundary",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -1384,27 +1602,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 5973,
+          "costUsd": 0.020952,
+          "latencyMs": 6375,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 8332,
+          "costUsd": 0.02124,
+          "latencyMs": 5920,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.0005239999999999967,
-      "costUsd": 0.04076,
-      "latencyMs": 9368
+      "questionCostUsd": 0.0004330000000000028,
+      "costUsd": 0.042624999999999996,
+      "latencyMs": 7247
     },
     {
       "caseId": "carballo-frontera-sobre",
       "state": "sin-hechos",
       "group": "boundary",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -1431,27 +1650,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 9042,
+          "costUsd": 0.020952,
+          "latencyMs": 6326,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 6108,
+          "costUsd": 0.02124,
+          "latencyMs": 6750,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.040236,
-      "latencyMs": 9042
+      "costUsd": 0.04219199999999999,
+      "latencyMs": 6750
     },
     {
       "caseId": "carballo-mancha-total",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -1478,27 +1698,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 6146,
+          "costUsd": 0.020952,
+          "latencyMs": 8331,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020092,
-          "latencyMs": 8591,
+          "costUsd": 0.0212,
+          "latencyMs": 8115,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.00028199999999999753,
-      "costUsd": 0.04047799999999999,
-      "latencyMs": 9257
+      "questionCostUsd": 0.00026600000000000235,
+      "costUsd": 0.042418,
+      "latencyMs": 8931
     },
     {
       "caseId": "carballo-corregido-a-mano",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -1531,27 +1752,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 6074,
+          "costUsd": 0.020952,
+          "latencyMs": 8212,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 6095,
+          "costUsd": 0.02124,
+          "latencyMs": 8366,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.0007440000000000016,
-      "costUsd": 0.04098,
-      "latencyMs": 7437
+      "questionCostUsd": 0.0007529999999999967,
+      "costUsd": 0.04294499999999999,
+      "latencyMs": 9759
     },
     {
       "caseId": "carballo-foto-mala",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [],
@@ -1569,27 +1791,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.023874,
-          "latencyMs": 9845,
+          "costUsd": 0.024722,
+          "latencyMs": 6703,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 7001,
+          "costUsd": 0.02124,
+          "latencyMs": 6391,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.044006,
-      "latencyMs": 9845
+      "costUsd": 0.045962,
+      "latencyMs": 6703
     },
     {
       "caseId": "carballo-foto-mala-precio",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -1616,27 +1839,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.023874,
-          "latencyMs": 6526,
+          "costUsd": 0.024722,
+          "latencyMs": 7856,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 7112,
+          "costUsd": 0.02124,
+          "latencyMs": 6051,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.044006,
-      "latencyMs": 7112
+      "costUsd": 0.045962,
+      "latencyMs": 7856
     },
     {
       "caseId": "rianorte-manuscrito",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [],
@@ -1654,27 +1878,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016384,
-          "latencyMs": 4803,
+          "costUsd": 0.017232,
+          "latencyMs": 4745,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016382,
-          "latencyMs": 5214,
+          "costUsd": 0.01749,
+          "latencyMs": 4450,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.032766,
-      "latencyMs": 5214
+      "costUsd": 0.034722,
+      "latencyMs": 4745
     },
     {
       "caseId": "rianorte-trampa-bascula",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [],
@@ -1692,27 +1917,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.018144,
-          "latencyMs": 4996,
+          "costUsd": 0.018992,
+          "latencyMs": 6963,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.018122,
-          "latencyMs": 5637,
+          "costUsd": 0.01923,
+          "latencyMs": 5209,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.036266,
-      "latencyMs": 5637
+      "costUsd": 0.038222,
+      "latencyMs": 6963
     },
     {
       "caseId": "carballo-trampa-columnas",
       "state": "sin-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [],
@@ -1730,27 +1956,527 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.018624,
-          "latencyMs": 5105,
+          "costUsd": 0.019472,
+          "latencyMs": 7307,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.018652,
-          "latencyMs": 8444,
+          "costUsd": 0.01976,
+          "latencyMs": 6132,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.037276000000000004,
-      "latencyMs": 8444
+      "costUsd": 0.039232,
+      "latencyMs": 7307
+    },
+    {
+      "caseId": "carballo-3-albaranes",
+      "state": "sin-hechos",
+      "group": "headline",
+      "holdout": false,
+      "albaranes": 3,
+      "correction": null,
+      "expected": {
+        "findings": [],
+        "decision": "pass",
+        "reason": "all_matched"
+      },
+      "got": {
+        "outcome": "pass",
+        "reason": "all_matched",
+        "findings": []
+      },
+      "expectedFindings": [],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.015672,
+          "latencyMs": 4949,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017442,
+          "latencyMs": 4565,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.019232,
+          "latencyMs": 6252,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.029,
+          "latencyMs": 9436,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0,
+      "costUsd": 0.081346,
+      "latencyMs": 9436
+    },
+    {
+      "caseId": "carballo-3-albaranes-cantidad",
+      "state": "sin-hechos",
+      "group": "headline",
+      "holdout": false,
+      "albaranes": 3,
+      "correction": null,
+      "expected": {
+        "findings": [
+          {
+            "ruleId": "quantity-mismatch",
+            "productId": "cerveza-lager"
+          }
+        ],
+        "decision": "escalate",
+        "reason": "overcharge"
+      },
+      "got": {
+        "outcome": "escalate",
+        "reason": "overcharge",
+        "findings": [
+          "quantity-mismatch:cerveza-lager"
+        ]
+      },
+      "expectedFindings": [
+        "quantity-mismatch:cerveza-lager"
+      ],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.015672,
+          "latencyMs": 3855,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017442,
+          "latencyMs": 7095,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.019232,
+          "latencyMs": 5296,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.029,
+          "latencyMs": 11726,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0,
+      "costUsd": 0.081346,
+      "latencyMs": 11726
+    },
+    {
+      "caseId": "carballo-2-albaranes-parcial",
+      "state": "sin-hechos",
+      "group": "headline",
+      "holdout": false,
+      "albaranes": 2,
+      "correction": null,
+      "expected": {
+        "findings": [],
+        "decision": "pass",
+        "reason": "all_matched"
+      },
+      "got": {
+        "outcome": "pass",
+        "reason": "all_matched",
+        "findings": []
+      },
+      "expectedFindings": [],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017442,
+          "latencyMs": 5072,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017402,
+          "latencyMs": 5844,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.0215,
+          "latencyMs": 6454,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0,
+      "costUsd": 0.056344,
+      "latencyMs": 6454
+    },
+    {
+      "caseId": "carballo-pedido",
+      "state": "sin-hechos",
+      "group": "headline",
+      "holdout": false,
+      "albaranes": 3,
+      "correction": null,
+      "expected": {
+        "findings": [],
+        "decision": "pass",
+        "reason": "all_matched"
+      },
+      "got": {
+        "outcome": "pass",
+        "reason": "all_matched",
+        "findings": []
+      },
+      "expectedFindings": [],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.015912,
+          "latencyMs": 3720,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.014202,
+          "latencyMs": 3302,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.015922,
+          "latencyMs": 3816,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.02122,
+          "latencyMs": 6000,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0,
+      "costUsd": 0.067256,
+      "latencyMs": 6000
+    },
+    {
+      "caseId": "carballo-pedido-precio",
+      "state": "sin-hechos",
+      "group": "headline",
+      "holdout": false,
+      "albaranes": 2,
+      "correction": null,
+      "expected": {
+        "findings": [
+          {
+            "ruleId": "unit-price-mismatch",
+            "productId": "vino-mencia"
+          }
+        ],
+        "decision": "escalate",
+        "reason": "overcharge"
+      },
+      "got": {
+        "outcome": "escalate",
+        "reason": "overcharge",
+        "findings": [
+          "unit-price-mismatch:vino-mencia"
+        ]
+      },
+      "expectedFindings": [
+        "unit-price-mismatch:vino-mencia"
+      ],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017682,
+          "latencyMs": 4691,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017712,
+          "latencyMs": 4667,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.02122,
+          "latencyMs": 5878,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0,
+      "costUsd": 0.056614,
+      "latencyMs": 5878
+    },
+    {
+      "caseId": "carballo-albaran-no-aportado",
+      "state": "sin-hechos",
+      "group": "headline",
+      "holdout": false,
+      "albaranes": 2,
+      "correction": null,
+      "expected": {
+        "findings": [
+          {
+            "ruleId": "albaran-link",
+            "productId": null
+          },
+          {
+            "ruleId": "missing-line",
+            "productId": "vino-mencia"
+          }
+        ],
+        "decision": "ask",
+        "reason": "missing_document"
+      },
+      "got": {
+        "outcome": "ask",
+        "reason": "missing_document",
+        "findings": [
+          "albaran-link:-",
+          "missing-line:vino-mencia"
+        ]
+      },
+      "expectedFindings": [
+        "albaran-link:-",
+        "missing-line:vino-mencia"
+      ],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.015672,
+          "latencyMs": 3767,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.015682,
+          "latencyMs": 4841,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.02197,
+          "latencyMs": 9026,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0.0005879999999999982,
+      "costUsd": 0.053911999999999995,
+      "latencyMs": 9865
+    },
+    {
+      "caseId": "carballo-albaran-de-otro-pedido",
+      "state": "sin-hechos",
+      "group": "headline",
+      "holdout": false,
+      "albaranes": 3,
+      "correction": null,
+      "expected": {
+        "findings": [
+          {
+            "ruleId": "albaran-link",
+            "productId": null
+          },
+          {
+            "ruleId": "missing-line",
+            "productId": "aceite-girasol"
+          }
+        ],
+        "decision": "ask",
+        "reason": "missing_document"
+      },
+      "got": {
+        "outcome": "ask",
+        "reason": "missing_document",
+        "findings": [
+          "albaran-link:-",
+          "missing-line:aceite-girasol"
+        ]
+      },
+      "expectedFindings": [
+        "albaran-link:-",
+        "missing-line:aceite-girasol"
+      ],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017682,
+          "latencyMs": 4877,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.015922,
+          "latencyMs": 3865,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.014322,
+          "latencyMs": 4052,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.02122,
+          "latencyMs": 5839,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0.0006359999999999977,
+      "costUsd": 0.069782,
+      "latencyMs": 6830
+    },
+    {
+      "caseId": "vidal-2-albaranes-cajas",
+      "state": "sin-hechos",
+      "group": "headline",
+      "holdout": true,
+      "albaranes": 2,
+      "correction": null,
+      "expected": {
+        "findings": [
+          {
+            "ruleId": "unit-incompatible",
+            "productId": "tomate-pera"
+          }
+        ],
+        "decision": "ask",
+        "reason": "missing_knowledge"
+      },
+      "got": {
+        "outcome": "ask",
+        "reason": "missing_knowledge",
+        "findings": [
+          "unit-incompatible:tomate-pera"
+        ]
+      },
+      "expectedFindings": [
+        "unit-incompatible:tomate-pera"
+      ],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.015542,
+          "latencyMs": 3819,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017182,
+          "latencyMs": 6027,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.0194,
+          "latencyMs": 7229,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0.00044099999999999695,
+      "costUsd": 0.052565,
+      "latencyMs": 8139
+    },
+    {
+      "caseId": "rianorte-fechas",
+      "state": "sin-hechos",
+      "group": "headline",
+      "holdout": false,
+      "albaranes": 2,
+      "correction": null,
+      "expected": {
+        "findings": [],
+        "decision": "pass",
+        "reason": "all_matched"
+      },
+      "got": {
+        "outcome": "pass",
+        "reason": "all_matched",
+        "findings": []
+      },
+      "expectedFindings": [],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.019222,
+          "latencyMs": 5026,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017192,
+          "latencyMs": 5763,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.01938,
+          "latencyMs": 5287,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0,
+      "costUsd": 0.055794,
+      "latencyMs": 5763
     },
     {
       "caseId": "carballo-limpio",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [],
@@ -1768,27 +2494,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 6451,
+          "costUsd": 0.020952,
+          "latencyMs": 12168,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 6804,
+          "costUsd": 0.02124,
+          "latencyMs": 7347,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.040236,
-      "latencyMs": 6804
+      "costUsd": 0.04219199999999999,
+      "latencyMs": 12168
     },
     {
       "caseId": "carballo-precio",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -1815,27 +2542,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 7814,
+          "costUsd": 0.020952,
+          "latencyMs": 8462,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020152,
-          "latencyMs": 8873,
+          "costUsd": 0.02124,
+          "latencyMs": 16196,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.040256,
-      "latencyMs": 8873
+      "costUsd": 0.04219199999999999,
+      "latencyMs": 16196
     },
     {
       "caseId": "carballo-precio-centimos",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -1862,27 +2590,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 5943,
+          "costUsd": 0.020952,
+          "latencyMs": 7119,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 6024,
+          "costUsd": 0.02124,
+          "latencyMs": 7193,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.0005790000000000031,
-      "costUsd": 0.040815000000000004,
-      "latencyMs": 7459
+      "questionCostUsd": 0.00046299999999999814,
+      "costUsd": 0.04265499999999999,
+      "latencyMs": 8443
     },
     {
       "caseId": "carballo-cantidad",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -1909,27 +2638,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 5922,
+          "costUsd": 0.020952,
+          "latencyMs": 6350,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020112,
-          "latencyMs": 6442,
+          "costUsd": 0.02122,
+          "latencyMs": 6315,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.040216,
-      "latencyMs": 6442
+      "costUsd": 0.042172,
+      "latencyMs": 6350
     },
     {
       "caseId": "carballo-facturado-sin-entregar",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -1956,27 +2686,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.018354,
-          "latencyMs": 7881,
+          "costUsd": 0.019202,
+          "latencyMs": 5516,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 8467,
+          "costUsd": 0.02124,
+          "latencyMs": 6312,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.038486,
-      "latencyMs": 8467
+      "costUsd": 0.040442,
+      "latencyMs": 6312
     },
     {
       "caseId": "carballo-sin-facturar",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -2003,27 +2734,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 8676,
+          "costUsd": 0.020952,
+          "latencyMs": 8405,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.018372,
-          "latencyMs": 4760,
+          "costUsd": 0.01948,
+          "latencyMs": 5375,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.0004880000000000023,
-      "costUsd": 0.038964,
-      "latencyMs": 9910
+      "questionCostUsd": 0.00035700000000000315,
+      "costUsd": 0.040789,
+      "latencyMs": 9126
     },
     {
       "caseId": "carballo-total-no-suma",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -2050,27 +2782,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 6429,
+          "costUsd": 0.020952,
+          "latencyMs": 8484,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 8746,
+          "costUsd": 0.02124,
+          "latencyMs": 6405,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.0005020000000000024,
-      "costUsd": 0.040738,
-      "latencyMs": 9971
+      "questionCostUsd": 0.0003610000000000002,
+      "costUsd": 0.042552999999999994,
+      "latencyMs": 9237
     },
     {
       "caseId": "carballo-iva",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -2097,27 +2830,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 8689,
+          "costUsd": 0.020952,
+          "latencyMs": 6224,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 5729,
+          "costUsd": 0.02124,
+          "latencyMs": 6610,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.0004940000000000014,
-      "costUsd": 0.04073,
-      "latencyMs": 9776
+      "questionCostUsd": 0.0003980000000000025,
+      "costUsd": 0.042589999999999996,
+      "latencyMs": 7349
     },
     {
       "caseId": "carballo-sello",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -2144,27 +2878,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 6414,
+          "costUsd": 0.020952,
+          "latencyMs": 6032,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020092,
-          "latencyMs": 8381,
+          "costUsd": 0.0212,
+          "latencyMs": 6010,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.00048200000000000326,
-      "costUsd": 0.040678,
-      "latencyMs": 9540
+      "questionCostUsd": 0.00035600000000000215,
+      "costUsd": 0.042508,
+      "latencyMs": 6821
     },
     {
       "caseId": "carballo-foto",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [],
@@ -2182,27 +2917,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.023874,
-          "latencyMs": 7279,
+          "costUsd": 0.024722,
+          "latencyMs": 7073,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 8942,
+          "costUsd": 0.02124,
+          "latencyMs": 6104,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.044006,
-      "latencyMs": 8942
+      "costUsd": 0.045962,
+      "latencyMs": 7073
     },
     {
       "caseId": "carballo-foto-cantidad",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -2229,27 +2965,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.023874,
-          "latencyMs": 6779,
+          "costUsd": 0.024722,
+          "latencyMs": 9270,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 5955,
+          "costUsd": 0.02124,
+          "latencyMs": 6598,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.044006,
-      "latencyMs": 6779
+      "costUsd": 0.045962,
+      "latencyMs": 9270
     },
     {
       "caseId": "vidal-cajas-1",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -2276,27 +3013,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.018004,
-          "latencyMs": 4918,
+          "costUsd": 0.018852,
+          "latencyMs": 5301,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.018032,
-          "latencyMs": 4968,
+          "costUsd": 0.01914,
+          "latencyMs": 6078,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.00046199999999999714,
-      "costUsd": 0.036497999999999996,
-      "latencyMs": 5990
+      "questionCostUsd": 0.00044099999999999695,
+      "costUsd": 0.038432999999999995,
+      "latencyMs": 6988
     },
     {
       "caseId": "vidal-cajas-2",
       "state": "con-hechos",
       "group": "headline",
       "holdout": true,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -2323,27 +3061,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016314,
-          "latencyMs": 4052,
+          "costUsd": 0.017162,
+          "latencyMs": 4508,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016342,
-          "latencyMs": 6182,
+          "costUsd": 0.01745,
+          "latencyMs": 6038,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.00046199999999999714,
-      "costUsd": 0.033117999999999995,
-      "latencyMs": 7204
+      "questionCostUsd": 0.00044099999999999695,
+      "costUsd": 0.035053,
+      "latencyMs": 6948
     },
     {
       "caseId": "vidal-cajas-cantidad",
       "state": "con-hechos",
       "group": "headline",
       "holdout": true,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -2370,27 +3109,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016384,
-          "latencyMs": 6146,
+          "costUsd": 0.017232,
+          "latencyMs": 4929,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016412,
-          "latencyMs": 4133,
+          "costUsd": 0.01752,
+          "latencyMs": 5255,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.00046199999999999714,
-      "costUsd": 0.033257999999999996,
-      "latencyMs": 7168
+      "questionCostUsd": 0.00044099999999999695,
+      "costUsd": 0.035193,
+      "latencyMs": 6165
     },
     {
       "caseId": "rianorte-alias-1",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -2417,27 +3157,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016324,
-          "latencyMs": 6108,
+          "costUsd": 0.017172,
+          "latencyMs": 4248,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016362,
-          "latencyMs": 5294,
+          "costUsd": 0.01747,
+          "latencyMs": 6139,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.000559999999999998,
-      "costUsd": 0.033246000000000005,
-      "latencyMs": 7319
+      "questionCostUsd": 0.00040899999999999964,
+      "costUsd": 0.035051,
+      "latencyMs": 6882
     },
     {
       "caseId": "rianorte-alias-2",
       "state": "con-hechos",
       "group": "headline",
       "holdout": true,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -2464,27 +3205,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016344,
-          "latencyMs": 6243,
+          "costUsd": 0.017192,
+          "latencyMs": 4034,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016372,
-          "latencyMs": 3984,
+          "costUsd": 0.01748,
+          "latencyMs": 4374,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.000559999999999998,
-      "costUsd": 0.033276,
-      "latencyMs": 7454
+      "questionCostUsd": 0.00040899999999999964,
+      "costUsd": 0.035080999999999994,
+      "latencyMs": 5117
     },
     {
       "caseId": "rianorte-alias-precio",
       "state": "con-hechos",
       "group": "headline",
       "holdout": true,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -2511,27 +3253,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016314,
-          "latencyMs": 6056,
+          "costUsd": 0.017162,
+          "latencyMs": 4275,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016332,
-          "latencyMs": 6098,
+          "costUsd": 0.01744,
+          "latencyMs": 5644,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.000559999999999998,
-      "costUsd": 0.03320599999999999,
-      "latencyMs": 7309
+      "questionCostUsd": 0.00040899999999999964,
+      "costUsd": 0.035011,
+      "latencyMs": 6387
     },
     {
       "caseId": "carballo-frontera-bajo",
       "state": "con-hechos",
       "group": "boundary",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -2558,27 +3301,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 5973,
+          "costUsd": 0.020952,
+          "latencyMs": 6375,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 8332,
+          "costUsd": 0.02124,
+          "latencyMs": 5920,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.0005239999999999967,
-      "costUsd": 0.04076,
-      "latencyMs": 9368
+      "questionCostUsd": 0.0004330000000000028,
+      "costUsd": 0.042624999999999996,
+      "latencyMs": 7247
     },
     {
       "caseId": "carballo-frontera-sobre",
       "state": "con-hechos",
       "group": "boundary",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -2605,27 +3349,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 9042,
+          "costUsd": 0.020952,
+          "latencyMs": 6326,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 6108,
+          "costUsd": 0.02124,
+          "latencyMs": 6750,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.040236,
-      "latencyMs": 9042
+      "costUsd": 0.04219199999999999,
+      "latencyMs": 6750
     },
     {
       "caseId": "carballo-mancha-total",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -2652,27 +3397,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 6146,
+          "costUsd": 0.020952,
+          "latencyMs": 8331,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020092,
-          "latencyMs": 8591,
+          "costUsd": 0.0212,
+          "latencyMs": 8115,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.00028199999999999753,
-      "costUsd": 0.04047799999999999,
-      "latencyMs": 9257
+      "questionCostUsd": 0.00026600000000000235,
+      "costUsd": 0.042418,
+      "latencyMs": 8931
     },
     {
       "caseId": "carballo-corregido-a-mano",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -2705,27 +3451,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020104,
-          "latencyMs": 6074,
+          "costUsd": 0.020952,
+          "latencyMs": 8212,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 6095,
+          "costUsd": 0.02124,
+          "latencyMs": 8366,
           "cached": true
         }
       ],
-      "questionCostUsd": 0.0007440000000000016,
-      "costUsd": 0.04098,
-      "latencyMs": 7437
+      "questionCostUsd": 0.0007529999999999967,
+      "costUsd": 0.04294499999999999,
+      "latencyMs": 9759
     },
     {
       "caseId": "carballo-foto-mala",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [],
@@ -2743,27 +3490,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.023874,
-          "latencyMs": 9845,
+          "costUsd": 0.024722,
+          "latencyMs": 6703,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 7001,
+          "costUsd": 0.02124,
+          "latencyMs": 6391,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.044006,
-      "latencyMs": 9845
+      "costUsd": 0.045962,
+      "latencyMs": 6703
     },
     {
       "caseId": "carballo-foto-mala-precio",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [
@@ -2790,27 +3538,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.023874,
-          "latencyMs": 6526,
+          "costUsd": 0.024722,
+          "latencyMs": 7856,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.020132,
-          "latencyMs": 7112,
+          "costUsd": 0.02124,
+          "latencyMs": 6051,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.044006,
-      "latencyMs": 7112
+      "costUsd": 0.045962,
+      "latencyMs": 7856
     },
     {
       "caseId": "rianorte-manuscrito",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [],
@@ -2828,27 +3577,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016384,
-          "latencyMs": 4803,
+          "costUsd": 0.017232,
+          "latencyMs": 4745,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.016382,
-          "latencyMs": 5214,
+          "costUsd": 0.01749,
+          "latencyMs": 4450,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.032766,
-      "latencyMs": 5214
+      "costUsd": 0.034722,
+      "latencyMs": 4745
     },
     {
       "caseId": "rianorte-trampa-bascula",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [],
@@ -2866,27 +3616,28 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.018144,
-          "latencyMs": 4996,
+          "costUsd": 0.018992,
+          "latencyMs": 6963,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.018122,
-          "latencyMs": 5637,
+          "costUsd": 0.01923,
+          "latencyMs": 5209,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.036266,
-      "latencyMs": 5637
+      "costUsd": 0.038222,
+      "latencyMs": 6963
     },
     {
       "caseId": "carballo-trampa-columnas",
       "state": "con-hechos",
       "group": "headline",
       "holdout": false,
+      "albaranes": 1,
       "correction": null,
       "expected": {
         "findings": [],
@@ -2904,21 +3655,520 @@
         {
           "docType": "albaran",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.018624,
-          "latencyMs": 5105,
+          "costUsd": 0.019472,
+          "latencyMs": 7307,
           "cached": true
         },
         {
           "docType": "factura",
           "model": "claude-sonnet-5-5",
-          "costUsd": 0.018652,
-          "latencyMs": 8444,
+          "costUsd": 0.01976,
+          "latencyMs": 6132,
           "cached": true
         }
       ],
       "questionCostUsd": 0,
-      "costUsd": 0.037276000000000004,
-      "latencyMs": 8444
+      "costUsd": 0.039232,
+      "latencyMs": 7307
+    },
+    {
+      "caseId": "carballo-3-albaranes",
+      "state": "con-hechos",
+      "group": "headline",
+      "holdout": false,
+      "albaranes": 3,
+      "correction": null,
+      "expected": {
+        "findings": [],
+        "decision": "pass",
+        "reason": "all_matched"
+      },
+      "got": {
+        "outcome": "pass",
+        "reason": "all_matched",
+        "findings": []
+      },
+      "expectedFindings": [],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.015672,
+          "latencyMs": 4949,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017442,
+          "latencyMs": 4565,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.019232,
+          "latencyMs": 6252,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.029,
+          "latencyMs": 9436,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0,
+      "costUsd": 0.081346,
+      "latencyMs": 9436
+    },
+    {
+      "caseId": "carballo-3-albaranes-cantidad",
+      "state": "con-hechos",
+      "group": "headline",
+      "holdout": false,
+      "albaranes": 3,
+      "correction": null,
+      "expected": {
+        "findings": [
+          {
+            "ruleId": "quantity-mismatch",
+            "productId": "cerveza-lager"
+          }
+        ],
+        "decision": "escalate",
+        "reason": "overcharge"
+      },
+      "got": {
+        "outcome": "escalate",
+        "reason": "overcharge",
+        "findings": [
+          "quantity-mismatch:cerveza-lager"
+        ]
+      },
+      "expectedFindings": [
+        "quantity-mismatch:cerveza-lager"
+      ],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.015672,
+          "latencyMs": 3855,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017442,
+          "latencyMs": 7095,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.019232,
+          "latencyMs": 5296,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.029,
+          "latencyMs": 11726,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0,
+      "costUsd": 0.081346,
+      "latencyMs": 11726
+    },
+    {
+      "caseId": "carballo-2-albaranes-parcial",
+      "state": "con-hechos",
+      "group": "headline",
+      "holdout": false,
+      "albaranes": 2,
+      "correction": null,
+      "expected": {
+        "findings": [],
+        "decision": "pass",
+        "reason": "all_matched"
+      },
+      "got": {
+        "outcome": "pass",
+        "reason": "all_matched",
+        "findings": []
+      },
+      "expectedFindings": [],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017442,
+          "latencyMs": 5072,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017402,
+          "latencyMs": 5844,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.0215,
+          "latencyMs": 6454,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0,
+      "costUsd": 0.056344,
+      "latencyMs": 6454
+    },
+    {
+      "caseId": "carballo-pedido",
+      "state": "con-hechos",
+      "group": "headline",
+      "holdout": false,
+      "albaranes": 3,
+      "correction": null,
+      "expected": {
+        "findings": [],
+        "decision": "pass",
+        "reason": "all_matched"
+      },
+      "got": {
+        "outcome": "pass",
+        "reason": "all_matched",
+        "findings": []
+      },
+      "expectedFindings": [],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.015912,
+          "latencyMs": 3720,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.014202,
+          "latencyMs": 3302,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.015922,
+          "latencyMs": 3816,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.02122,
+          "latencyMs": 6000,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0,
+      "costUsd": 0.067256,
+      "latencyMs": 6000
+    },
+    {
+      "caseId": "carballo-pedido-precio",
+      "state": "con-hechos",
+      "group": "headline",
+      "holdout": false,
+      "albaranes": 2,
+      "correction": null,
+      "expected": {
+        "findings": [
+          {
+            "ruleId": "unit-price-mismatch",
+            "productId": "vino-mencia"
+          }
+        ],
+        "decision": "escalate",
+        "reason": "overcharge"
+      },
+      "got": {
+        "outcome": "escalate",
+        "reason": "overcharge",
+        "findings": [
+          "unit-price-mismatch:vino-mencia"
+        ]
+      },
+      "expectedFindings": [
+        "unit-price-mismatch:vino-mencia"
+      ],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017682,
+          "latencyMs": 4691,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017712,
+          "latencyMs": 4667,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.02122,
+          "latencyMs": 5878,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0,
+      "costUsd": 0.056614,
+      "latencyMs": 5878
+    },
+    {
+      "caseId": "carballo-albaran-no-aportado",
+      "state": "con-hechos",
+      "group": "headline",
+      "holdout": false,
+      "albaranes": 2,
+      "correction": null,
+      "expected": {
+        "findings": [
+          {
+            "ruleId": "albaran-link",
+            "productId": null
+          },
+          {
+            "ruleId": "missing-line",
+            "productId": "vino-mencia"
+          }
+        ],
+        "decision": "ask",
+        "reason": "missing_document"
+      },
+      "got": {
+        "outcome": "ask",
+        "reason": "missing_document",
+        "findings": [
+          "albaran-link:-",
+          "missing-line:vino-mencia"
+        ]
+      },
+      "expectedFindings": [
+        "albaran-link:-",
+        "missing-line:vino-mencia"
+      ],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.015672,
+          "latencyMs": 3767,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.015682,
+          "latencyMs": 4841,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.02197,
+          "latencyMs": 9026,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0.0005879999999999982,
+      "costUsd": 0.053911999999999995,
+      "latencyMs": 9865
+    },
+    {
+      "caseId": "carballo-albaran-de-otro-pedido",
+      "state": "con-hechos",
+      "group": "headline",
+      "holdout": false,
+      "albaranes": 3,
+      "correction": null,
+      "expected": {
+        "findings": [
+          {
+            "ruleId": "albaran-link",
+            "productId": null
+          },
+          {
+            "ruleId": "missing-line",
+            "productId": "aceite-girasol"
+          }
+        ],
+        "decision": "ask",
+        "reason": "missing_document"
+      },
+      "got": {
+        "outcome": "ask",
+        "reason": "missing_document",
+        "findings": [
+          "albaran-link:-",
+          "missing-line:aceite-girasol"
+        ]
+      },
+      "expectedFindings": [
+        "albaran-link:-",
+        "missing-line:aceite-girasol"
+      ],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017682,
+          "latencyMs": 4877,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.015922,
+          "latencyMs": 3865,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.014322,
+          "latencyMs": 4052,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.02122,
+          "latencyMs": 5839,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0.0006359999999999977,
+      "costUsd": 0.069782,
+      "latencyMs": 6830
+    },
+    {
+      "caseId": "vidal-2-albaranes-cajas",
+      "state": "con-hechos",
+      "group": "headline",
+      "holdout": true,
+      "albaranes": 2,
+      "correction": null,
+      "expected": {
+        "findings": [
+          {
+            "ruleId": "unit-incompatible",
+            "productId": "tomate-pera"
+          }
+        ],
+        "decision": "ask",
+        "reason": "missing_knowledge"
+      },
+      "got": {
+        "outcome": "ask",
+        "reason": "missing_knowledge",
+        "findings": [
+          "unit-incompatible:tomate-pera"
+        ]
+      },
+      "expectedFindings": [
+        "unit-incompatible:tomate-pera"
+      ],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.015542,
+          "latencyMs": 3819,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017182,
+          "latencyMs": 6027,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.0194,
+          "latencyMs": 7229,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0.00044099999999999695,
+      "costUsd": 0.052565,
+      "latencyMs": 8139
+    },
+    {
+      "caseId": "rianorte-fechas",
+      "state": "con-hechos",
+      "group": "headline",
+      "holdout": false,
+      "albaranes": 2,
+      "correction": null,
+      "expected": {
+        "findings": [],
+        "decision": "pass",
+        "reason": "all_matched"
+      },
+      "got": {
+        "outcome": "pass",
+        "reason": "all_matched",
+        "findings": []
+      },
+      "expectedFindings": [],
+      "unresolvedLines": [],
+      "docs": [
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.019222,
+          "latencyMs": 5026,
+          "cached": true
+        },
+        {
+          "docType": "albaran",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.017192,
+          "latencyMs": 5763,
+          "cached": true
+        },
+        {
+          "docType": "factura",
+          "model": "claude-sonnet-5-5",
+          "costUsd": 0.01938,
+          "latencyMs": 5287,
+          "cached": true
+        }
+      ],
+      "questionCostUsd": 0,
+      "costUsd": 0.055794,
+      "latencyMs": 5763
     }
   ]
 }

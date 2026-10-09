@@ -32,7 +32,7 @@ const states = [
 const records: CaseRecord[] = []
 for (const state of states) {
   for (const c of dataset) {
-    const result = await processCase({ id: c.id, albaran: c.albaran, factura: c.factura }, { facts: state.facts, cacheOnly: !refresh })
+    const result = await processCase({ id: c.id, albaranes: c.albaranes, factura: c.factura }, { facts: state.facts, cacheOnly: !refresh })
     records.push(record(c, state.id, state.facts, result))
   }
 }
@@ -63,6 +63,11 @@ const report = {
       facts: state.facts.length,
       headline: routing(headline),
       holdout: routing(headline.filter((r) => r.holdout)),
+      // Los mismos casos de cabecera, según cuántos albaranes trae cada uno.
+      byAlbaranes: ['1', '2', '3 o más'].map((label, i) => ({
+        label,
+        ...routing(headline.filter((r) => Math.min(r.albaranes, 3) === i + 1)),
+      })),
       rules: perRule(headline),
       corrections: routing(all.filter((r) => r.group === 'correction')),
       unresolvedLines: headline.flatMap((r) => r.unresolvedLines.map((l) => `${r.caseId}: ${l}`)),

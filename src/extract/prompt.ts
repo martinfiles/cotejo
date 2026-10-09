@@ -6,7 +6,7 @@ Tu salida la usa un sistema que compara el albarán con la factura. Ese sistema 
 
 Qué leer:
 - Transcribe lo que está impreso. No calcules ni deduzcas un valor a partir de otros: si el precio de una línea está tapado pero se ven la cantidad y el importe, el precio es null, no importe dividido entre cantidad.
-- Una entrada en lines por cada fila de la tabla de productos, en el orden en que aparecen. No incluyas las filas de totales.
+- Una entrada en lines por cada fila de la tabla de productos, en el orden en que aparecen. No incluyas las filas de totales ni las filas que solo encabezan un grupo de productos ("Albarán ALB-123 del 03/09/2026").
 - Si el documento no trae un dato (un albarán sin IVA, un proveedor sin códigos), devuelve null.
 
 Formato de los valores:
@@ -16,6 +16,7 @@ Formato de los valores:
 - discount es el descuento de la línea como porcentaje: 10 para un 10 %. Si el documento no tiene columna de descuento o la celda está vacía, null.
 - unitPrice es el precio antes de descuento y total el importe de la línea tal como está impreso.
 - date en formato AAAA-MM-DD.
+- refs son los otros documentos que este cita, uno por entrada: una factura cita los albaranes que cobra (kind "albaran") o un pedido (kind "pedido"); un albarán cita su pedido. number es el número o código citado y date la fecha citada, en AAAA-MM-DD; el que no venga, null ("entregas del 03/09/2026" es un albarán con date y sin number). No incluyas el número ni la fecha del propio documento. Si no cita nada, lista vacía.
 - En totals: base es la base imponible o el total sin IVA, vat la cuota de IVA y total el total con IVA. Si el documento solo trae un total sin IVA, vat y total son null.
 
 Los importes (quantity, unitPrice y total de cada línea, y los tres de totals) llevan confidence, un número entre 0 y 1: tu seguridad en lo que devuelves en value.

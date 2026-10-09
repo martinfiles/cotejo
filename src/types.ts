@@ -12,11 +12,18 @@ export type Amount = { value: number | null; confidence: number }
 // es null se usa la caja de la línea.
 export type Located = Amount & { bbox: BBox | null }
 
+// Otro documento que este cita. Una factura cita sus albaranes, por número o
+// por fecha, o un pedido; un albarán cita su pedido.
+export type Ref = { kind: 'albaran' | 'pedido'; number: string | null; date: string | null }
+
 export type Line = {
-  // Se asigna por posición al extraer ("A1", "F3"). Solo sirve para que un
-  // finding señale una línea de esta extracción. No es la identidad del
-  // producto: el eval resuelve eso por su cuenta.
+  // Se asigna por posición ("F3"; "A2.3" es la tercera línea del segundo
+  // albarán del caso). Solo sirve para que un finding señale una línea de
+  // esta extracción. No es la identidad del producto: el eval resuelve eso
+  // por su cuenta.
   key: string
+  // De qué albarán del caso viene, por posición en la lista. 0 en la factura.
+  source: number
   code: string | null
   description: string
   quantity: Located
@@ -27,6 +34,9 @@ export type Line = {
   discount: number | null
   total: Located
   bbox: BBox
+  // Solo en una línea que suma varias del mismo producto (el mismo arroz en
+  // dos albaranes): las líneas de las que sale.
+  parts?: Line[]
 }
 
 export type ExtractedDoc = {
@@ -36,8 +46,19 @@ export type ExtractedDoc = {
   supplierTaxId: string | null
   number: string
   date: string
+  refs: Ref[]
   lines: Line[]
   totals: { base: Amount; vat: Amount; total: Amount; bbox: BBox }
+}
+
+// Cómo se sabe que cada albarán del caso es de esta factura.
+export type LinkResult = {
+  // Uno por albarán, en el orden del caso. null si nada los une.
+  links: { albaran: number; by: 'number' | 'date' | 'order' | null }[]
+  // Albaranes que la factura cita y no están en el caso.
+  missing: Ref[]
+  // Albaranes del caso (por posición) que la factura no cita.
+  uncited: number[]
 }
 
 export type MatchResult = {
@@ -52,12 +73,15 @@ export type MatchResult = {
 // - inconsistency: un documento se contradice consigo mismo.
 // - read-doubt: no me creo lo que he leído.
 // - missing-knowledge: falta saber algo del proveedor para poder comparar.
-export type Signal = 'discrepancy' | 'inconsistency' | 'read-doubt' | 'missing-knowledge'
+// - missing-document: los papeles del caso no son los que cita la factura.
+export type Signal = 'discrepancy' | 'inconsistency' | 'read-doubt' | 'missing-knowledge' | 'missing-document'
 
 // El dato concreto del documento en que se apoya un finding, con la caja
 // para recortarlo en la interfaz.
 export type Evidence = {
   doc: DocType
+  // Qué albarán del caso, por posición. 0 en la factura.
+  source: number
   field: string
   value: number | null
   confidence: number
@@ -92,8 +116,9 @@ export type Fact = Knowledge & {
 }
 
 export type RuleContext = {
-  albaran: ExtractedDoc
+  albaranes: ExtractedDoc[]
   factura: ExtractedDoc
+  links: LinkResult
   match: MatchResult
   facts: Fact[]
 }
@@ -118,6 +143,7 @@ export type Reason =
   | 'document_ambiguous' // ask: un documento se contradice consigo mismo
   | 'low_confidence_read' // ask: hay un importe que no se pudo leer
   | 'missing_knowledge' // ask: falta saber algo del proveedor
+  | 'missing_document' // ask: falta un albarán o sobra uno que la factura no cita
 
 // Lo que el humano puede hacer con un caso. El efecto de cada botón lo fija
 // el código; el modelo solo redacta la pregunta.
@@ -161,8 +187,9 @@ export type TruthLine = {
 
 export type DatasetCase = {
   id: string
-  albaran: string
+  albaranes: string[]
   factura: string
+  // `albaran` son las líneas de todos los albaranes, seguidas.
   lines: { albaran: TruthLine[]; factura: TruthLine[] }
   // Hechos sin los que el caso no se puede resolver solo. Con todos activos
   // se compara contra `withKnowledge`; si falta alguno, contra `withoutKnowledge`.

@@ -1,5 +1,5 @@
 import { normalize, sameCode } from '../text'
-import type { DocType, Evidence, Fact, Finding, Line, Rule } from '../types'
+import type { DocType, Evidence, ExtractedDoc, Fact, Finding, Line, Rule } from '../types'
 
 // Lo que usan varias reglas. Cada regla vive en su fichero; aquí solo está lo
 // que se repetiría entre ellas.
@@ -19,12 +19,20 @@ export function finding(
   return { ruleId: rule.id, signal: rule.signal, ...details }
 }
 
-// El número de una línea como evidencia. Si el modelo no dio caja para ese
-// campo, o no era creíble, se señala la fila entera.
-export function evidence(doc: DocType, line: Line, field: 'quantity' | 'unitPrice' | 'total'): Evidence {
-  const { value, confidence, bbox } = line[field]
-  return { doc, field, value, confidence, bbox: bbox ?? line.bbox }
+// El número de una línea como evidencia: uno por cada línea que suma, para
+// poder señalar cada papel. Si el modelo no dio caja para ese campo, o no era
+// creíble, se señala la fila entera.
+export function evidence(doc: DocType, line: Line, field: 'quantity' | 'unitPrice' | 'total'): Evidence[] {
+  return (line.parts ?? [line]).map((part) => {
+    const { value, confidence, bbox } = part[field]
+    return { doc, source: part.source, field, value, confidence, bbox: bbox ?? part.bbox }
+  })
 }
+
+// Cómo nombrar un documento en un mensaje. El número del albarán solo hace
+// falta cuando el caso trae varios.
+export const nameOf = (doc: ExtractedDoc, albaranes: ExtractedDoc[]) =>
+  doc.docType === 'factura' ? 'la factura' : albaranes.length > 1 ? `el albarán ${doc.number}` : 'el albarán'
 
 // Importe que debería tener una línea según su cantidad, precio y descuento.
 export function expectedTotal(line: Line) {

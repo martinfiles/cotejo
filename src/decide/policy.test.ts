@@ -55,3 +55,9 @@ test('con varias dudas a la vez manda la lectura, luego el documento, luego el c
   assert.equal(route(finding('missing-knowledge'), finding('inconsistency'), finding('read-doubt')), 'ask low_confidence_read')
   assert.equal(route(finding('missing-knowledge'), finding('inconsistency')), 'ask document_ambiguous')
 })
+
+test('si faltan papeles se pregunta por ellos antes que por cualquier otra cosa', () => {
+  assert.equal(route(finding('missing-document')), 'ask missing_document')
+  assert.equal(route(finding('missing-document'), finding('discrepancy', limit * 3)), 'ask missing_document')
+  assert.equal(route(finding('missing-document'), finding('read-doubt'), finding('inconsistency')), 'ask missing_document')
+})

@@ -68,6 +68,7 @@ function normalize(raw: ModelDoc, docType: DocType, image: PageImage): Extracted
       return {
         ...line,
         key,
+        source: 0,
         bbox,
         quantity: { ...line.quantity, bbox: fieldBox(line.quantity.bbox, image, bbox) },
         unitPrice: { ...line.unitPrice, bbox: fieldBox(line.unitPrice.bbox, image, bbox) },

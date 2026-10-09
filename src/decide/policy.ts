@@ -19,6 +19,10 @@ export function decide(findings: Finding[]): Routing {
 
   // --- Dudas: el problema puede ser mío, no del proveedor. Nunca escalan. ---
 
+  // Faltan papeles: los albaranes del caso no son los que cita la factura.
+  // Va la primera porque sin ellos lo demás que se haya visto no es fiable.
+  if (has('missing-document')) return { outcome: 'ask', reason: 'missing_document', overchargeEur }
+
   // Fallo de lectura: hay un importe que no he podido leer.
   if (has('read-doubt')) return { outcome: 'ask', reason: 'low_confidence_read', overchargeEur }
 

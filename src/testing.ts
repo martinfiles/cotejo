@@ -1,5 +1,6 @@
 // Constructores de documentos para los tests. No los usa el pipeline.
 
+import { inCase, link } from './link/link'
 import { match } from './match/match'
 import type { Amount, DocType, ExtractedDoc, Fact, Knowledge, Line, RuleContext } from './types'
 
@@ -28,6 +29,7 @@ export function doc(docType: DocType, specs: LineSpec[], totals: Partial<Extract
     const computed = (quantity.value ?? 0) * (unitPrice.value ?? 0) * (1 - (spec.discount ?? 0) / 100)
     return {
       key: `${docType === 'albaran' ? 'A' : 'F'}${i + 1}`,
+      source: 0,
       code: spec.code ?? null,
       description: spec.description,
       quantity: { ...quantity, bbox: null },
@@ -49,6 +51,7 @@ export function doc(docType: DocType, specs: LineSpec[], totals: Partial<Extract
     supplierTaxId: 'B00000000',
     number: '1',
     date: '2026-09-01',
+    refs: [],
     lines,
     totals: {
       base: amount(base),
@@ -66,6 +69,8 @@ type Without<T, K extends string> = T extends unknown ? Omit<T, K> : never
 export const fact = (knowledge: Without<Knowledge, 'supplierTaxId'>): Fact =>
   ({ ...knowledge, supplierTaxId: 'B00000000', id: 'f1', learnedAt: '2026-10-01T00:00:00Z', fromCase: 'c1', revokedAt: null }) as Fact
 
-export function context(albaran: ExtractedDoc, factura: ExtractedDoc, facts: Fact[] = []): RuleContext {
-  return { albaran, factura, match: match(albaran, factura, facts), facts }
+// Uno o varios albaranes, numerados como los numera el pipeline: "A1.1", "A2.1".
+export function context(albaran: ExtractedDoc | ExtractedDoc[], factura: ExtractedDoc, facts: Fact[] = []): RuleContext {
+  const albaranes = [albaran].flat().map(inCase)
+  return { albaranes, factura, links: link(albaranes, factura), match: match(albaranes, factura, facts), facts }
 }

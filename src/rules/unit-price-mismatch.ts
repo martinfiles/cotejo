@@ -22,7 +22,7 @@ export const unitPriceMismatch: Rule = {
         lineKey: factura.key,
         message: `${factura.description}: el albarán dice ${eur(agreedPerUnit)} por ${factura.unit ?? 'unidad'} y la factura ${eur(invoiced)}.`,
         impactEur: quantity === null ? null : round2((invoiced - agreedPerUnit) * quantity * (1 - (factura.discount ?? 0) / 100)),
-        evidence: [evidence('albaran', albaran, 'unitPrice'), evidence('factura', factura, 'unitPrice')],
+        evidence: [...evidence('albaran', albaran, 'unitPrice'), ...evidence('factura', factura, 'unitPrice')],
       })
     })
   },

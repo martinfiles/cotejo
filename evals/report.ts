@@ -18,6 +18,11 @@ export function renderReport(r: Report) {
   const rules = (s: Report['states'][number]) =>
     s.rules.map((x) => `| ${x.rule} | ${x.expected} | ${x.tp} | ${x.fp} | ${x.fn} | ${fmt(x.precision)} | ${fmt(x.recall)} |`).join('\n')
 
+  const byAlbaranes = (s: Report['states'][number]) =>
+    s.byAlbaranes
+      .map((x) => `| ${x.label} | ${x.cases} | ${pct(x.autonomous)} | ${pct(x.ask)} | ${pct(x.escalate)} | ${pct(x.decisionCorrect)} | ${pct(x.reasonCorrect)} |`)
+      .join('\n')
+
   const failures = (s: Report['states'][number]) =>
     s.failures.length
       ? s.failures.map((f) => `- \`${f.caseId}\`: esperaba ${f.expected}, salió ${f.got}`).join('\n')
@@ -60,6 +65,22 @@ Comparten proveedor y problema con los casos que se resuelven en la demo. La mej
 
 Un holdout que pasa a escalado no es un fallo: es una discrepancia real que solo se veía sabiendo el hecho.
 
+## Por número de albaranes
+
+Los casos de la cabecera según cuántos albaranes llegan con la factura. Con dos o más hay que comprobar que son los que la factura cita y sumar las entregas antes de comparar.
+
+### ${without.label}
+
+| Albaranes | Casos | Resueltos solos | Preguntados | Escalados | Acierto de decisión | Acierto de motivo |
+|---|---|---|---|---|---|---|
+${byAlbaranes(without)}
+${sameState ? '' : `
+### ${withFacts.label}
+
+| Albaranes | Casos | Resueltos solos | Preguntados | Escalados | Acierto de decisión | Acierto de motivo |
+|---|---|---|---|---|---|---|
+${byAlbaranes(withFacts)}
+`}
 ## Precisión y recall por regla
 
 Un finding cuenta como acierto si coinciden la regla y el producto. "Esperados" es el número de veces que la regla debía saltar: con tan pocos, un solo fallo mueve mucho el porcentaje.

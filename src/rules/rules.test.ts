@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 import { context, doc, fact, unread } from '../testing'
-import type { Finding } from '../types'
+import type { ExtractedDoc, Finding, Ref } from '../types'
+import { albaranLink } from './albaran-link'
 import { implausiblePrice } from './implausible-price'
 import { runRules } from './index'
 import { lineArithmetic } from './line-arithmetic'
@@ -64,13 +65,13 @@ test('missing-line: lo facturado sin entregar cuesta; lo entregado sin facturar 
   assert.deepEqual(brief(missingLine.check(billed)), ['missing-line F2 23.6'])
 
   const delivered = context(doc('albaran', [vino, azucar]), doc('factura', [vino]))
-  assert.deepEqual(brief(missingLine.check(delivered)), ['missing-line A2 -23.6'])
+  assert.deepEqual(brief(missingLine.check(delivered)), ['missing-line A1.2 -23.6'])
 })
 
 test('line-arithmetic: una cantidad corregida deja la línea sin cuadrar', () => {
   const corrected = { ...vino, quantity: 18, total: 124.8 }
   const ctx = context(doc('albaran', [corrected]), doc('factura', [vino]))
-  assert.deepEqual(brief(lineArithmetic.check(ctx)), ['line-arithmetic A1 null'])
+  assert.deepEqual(brief(lineArithmetic.check(ctx)), ['line-arithmetic A1.1 null'])
 })
 
 test('line-arithmetic: el descuento cuenta, y una línea con descuento bien aplicado cuadra', () => {
@@ -117,4 +118,43 @@ test('implausible-price: un precio a otra escala es una coma mal leída, no una 
   assert.deepEqual(brief(implausiblePrice.check(ctx)), ['implausible-price F1 null'])
   const raised = context(doc('albaran', [vino]), doc('factura', [{ ...vino, unitPrice: 6.7 }]))
   assert.deepEqual(implausiblePrice.check(raised), [])
+})
+
+// --- Varios albaranes ---------------------------------------------------------
+
+const arroz = { code: 'C-1040', description: 'Arroz bomba', quantity: 2, unitPrice: 14.5 }
+const numbered = (number: string, lines: Parameters<typeof doc>[1]): ExtractedDoc => ({ ...doc('albaran', lines), number })
+const citing = (factura: ExtractedDoc, ...numbers: string[]): ExtractedDoc =>
+  ({ ...factura, refs: numbers.map((number): Ref => ({ kind: 'albaran', number, date: null })) })
+
+test('quantity-mismatch: compara lo que suman los albaranes y señala cada uno', () => {
+  const albaranes = [numbered('ALB-1', [arroz]), numbered('ALB-2', [{ ...arroz, quantity: 1 }])]
+  const same = context(albaranes, doc('factura', [{ ...arroz, quantity: 3 }]))
+  assert.deepEqual(runRules(same), [])
+
+  const more = context(albaranes, doc('factura', [{ ...arroz, quantity: 5 }]))
+  const [found] = quantityMismatch.check(more)
+  assert.deepEqual(brief([found!]), ['quantity-mismatch F1 29'])
+  assert.match(found!.message, /los albaranes suman 3 ud \(2 en ALB-1 y 1 en ALB-2\) y la factura 5 ud/)
+  assert.deepEqual(found!.evidence.map((e) => `${e.doc}${e.source} ${e.value}`), ['albaran0 2', 'albaran1 1', 'factura0 5'])
+})
+
+test('albaran-link: la factura cita un albarán que no está en el caso', () => {
+  const factura = citing(doc('factura', [vino, arroz]), 'ALB-1', 'ALB-2')
+  const ctx = context(numbered('ALB-1', [vino]), factura)
+  assert.deepEqual(brief(albaranLink.check(ctx)), ['albaran-link null null'])
+  // Lo facturado sin pareja puede estar en el albarán que falta: no es un cobro de más.
+  assert.deepEqual(missingLine.check(ctx).map((f) => f.signal), ['missing-document'])
+})
+
+test('albaran-link: en el caso hay un albarán que la factura no cita', () => {
+  const factura = citing(doc('factura', [vino]), 'ALB-1')
+  const ctx = context([numbered('ALB-1', [vino]), numbered('ALB-9', [arroz])], factura)
+  assert.deepEqual(brief(albaranLink.check(ctx)), ['albaran-link null null'])
+  assert.deepEqual(missingLine.check(ctx).map((f) => `${f.lineKey} ${f.signal}`), ['A2.1 missing-document'])
+})
+
+test('albaran-link: con todos los albaranes citados y presentes no dice nada', () => {
+  const factura = citing(doc('factura', [vino, arroz]), 'ALB-1', 'ALB-2')
+  assert.deepEqual(runRules(context([numbered('ALB-1', [vino]), numbered('ALB-2', [arroz])], factura)), [])
 })

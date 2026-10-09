@@ -1,10 +1,11 @@
+import { keysOf } from '@cotejo/match/match'
 import { getCase, listFacts } from '@cotejo/store'
-import type { DocType, Finding, Line, Signal } from '@cotejo/types'
+import type { Evidence, Finding, Line, Signal } from '@cotejo/types'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { resolveAction } from '../../actions'
 import { Crop, DocPage } from '../../crop'
-import { ago, BY, DOC, eur, num, OUTCOME, REASON, RESOLUTION, SIGNAL } from '../../labels'
+import { ago, BY, DOC, eur, LINK, num, OUTCOME, REASON, RESOLUTION, SIGNAL } from '../../labels'
 
 export const dynamic = 'force-dynamic'
 
@@ -18,16 +19,23 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
 
   // Qué celda de la tabla toca cada finding. Un finding de un par apunta a
   // la línea de la factura; su evidencia dice en qué documento y campo está.
+  // Una fila de la tabla puede sumar varias líneas: `row` lleva de cualquiera
+  // de ellas a la fila, y `partner` a la fila del otro documento.
+  const row = new Map<string, string>()
   const partner = new Map<string, string>()
   for (const p of match.pairs) {
-    partner.set(p.albaran.key, p.factura.key)
-    partner.set(p.factura.key, p.albaran.key)
+    for (const [line, other] of [[p.albaran, p.factura], [p.factura, p.albaran]] as const) {
+      for (const key of keysOf(line)) {
+        row.set(key, line.key)
+        partner.set(key, other.key)
+      }
+    }
   }
   const flagged = new Map<string, Signal>()
   for (const f of findings) {
     if (!f.lineKey) continue
     for (const e of f.evidence) {
-      const own = f.lineKey.startsWith(e.doc === 'albaran' ? 'A' : 'F') ? f.lineKey : partner.get(f.lineKey)
+      const own = f.lineKey.startsWith(e.doc === 'albaran' ? 'A' : 'F') ? (row.get(f.lineKey) ?? f.lineKey) : partner.get(f.lineKey)
       if (own) flagged.set(`${own}.${e.field}`, f.signal)
     }
   }
@@ -41,14 +49,24 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
       </td>
     )
   }
+  // Una fila que suma varias líneas dice de cuáles sale: "(2 + 1)".
+  const split = (line: Line | undefined) =>
+    line?.parts ? <span className="muted"> ({line.parts.map((p) => num(p.quantity.value)).join(' + ')})</span> : null
   const rows: { albaran?: Line; factura?: Line; by?: keyof typeof BY }[] = [
     ...match.pairs.map((p) => ({ albaran: p.albaran, factura: p.factura, by: p.by })),
     ...match.onlyAlbaran.map((l) => ({ albaran: l })),
     ...match.onlyFactura.map((l) => ({ factura: l })),
   ]
 
-  const boxesIn = (doc: DocType) => findings.flatMap((f) => f.evidence.filter((e) => e.doc === doc).map((e) => e.bbox))
-  const file = (doc: DocType) => c.files[doc]
+  // Los papeles del caso, en el orden en que llegaron, y el que señala cada evidencia.
+  const several = c.albaranes.length > 1
+  const papers = [
+    ...c.albaranes.map((a, source) => ({ doc: 'albaran' as const, source, file: c.files.albaranes[source]!, name: `${DOC.albaran} ${a.doc.number}` })),
+    { doc: 'factura' as const, source: 0, file: c.files.factura, name: DOC.factura },
+  ]
+  const paperOf = (e: Evidence) => papers.find((p) => p.doc === e.doc && p.source === e.source)!
+  const boxesIn = (paper: (typeof papers)[number]) =>
+    findings.flatMap((f) => f.evidence.filter((e) => paperOf(e) === paper).map((e) => e.bbox))
 
   return (
     <>
@@ -56,8 +74,19 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
       <header className="case-head">
         <h1>{c.factura.doc.supplier}</h1>
         <p className="muted">
-          Albarán {c.albaran.doc.number} · Factura {c.factura.doc.number} · {c.factura.doc.date} · caso {c.id}
+          Factura {c.factura.doc.number} · {c.factura.doc.date} · caso {c.id}
         </p>
+        <ul className="muted">
+          {c.links.links.map(({ albaran, by }) => (
+            <li key={albaran}>
+              Albarán {c.albaranes[albaran]!.doc.number} · {c.albaranes[albaran]!.doc.date} ·{' '}
+              {by ? LINK[by] : c.links.uncited.includes(albaran) ? 'la factura no lo cita' : 'la factura no cita ningún albarán'}
+            </li>
+          ))}
+          {c.links.missing.map((ref, i) => (
+            <li key={`falta-${i}`}>Albarán {[ref.number, ref.date].filter(Boolean).join(' · ')} · citado en la factura, no está en el caso</li>
+          ))}
+        </ul>
       </header>
 
       <section className={`decision ${decision.outcome}`}>
@@ -114,7 +143,7 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
         <section>
           <h2>Qué ha encontrado</h2>
           {findings.map((f, i) => (
-            <FindingCard key={i} finding={f} files={c.files} />
+            <FindingCard key={i} finding={f} paperOf={(e) => ({ file: paperOf(e).file, name: several ? paperOf(e).name : DOC[e.doc] })} />
           ))}
         </section>
       )}
@@ -137,13 +166,14 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
           <tbody>
             {rows.map((r, i) => (
               <tr key={i}>
-                <td className="desc">{r.albaran?.description ?? <span className="muted">no está</span>}</td>
+                <td className="desc">{r.albaran?.description ?? <span className="muted">no está</span>}{split(r.albaran)}</td>
                 {cell(r.albaran, 'quantity')}
                 {cell(r.albaran, 'unitPrice')}
                 {cell(r.albaran, 'total')}
                 <td className="desc">
                   {r.factura?.description ?? <span className="muted">no está</span>}
                   {r.factura?.discount ? <span className="muted"> (−{num(r.factura.discount)} %)</span> : null}
+                  {split(r.factura)}
                 </td>
                 {cell(r.factura, 'quantity')}
                 {cell(r.factura, 'unitPrice')}
@@ -158,10 +188,10 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
       <section>
         <h2>Documentos</h2>
         <div className="docs">
-          {(['albaran', 'factura'] as const).map((doc) => (
-            <figure key={doc}>
-              <figcaption>{DOC[doc]}</figcaption>
-              <DocPage file={file(doc)} boxes={boxesIn(doc)} />
+          {papers.map((paper) => (
+            <figure key={paper.file}>
+              <figcaption>{paper.name}</figcaption>
+              <DocPage file={paper.file} boxes={boxesIn(paper)} />
             </figure>
           ))}
         </div>
@@ -170,7 +200,7 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
   )
 }
 
-function FindingCard({ finding: f, files }: { finding: Finding; files: Record<DocType, string> }) {
+function FindingCard({ finding: f, paperOf }: { finding: Finding; paperOf: (e: Evidence) => { file: string; name: string } }) {
   return (
     <article className={`finding ${f.signal}`}>
       <div className="finding-head">
@@ -184,9 +214,9 @@ function FindingCard({ finding: f, files }: { finding: Finding; files: Record<Do
         {f.evidence.map((e, i) => (
           <figure key={i}>
             <figcaption>
-              {DOC[e.doc]}: <strong>{e.value === null ? 'no se lee' : e.field === 'quantity' ? num(e.value) : eur(e.value)}</strong>
+              {paperOf(e).name}: <strong>{e.value === null ? 'no se lee' : e.field === 'quantity' ? num(e.value) : eur(e.value)}</strong>
             </figcaption>
-            <Crop file={files[e.doc]} box={e.bbox} />
+            <Crop file={paperOf(e).file} box={e.bbox} />
           </figure>
         ))}
       </div>

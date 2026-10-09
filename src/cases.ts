@@ -1,5 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises'
 import { score } from './obs/langfuse'
+import { keysOf } from './match/match'
 import { processCase, type CaseResult } from './pipeline'
 import { addFact, getCase, listCases, listFacts, revokeFact, saveCase, type StoredCase } from './store'
 import { normalize } from './text'
@@ -13,7 +14,7 @@ import type { DatasetCase, Expected, Line, Outcome, Resolution } from './types'
 
 const DATASET = 'evals/dataset.jsonl'
 
-type Files = { albaran: string; factura: string }
+type Files = { albaranes: string[]; factura: string }
 
 export async function runCase(id: string, files: Files, opts: { cacheOnly?: boolean; createdAt?: string } = {}) {
   const result = await processCase({ id, ...files }, { facts: await listFacts(), cacheOnly: opts.cacheOnly })
@@ -78,8 +79,8 @@ async function addToDataset(before: StoredCase, option: Resolution, after: CaseR
   const own = (line: Line) => line.code ?? normalize(line.description)
   const productOf = (result: CaseResult) => {
     const ids = new Map<string, string>()
-    for (const doc of [result.albaran.doc, result.factura.doc]) for (const line of doc.lines) ids.set(line.key, own(line))
-    for (const pair of result.match.pairs) ids.set(pair.albaran.key, own(pair.factura))
+    for (const { doc } of [...result.albaranes, result.factura]) for (const line of doc.lines) ids.set(line.key, own(line))
+    for (const pair of result.match.pairs) for (const key of keysOf(pair.albaran)) ids.set(key, own(pair.factura))
     return ids
   }
   const expected = (result: CaseResult, ids: Map<string, string>): Expected => ({
@@ -97,7 +98,7 @@ async function addToDataset(before: StoredCase, option: Resolution, after: CaseR
   const entry: DatasetCase = {
     id: `correccion-${before.id}`,
     ...before.files,
-    lines: { albaran: truth(final.albaran.doc.lines), factura: truth(final.factura.doc.lines) },
+    lines: { albaran: truth(final.albaranes.flatMap((a) => a.doc.lines)), factura: truth(final.factura.doc.lines) },
     requires: final.facts.map(({ id, learnedAt, fromCase, revokedAt, ...knowledge }) => knowledge),
     expected: labelled
       ? { withoutKnowledge: labelled, withKnowledge: labelled }

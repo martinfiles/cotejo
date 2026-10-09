@@ -12,7 +12,7 @@ const FACTS = `${DIR}/facts.json`
 
 export type StoredCase = CaseResult & {
   createdAt: string
-  files: { albaran: string; factura: string }
+  files: { albaranes: string[]; factura: string }
   // Lo que respondió el humano. null mientras el caso sigue abierto.
   resolution: (Resolution & { at: string; amountEur: number | null }) | null
 }

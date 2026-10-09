@@ -9,7 +9,7 @@ export const totalMismatch: Rule = {
   check({ factura }) {
     const { base, vat, total, bbox } = factura.totals
     const at = (field: string, amount: { value: number | null; confidence: number }): Evidence => ({
-      doc: 'factura', field, value: amount.value, confidence: amount.confidence, bbox,
+      doc: 'factura', source: 0, field, value: amount.value, confidence: amount.confidence, bbox,
     })
     const findings: Finding[] = []
 

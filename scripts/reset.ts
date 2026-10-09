@@ -18,7 +18,7 @@ const counts: Record<string, number> = {}
 for (const [i, c] of seed.entries()) {
   // Fechas escalonadas para que la cola salga siempre en el mismo orden.
   const createdAt = new Date(Date.UTC(2026, 9, 1, 8, i)).toISOString()
-  const stored = await runCase(c.id, { albaran: c.albaran, factura: c.factura }, { cacheOnly: true, createdAt })
+  const stored = await runCase(c.id, { albaranes: c.albaranes, factura: c.factura }, { cacheOnly: true, createdAt })
   counts[stored.decision.outcome] = (counts[stored.decision.outcome] ?? 0) + 1
 }
 

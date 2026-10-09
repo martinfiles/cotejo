@@ -22,7 +22,7 @@ export const vatInconsistent: Rule = {
       lineKey: null,
       message: `Por los tipos de las líneas la cuota de IVA sería ${eur(expected)} y la factura dice ${eur(vat.value)}.`,
       impactEur: round2(vat.value - expected),
-      evidence: [{ doc: 'factura', field: 'vat', value: vat.value, confidence: vat.confidence, bbox }],
+      evidence: [{ doc: 'factura', source: 0, field: 'vat', value: vat.value, confidence: vat.confidence, bbox }],
     })]
   },
 }

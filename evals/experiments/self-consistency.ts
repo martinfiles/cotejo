@@ -24,6 +24,7 @@ function values(doc: ExtractedDoc) {
     ['supplierTaxId', doc.supplierTaxId],
     ['number', doc.number],
     ['date', doc.date],
+    ['refs', JSON.stringify(doc.refs)],
     ['lines.length', doc.lines.length],
     ['totals.base', doc.totals.base.value],
     ['totals.vat', doc.totals.vat.value],
@@ -60,7 +61,8 @@ function confidences(doc: ExtractedDoc) {
 const kindOf = (field: string) => field.replace(/^[AF]\d+\./, '')
 
 const cases: DatasetCase[] = (await readFile('evals/dataset.jsonl', 'utf8')).trim().split('\n').map((l) => JSON.parse(l))
-const jobs = cases.flatMap((c) => [[c.albaran, 'albaran'], [c.factura, 'factura']] as [string, DocType][])
+const jobs = cases.flatMap((c) => [...c.albaranes.map((file) => [file, 'albaran']), [c.factura, 'factura']] as [string, DocType][])
+const documents = jobs.length
 
 const diffs: Diff[] = []
 const shifts: ConfidenceShift[] = []
@@ -106,7 +108,7 @@ const bigShifts = shifts.filter((s) => delta(s) >= 0.1).sort((x, y) => delta(y) 
 
 const report = {
   runAt: new Date().toISOString(),
-  documents: cases.length * 2,
+  documents,
   fieldsCompared: fields,
   fieldsDiffering: diffs.length,
   documentsWithDiffs: new Set(diffs.map((d) => d.file)).size,

@@ -12,6 +12,7 @@ export const REASON: Record<Reason, string> = {
   document_ambiguous: 'Un documento se contradice consigo mismo.',
   low_confidence_read: 'Hay un importe que no se ha podido leer.',
   missing_knowledge: 'Falta saber algo de este proveedor para poder comparar.',
+  missing_document: 'Los albaranes del caso no son los que cita la factura.',
 }
 
 export const SIGNAL: Record<Signal, string> = {
@@ -19,6 +20,14 @@ export const SIGNAL: Record<Signal, string> = {
   inconsistency: 'Se contradice',
   'read-doubt': 'Lectura dudosa',
   'missing-knowledge': 'Falta conocimiento',
+  'missing-document': 'Falta un papel',
+}
+
+// Cómo se sabe que un albarán es de esta factura.
+export const LINK = {
+  number: 'la factura cita su número',
+  date: 'la factura cita su fecha',
+  order: 'cita el mismo pedido que la factura',
 }
 
 export const DOC = { albaran: 'Albarán', factura: 'Factura' }

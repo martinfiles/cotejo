@@ -46,10 +46,33 @@ export type Tweaks = {
   cramped?: boolean
 }
 
+// Una entrega del pedido: un albarán con parte de la mercancía.
+export type Delivery = {
+  // Lo que el proveedor da por entregado en este albarán, y lo que cobra por él.
+  lines: [product: Product, quantity: number][]
+  // Lo que se siembra en este albarán. Los números de línea son los de la entrega.
+  albaran?: Tweaks
+  // El albarán cita este pedido en vez del pedido del caso.
+  order?: string
+  // La factura lo cita y lo cobra, pero el albarán no llega con el caso.
+  absent?: boolean
+  // El albarán llega con el caso, pero la factura ni lo cita ni lo cobra.
+  uninvoiced?: boolean
+}
+
 export type SeedCase = {
   id: string
   supplier: Supplier
+  // El pedido entero: lo que cobra la factura.
   lines: [product: Product, quantity: number][]
+  // Cómo se reparte el pedido en albaranes. Si se omite, es un solo albarán
+  // con el pedido entero, y lo que se siembra en él va en `albaran`.
+  deliveries?: Delivery[]
+  // Cómo dice la factura qué albaranes cobra: un grupo de líneas por albarán
+  // con su número y su fecha ('sections'), la lista de números en la cabecera
+  // ('list', que es lo que hay si se omite), solo las fechas de entrega
+  // ('dates'), o un código de pedido que también citan los albaranes ('order').
+  cites?: 'sections' | 'list' | 'dates' | 'order'
   albaran?: Tweaks
   factura?: Tweaks
   // Lo correcto cuando el sistema ya sabe los hechos que el caso requiere.
@@ -148,6 +171,14 @@ const sinAlias: Expected = {
   decision: 'ask',
   reason: 'missing_knowledge',
 }
+
+// El pedido de Carballo en tres entregas. Arroz, tomate, vino y cerveza llegan
+// repartidos en dos albaranes cada uno.
+const tresEntregas: Delivery[] = [
+  { lines: [[arroz, 2], [tomateLata, 6]] },
+  { lines: [[vino, 12], [cerveza, 3], [arroz, 2]] },
+  { lines: [[tomateLata, 6], [vino, 12], [cerveza, 3], [azucar, 2]] },
+]
 
 // Los casos nuevos se añaden al final: el número y la fecha de cada documento
 // salen de la posición del caso en esta lista.
@@ -376,5 +407,119 @@ export const cases: SeedCase[] = [
     factura: { cramped: true },
     expected: { findings: [], decision: 'pass', reason: 'all_matched' },
     note: 'Documento limpio con trampas. Columna de descuento (10 % en el vino), una descripción que salta a dos líneas con los números pegados a la fila siguiente, y una línea de una sola unidad donde precio e importe coinciden. Todo cuadra.',
+  },
+  {
+    id: 'carballo-3-albaranes',
+    supplier: carballo,
+    lines: pedidoCarballo,
+    deliveries: tresEntregas,
+    cites: 'sections',
+    expected: { findings: [], decision: 'pass', reason: 'all_matched' },
+    note: 'El pedido llega en tres albaranes y la factura agrupa sus líneas por albarán, con número y fecha. Arroz, tomate, vino y cerveza vienen repartidos en dos entregas. Todo cuadra.',
+  },
+  {
+    id: 'carballo-3-albaranes-cantidad',
+    supplier: carballo,
+    lines: pedidoCarballo,
+    deliveries: [tresEntregas[0]!, { ...tresEntregas[1]!, albaran: { set: { line: 2, quantity: 1 } } }, tresEntregas[2]!],
+    cites: 'sections',
+    expected: { findings: [{ ruleId: 'quantity-mismatch', productId: 'cerveza-lager' }], decision: 'escalate', reason: 'overcharge' },
+    note: 'Misma factura por albaranes. El segundo albarán trae 1 caja de cerveza y la factura cobra 3 por esa entrega: entre los dos albaranes se entregan 4 cajas y se facturan 6: 37,80 €.',
+  },
+  {
+    id: 'carballo-2-albaranes-parcial',
+    supplier: carballo,
+    lines: pedidoCarballo,
+    deliveries: [
+      { lines: [[arroz, 2], [tomateLata, 12], [vino, 24]] },
+      { lines: [[arroz, 2], [cerveza, 6], [azucar, 2]] },
+    ],
+    expected: { findings: [], decision: 'pass', reason: 'all_matched' },
+    note: 'Dos albaranes; la factura cita los dos números en la cabecera y da una sola línea por producto. El arroz llega mitad en cada entrega y se factura junto. Todo cuadra.',
+  },
+  {
+    id: 'carballo-pedido',
+    supplier: carballo,
+    lines: pedidoCarballo,
+    deliveries: [
+      { lines: [[arroz, 4], [tomateLata, 12]] },
+      { lines: [[vino, 24]] },
+      { lines: [[cerveza, 6], [azucar, 2]] },
+    ],
+    cites: 'order',
+    expected: { findings: [], decision: 'pass', reason: 'all_matched' },
+    note: 'La factura no nombra ningún albarán: cita un código de pedido, y los tres albaranes citan ese mismo pedido. Todo cuadra.',
+  },
+  {
+    id: 'carballo-pedido-precio',
+    supplier: carballo,
+    lines: pedidoCarballo,
+    deliveries: [
+      { lines: [[arroz, 4], [tomateLata, 12], [vino, 12]] },
+      { lines: [[vino, 12], [cerveza, 6], [azucar, 2]] },
+    ],
+    cites: 'order',
+    factura: { set: { line: 3, unitPrice: 6.7 } },
+    expected: { findings: [{ ruleId: 'unit-price-mismatch', productId: 'vino-mencia' }], decision: 'escalate', reason: 'overcharge' },
+    note: 'Vinculados por código de pedido. El vino llega en dos albaranes a 5,20 y la factura lo cobra a 6,70 en las 24 botellas: 36,00 €.',
+  },
+  {
+    id: 'carballo-albaran-no-aportado',
+    supplier: carballo,
+    lines: pedidoCarballo,
+    deliveries: [
+      { lines: [[arroz, 4], [tomateLata, 12]] },
+      { lines: [[vino, 24]], absent: true },
+      { lines: [[cerveza, 6], [azucar, 2]] },
+    ],
+    cites: 'sections',
+    expected: {
+      findings: [{ ruleId: 'albaran-link', productId: null }, { ruleId: 'missing-line', productId: 'vino-mencia' }],
+      decision: 'ask',
+      reason: 'missing_document',
+    },
+    note: 'La factura cobra tres albaranes y con el caso solo llegan dos: falta el del vino. No es mercancía cobrada y no entregada mientras no aparezca ese albarán: se pregunta por él.',
+  },
+  {
+    id: 'carballo-albaran-de-otro-pedido',
+    supplier: carballo,
+    lines: pedidoCarballo,
+    deliveries: [
+      { lines: [[arroz, 4], [tomateLata, 12], [vino, 24]] },
+      { lines: [[cerveza, 6], [azucar, 2]] },
+      { lines: [[aceite, 2]], order: 'PED-26-512', uninvoiced: true },
+    ],
+    cites: 'order',
+    expected: {
+      findings: [{ ruleId: 'albaran-link', productId: null }, { ruleId: 'missing-line', productId: 'aceite-girasol' }],
+      decision: 'ask',
+      reason: 'missing_document',
+    },
+    note: 'Con el caso llega un tercer albarán que cita otro pedido y que la factura no cobra. No es mercancía entregada y sin facturar: es un papel que puede ser de otra factura. Se pregunta.',
+  },
+  {
+    id: 'vidal-2-albaranes-cajas',
+    supplier: vidal,
+    lines: [[tomate, 18], [cebolla, 10], [limon, 5], [pimiento, 3]],
+    deliveries: [
+      { lines: [[tomate, 12], [cebolla, 10]] },
+      { lines: [[tomate, 6], [limon, 5], [pimiento, 3]] },
+    ],
+    expected: { findings: [], decision: 'pass', reason: 'all_matched' },
+    withoutKnowledge: sinEquivalencia,
+    holdout: true,
+    note: 'Dos albaranes con el tomate en cajas (2 y 1) y la factura en kilos (18). Hay que sumar las entregas y además saber cuánto pesa la caja. Cuadra.',
+  },
+  {
+    id: 'rianorte-fechas',
+    supplier: riaNorte,
+    lines: [[merluza, 10], [rape, 4], [mejillon, 10], [pulpo, 1.5]],
+    deliveries: [
+      { lines: [[merluza, 6], [rape, 4]], albaran: { photo: 'tilted' } },
+      { lines: [[mejillon, 10], [merluza, 4], [pulpo, 1.5]] },
+    ],
+    cites: 'dates',
+    expected: { findings: [], decision: 'pass', reason: 'all_matched' },
+    note: 'La factura solo dice de qué días son las entregas, sin números de albarán. El primer albarán es una foto torcida. La merluza llega en las dos entregas. Todo cuadra.',
   },
 ]

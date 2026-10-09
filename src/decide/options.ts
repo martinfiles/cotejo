@@ -14,7 +14,7 @@ export function resolutionsFor(
 ): Resolution[] {
   if (routing.outcome === 'pass') return []
 
-  const supplierTaxId = ctx.factura.supplierTaxId ?? ctx.albaran.supplierTaxId
+  const supplierTaxId = ctx.factura.supplierTaxId ?? ctx.albaranes[0]?.supplierTaxId
   const options: Resolution[] = []
 
   if (routing.reason === 'missing_knowledge' && supplierTaxId) {
@@ -48,21 +48,22 @@ export function resolutionsFor(
   // Si el albarán y la factura dan cantidades distintas y el documento es
   // ambiguo, la pregunta de fondo es qué se recibió de verdad.
   const quantity = findings.find((f) => f.ruleId === 'quantity-mismatch')
-  const [delivered, invoiced] = quantity?.evidence ?? []
-  const askWhatArrived =
-    routing.reason === 'document_ambiguous' && delivered?.value != null && invoiced?.value != null
+  const asked = ctx.match.pairs.find((p) => p.factura.key === quantity?.lineKey)
+  const delivered = asked?.albaran.quantity.value ?? null
+  const invoiced = asked?.factura.quantity.value ?? null
+  const askWhatArrived = routing.reason === 'document_ambiguous' && delivered !== null && invoiced !== null
 
   if (routing.overchargeEur > 0) {
     options.push({
       kind: 'claim',
       label: askWhatArrived
-        ? `Recibí ${num(delivered!.value!)}: reclamar ${eur(routing.overchargeEur)}`
+        ? `Recibí ${num(delivered)}: reclamar ${eur(routing.overchargeEur)}`
         : `Reclamar ${eur(routing.overchargeEur)} al proveedor`,
     })
   }
   options.push({
     kind: 'accept',
-    label: askWhatArrived ? `Recibí ${num(invoiced!.value!)}: la factura está bien` : 'Dar la factura por buena',
+    label: askWhatArrived ? `Recibí ${num(invoiced)}: la factura está bien` : 'Dar la factura por buena',
   })
 
   // Una factura que no cuadra, que no se lee o que se deja algo sin cobrar

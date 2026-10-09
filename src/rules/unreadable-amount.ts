@@ -1,6 +1,6 @@
 import { config } from '../config'
 import type { Amount, Evidence, Rule } from '../types'
-import { evidence, finding } from './shared'
+import { evidence, finding, nameOf } from './shared'
 
 const NAMES = { quantity: 'la cantidad', unitPrice: 'el precio', total: 'el importe', base: 'la base', vat: 'la cuota de IVA' }
 
@@ -13,9 +13,9 @@ export const unreadableAmount: Rule = {
   id: 'unreadable-amount',
   signal: 'read-doubt',
   description: 'Un importe está en el documento pero no se ha podido leer.',
-  check({ albaran, factura }) {
-    return [albaran, factura].flatMap((doc) => {
-      const where = doc.docType === 'albaran' ? 'el albarán' : 'la factura'
+  check({ albaranes, factura }) {
+    return [...albaranes, factura].flatMap((doc) => {
+      const where = nameOf(doc, albaranes)
 
       const inLines = doc.lines.flatMap((line) =>
         (['quantity', 'unitPrice', 'total'] as const)
@@ -25,7 +25,7 @@ export const unreadableAmount: Rule = {
               lineKey: line.key,
               message: `${line.description}: no se puede leer ${NAMES[field]} en ${where}.`,
               impactEur: null,
-              evidence: [evidence(doc.docType, line, field)],
+              evidence: evidence(doc.docType, line, field),
             }),
           ),
       )
@@ -34,7 +34,8 @@ export const unreadableAmount: Rule = {
         .filter((field) => unread(doc.totals[field]))
         .map((field) => {
           const amount = doc.totals[field]
-          const at: Evidence = { doc: doc.docType, field, value: amount.value, confidence: amount.confidence, bbox: doc.totals.bbox }
+          const source = Math.max(albaranes.indexOf(doc), 0)
+          const at: Evidence = { doc: doc.docType, source, field, value: amount.value, confidence: amount.confidence, bbox: doc.totals.bbox }
           return finding(unreadableAmount, {
             lineKey: null,
             message: `No se puede leer ${field === 'total' ? 'el total' : NAMES[field]} de ${where}.`,

@@ -24,7 +24,7 @@ export const implausiblePrice: Rule = {
         lineKey: factura.key,
         message: `${factura.description}: ${eur(aPerUnit)} en el albarán y ${eur(f)} en la factura no parecen el mismo precio leído dos veces.`,
         impactEur: null,
-        evidence: [evidence('albaran', albaran, 'unitPrice'), evidence('factura', factura, 'unitPrice')],
+        evidence: [...evidence('albaran', albaran, 'unitPrice'), ...evidence('factura', factura, 'unitPrice')],
       })
     })
   },

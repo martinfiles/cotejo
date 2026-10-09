@@ -1,6 +1,6 @@
 import type { CaseResult } from '../src/pipeline'
 import { normalize, sameCode } from '../src/text'
-import type { DatasetCase, Expected, ExtractedDoc, Fact, Knowledge, Outcome, TruthLine } from '../src/types'
+import type { DatasetCase, Expected, Fact, Knowledge, Line, Outcome, TruthLine } from '../src/types'
 
 // Cálculo de métricas, sin ficheros ni modelo. run.ts ejecuta y este fichero cuenta.
 
@@ -8,10 +8,10 @@ import type { DatasetCase, Expected, ExtractedDoc, Fact, Knowledge, Outcome, Tru
 // Propio de los evals y deliberadamente generoso: por código, y si no hay, por
 // descripción normalizada más cantidad. No usa el matcher de producción
 // porque el matcher es lo que se está midiendo.
-export function resolveLines(doc: ExtractedDoc, truth: TruthLine[]) {
+export function resolveLines(lines: Line[], truth: TruthLine[]) {
   const free = [...truth]
   const byKey = new Map<string, string>()
-  for (const line of doc.lines) {
+  for (const line of lines) {
     const i = free.findIndex((t) =>
       t.code && line.code
         ? sameCode(t.code, line.code)
@@ -41,6 +41,8 @@ export type CaseRecord = {
   state: string
   group: 'headline' | 'boundary' | 'correction'
   holdout: boolean
+  // Cuántos albaranes llegan con la factura.
+  albaranes: number
   correction: DatasetCase['correction'] | null
   expected: Expected
   got: { outcome: Outcome; reason: string; findings: string[] }
@@ -56,15 +58,17 @@ const key = (ruleId: string, productId: string | null) => `${ruleId}:${productId
 
 export function record(c: DatasetCase, state: string, facts: Fact[], r: CaseResult): CaseRecord {
   const expected = knows(c.requires, facts) ? c.expected.withKnowledge : c.expected.withoutKnowledge
-  const a = resolveLines(r.albaran.doc, c.lines.albaran)
-  const f = resolveLines(r.factura.doc, c.lines.factura)
+  const a = resolveLines(r.albaranes.flatMap((x) => x.doc.lines), c.lines.albaran)
+  const f = resolveLines(r.factura.doc.lines, c.lines.factura)
   const product = new Map([...a.byKey, ...f.byKey])
-  const extraction = r.albaran.costUsd + r.factura.costUsd
+  const documents = [...r.albaranes, r.factura]
+  const extraction = documents.reduce((sum, e) => sum + e.costUsd, 0)
   return {
     caseId: c.id,
     state,
     group: c.source === 'correction' ? 'correction' : c.boundary ? 'boundary' : 'headline',
     holdout: c.holdout,
+    albaranes: c.albaranes.length,
     correction: c.correction ?? null,
     expected,
     got: {
@@ -75,7 +79,7 @@ export function record(c: DatasetCase, state: string, facts: Fact[], r: CaseResu
     },
     expectedFindings: [...new Set(expected.findings.map((x) => key(x.ruleId, x.productId)))].sort(),
     unresolvedLines: [...a.unresolved.map((t) => `albarán ${t.productId}`), ...f.unresolved.map((t) => `factura ${t.productId}`)],
-    docs: [r.albaran, r.factura].map((e) => ({ docType: e.doc.docType, model: e.model, costUsd: e.costUsd, latencyMs: e.latencyMs, cached: e.cached })),
+    docs: documents.map((e) => ({ docType: e.doc.docType, model: e.model, costUsd: e.costUsd, latencyMs: e.latencyMs, cached: e.cached })),
     questionCostUsd: Math.max(r.costUsd - extraction, 0),
     costUsd: r.costUsd,
     latencyMs: r.latencyMs,

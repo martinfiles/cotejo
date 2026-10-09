@@ -12,6 +12,7 @@
   --inconsistency: #6a3fb5;
   --read-doubt: #b26a00;
   --missing-knowledge: #1f5fa8;
+  --missing-document: #6b3fa0;
 }
 
 * { box-sizing: border-box; }
@@ -41,6 +42,7 @@ th { font-size: 15px; text-transform: uppercase; letter-spacing: 0.04em; color: 
 .tag.inconsistency { background: var(--inconsistency); }
 .tag.read-doubt { background: var(--read-doubt); }
 .tag.missing-knowledge { background: var(--missing-knowledge); }
+.tag.missing-document { background: var(--missing-document); }
 
 /* Decisión */
 .decision { background: #fff; border-left: 8px solid var(--line); padding: 20px 28px; margin: 16px 0; }
@@ -69,6 +71,7 @@ button.small { padding: 2px 12px; font-size: 16px; }
 .finding.inconsistency { border-color: var(--inconsistency); }
 .finding.read-doubt { border-color: var(--read-doubt); }
 .finding.missing-knowledge { border-color: var(--missing-knowledge); }
+.finding.missing-document { border-color: var(--missing-document); }
 .finding-head { display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
 .evidence { display: flex; gap: 32px; margin-top: 12px; flex-wrap: wrap; }
 .evidence figure, .docs figure { margin: 0; }
@@ -84,6 +87,7 @@ button.small { padding: 2px 12px; font-size: 16px; }
 .lines td.flag.inconsistency { background: #ece4f8; color: var(--inconsistency); }
 .lines td.flag.read-doubt { background: #fbefd9; color: var(--read-doubt); }
 .lines td.flag.missing-knowledge { background: #e1ecf8; color: var(--missing-knowledge); }
+.lines td.flag.missing-document { background: #ece4f6; color: var(--missing-document); }
 
 /* Documentos enteros */
 .docs { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
