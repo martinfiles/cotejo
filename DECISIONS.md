@@ -435,3 +435,83 @@
 - Descartado: tratar cualquier "un" o "una" como número, porque rechazaría casi todas las preguntas.
 - Por qué: "una factura rectificativa" es un artículo, "una botella" es una cantidad. Una unidad que no esté en la lista se escapa. Sin confirmar.
 
+## Un caso es una factura y una lista de albaranes [borrador, confirmada]
+- Qué: el caso pasa de un albarán a una lista (1, 2 o más), que llega junto con la factura. Lo que la factura cita sirve para comprobar y explicar el vínculo.
+- Descartado: una bolsa de albaranes sueltos donde el sistema busca los que cita cada factura.
+- Por qué: Martín pidió que los albaranes vengan con la subida de la factura, como ahora.
+
+## Las referencias se leen en un solo campo, `refs` [por defecto]
+- Qué: cada documento devuelve la lista de lo que cita, con tipo (`albaran` o `pedido`), número y fecha. Una factura cita sus albaranes o un pedido; un albarán, su pedido.
+- Descartado: un campo para el pedido y otro para los albaranes, que necesitaba 3 campos anulables y solo quedaban 2.
+- Por qué: el esquema queda en 16 anulables de 16. La gramática compila (probado con una factura y un albarán del seed). Las referencias no llevan caja. Sin confirmar.
+
+## La numeración de las líneas dentro del caso la pone el pipeline [por defecto]
+- Qué: cada albarán se extrae y se guarda en caché por separado; al entrar en el caso sus líneas pasan a llamarse `A2.3` (albarán 2, línea 3) y llevan `source`, la posición de su albarán.
+- Descartado: que la extracción sepa qué posición ocupa el documento en el caso.
+- Por qué: la caché es por fichero y un mismo albarán tiene que valer igual en cualquier caso. Sin confirmar.
+
+## Vincular es una etapa propia, sin modelo [por defecto]
+- Qué: `link/link.ts` dice qué une cada albarán del caso con la factura, en este orden: número de albarán, fecha (solo contra citas que no traen número) y código de pedido. Devuelve también los albaranes citados que faltan y los que la factura no cita.
+- Descartado: resolverlo dentro del cruce de líneas.
+- Por qué: es otra pregunta (¿tengo los papeles?) y va antes que comparar. Una cita con otro número y la misma fecha es otro albarán, no el mismo. Sin confirmar.
+
+## Si la factura no cita nada, no se comprueba el vínculo [por defecto]
+- Qué: sin ninguna referencia en la factura, los albaranes del caso se dan por buenos y no sale ningún finding.
+- Descartado: preguntar siempre que no haya cita.
+- Por qué: no hay con qué comprobar, y quien sube la factura ya eligió sus albaranes. Sin confirmar.
+
+## Lo entregado se compara sumado por producto [borrador]
+- Qué: antes de casar, `match` suma a cada lado las líneas del mismo producto (mismo código o descripción, misma unidad y mismo precio). La línea sumada guarda sus partes, y la evidencia de un finding lleva una entrada por parte para recortar cada papel.
+- Descartado: comparar albarán por albarán contra su sección de la factura.
+- Por qué: vale igual para la factura que agrupa por albarán y para la que da una sola línea por producto. Limitación conocida: si un albarán trae 1 de menos y otro 1 de más, se compensan y el caso pasa; en dinero es correcto, pero no se señala.
+
+## Faltan papeles: señal y motivo propios, y es la primera duda [borrador]
+- Qué: la regla `albaran-link` da la señal `missing-document` y la política pregunta con el motivo `missing_document`, por delante de las demás dudas.
+- Descartado: reutilizar `missing_knowledge`.
+- Por qué: la persona hace otra cosa, buscar un albarán en vez de enseñar un hecho del proveedor (confirmado por Martín). Que vaya la primera es decisión por defecto: sin todos los papeles, lo demás que se haya visto no es fiable.
+
+## Con un albarán pendiente, lo que no casa no es todavía un cobro de más [por defecto]
+- Qué: si falta un albarán citado, las líneas de la factura sin pareja salen como `missing-document`; lo mismo las líneas de un albarán que la factura no cita. No suman al importe a reclamar.
+- Descartado: dejarlas como discrepancia, con su botón de reclamar.
+- Por qué: pueden estar en el papel que falta. Es el mismo criterio que ya se usa cuando una línea puede ser un producto con otro nombre. Sin confirmar.
+
+## Seed: el reparto en albaranes se escribe aparte del pedido [por defecto]
+- Qué: en `seed/orders.ts`, `lines` sigue siendo el pedido (lo que cobra la factura) y `deliveries` dice qué trae cada albarán; `cites` dice cómo los cita la factura (grupos por albarán, lista de números, fechas o pedido). El generador falla si las entregas no suman el pedido.
+- Descartado: derivar el reparto automáticamente.
+- Por qué: se lee de un vistazo qué prueba cada caso, igual que el resto del seed. Una entrega puede faltar del caso (`absent`) o no estar en la factura (`uninvoiced`). Sin confirmar.
+
+## Los documentos antiguos no cambian al regenerar [borrador]
+- Qué: los 26 casos de un albarán conservan fichero, número y fecha; tras `npm run seed -- --force`, git no ve ningún cambio en ellos. Los 9 casos nuevos van al final con su propia numeración.
+- Descartado: renumerar todo el seed.
+- Por qué: los mismos bytes dan el mismo hash, y así la comparación de antes y después es sobre los mismos documentos. El rótulo de grupo de la factura lleva el estilo en la propia fila para no tocar el HTML de los demás.
+
+## Hallazgo: añadir `refs` no cambió ninguna decisión anterior [borrador]
+- Qué: se releyeron los 52 documentos antiguos con el esquema y el prompt nuevos. En los dos estados del eval, los 26 casos dan la misma decisión, el mismo motivo y los mismos findings que antes.
+- Descartado: darlo por hecho sin comparar.
+- Por qué: cambiar el prompt mueve la lectura, y ya pasó una vez con la confianza. La comparación es contra el informe guardado antes de empezar.
+
+## El modelo cuenta lo que pasa; la pregunta la pone el código [borrador]
+- Qué: el modelo redacta solo los hallazgos, en afirmativo, y `question.ts` añade detrás la pregunta fija de cada motivo (`ASK`). Si el texto del modelo trae una cifra inventada o una pregunta propia, se usa la plantilla.
+- Descartado: pasarle al modelo las opciones para que escriba él la pregunta.
+- Por qué: el modelo no sabe qué botones hay y preguntaba otra cosa ("¿cuántas cajas recibiste?" con botones de reclamar o aceptar; "¿se recibieron realmente?" cuando el botón era confirmar un alias). Así la pregunta es siempre la que los botones responden.
+
+## Hallazgo: con el prompt nuevo el modelo casi copia los findings [borrador]
+- Qué: de las 12 preguntas distintas del seed, ninguna cae a la plantilla, pero 2 repiten el mensaje del finding palabra por palabra y varias lo cambian muy poco.
+- Descartado: nada todavía.
+- Por qué: es el coste de pedirle tan poco. Queda por decidir si la llamada al modelo sigue mereciendo la pena o si basta la plantilla.
+
+## El informe desglosa por número de albaranes [por defecto]
+- Qué: una tabla más en el informe del eval con los casos de cabecera según traigan 1, 2 o 3 o más albaranes, en los dos estados. La cabecera no cambia de forma.
+- Descartado: sacar los casos de varios albaranes de la cabecera, como los de frontera.
+- Por qué: son casos normales, no un experimento aparte; el desglose deja ver si el acierto cae cuando hay que vincular y sumar. Con 5 y 4 casos son señales. Sin confirmar.
+
+## La interfaz enseña cada papel y por qué es de esta factura [por defecto]
+- Qué: la pantalla del caso lista los albaranes con cómo se vinculó cada uno (número, fecha o pedido) y los citados que faltan; hay una figura por documento y cada recorte sale del albarán que señala su evidencia. Una fila que suma varias líneas dice el reparto: "(2 + 1)".
+- Descartado: una pestaña por albarán.
+- Por qué: se sigue viendo todo en una pantalla, sin JavaScript de cliente. Sin confirmar.
+
+## Limitación: no se puede aportar el albarán que falta [por defecto]
+- Qué: un caso `missing_document` solo ofrece "Dar la factura por buena".
+- Descartado: un botón para subir el albarán.
+- Por qué: no hay pantalla de subida. Es lo siguiente que pediría este motivo: con el papel aportado, el caso se vuelve a decidir.
+
