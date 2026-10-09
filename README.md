@@ -7,7 +7,7 @@ Sacar los campos de un PDF es la parte fácil. Lo difícil es decidir a quién c
 dos documentos se contradicen, y saber cuándo preguntar en vez de adivinar. Este proyecto
 va de eso.
 
-![demo](docs/demo.mp4)
+![demo](docs/demo.gif)
 
 ### Qué tiene dentro
 

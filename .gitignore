@@ -4,3 +4,5 @@ node_modules/
 data/
 apps/web/next-env.d.ts
 apps/web/tsconfig.tsbuildinfo
+*.mp4
+docs/_borrar/
